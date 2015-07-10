@@ -39,8 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Paylines.cs" />
+    <Compile Include="Reel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReelGroup.cs" />
+    <Compile Include="Symbol.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
