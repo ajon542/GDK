@@ -9,12 +9,20 @@ namespace GameServer
 {
     public class StateDrawRandomNumbers : BaseState
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StateDrawRandomNumbers"/> class.
+        /// </summary>
+        /// <param name="name">The name of the state.</param>
         public StateDrawRandomNumbers(string name)
             : base(name)
         {
         }
 
-        public override void Init(GameStateMachine stateMachine)
+        /// <summary>
+        /// Configure the state in the given state machine.
+        /// </summary>
+        /// <param name="stateMachine">The state machine.</param>
+        public override void Configure(GameStateMachine stateMachine)
         {
             stateMachine.StateMachine.Configure("StateDrawRandomNumbers")
                 .SubstateOf("StatePlay")
@@ -27,11 +35,17 @@ namespace GameServer
                 .Permit("TriggerStateDrawRandomNumbers", "StateDrawRandomNumbers");
         }
 
+        /// <summary>
+        /// Entry method to the state.
+        /// </summary>
         private void OnEntry()
         {
             Console.WriteLine("OnEntry StateDrawRandomNumbers");
         }
 
+        /// <summary>
+        /// Exit method from the state.
+        /// </summary>
         private void OnExit()
         {
             Console.WriteLine("OnExit StateDrawRandomNumbers");
@@ -40,7 +54,7 @@ namespace GameServer
 
     public class Slot : Game
     {
-        private BaseState stateDrawRandomNumbers;
+        protected BaseState stateDrawRandomNumbers;
 
         public override void ConfigureStates(GameStateMachine stateMachine)
         {
@@ -48,7 +62,7 @@ namespace GameServer
             base.ConfigureStates(stateMachine);
 
             stateDrawRandomNumbers = new StateDrawRandomNumbers("StateDrawRandomNumbers");
-            stateDrawRandomNumbers.Init(stateMachine);
+            stateDrawRandomNumbers.Configure(stateMachine);
         }
     }
 }

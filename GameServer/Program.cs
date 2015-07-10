@@ -28,7 +28,7 @@ namespace GameServer
             stateMachine.AddTrigger("TriggerStateGameOver");
             stateMachine.AddTrigger("TriggerStateIdle");
 
-            // Transition to the appropriate states.
+            // Process the pending triggers and transition to the states.
             while (true)
             {
                 stateMachine.ProcessStateTransitions();
