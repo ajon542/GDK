@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace GameServer
 {
+    using StateMachine = StateMachine.StateMachine;
+
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting GameServer...");
+            Console.WriteLine("Starting GDK");
 
-            StateMachine.StateMachine sm = new StateMachine.StateMachine();
+            StateMachine sm = new StateMachine();
             sm.Init();
             sm.Run();
 

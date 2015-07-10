@@ -9,11 +9,11 @@ namespace StateMachine
 {
     public class StateMachine
     {
-        StateMachine<State, Trigger> phoneCall;
+        public StateMachine<State, Trigger> SM { get; set; }
 
         Queue<Trigger> queue = new Queue<Trigger>();
 
-        private enum State
+        public enum State
         {
             OffHook,
             Ringing,
@@ -21,7 +21,7 @@ namespace StateMachine
             OnHold
         }
 
-        private enum Trigger
+        public enum Trigger
         {
             CallDialled,
             HungUp,
@@ -32,23 +32,28 @@ namespace StateMachine
 
         public void Init()
         {
-            phoneCall = new StateMachine<State, Trigger>(State.OffHook);
+            SM = new StateMachine<State, Trigger>(State.OffHook);
 
             // State Offhook
-            phoneCall.Configure(State.OffHook)
+            SM.Configure(State.OffHook)
+                .OnEntry(() => OnEntryOffHook())
+                .OnExit(() => OnExitOffHook())
+                .Permit(Trigger.CallDialled, State.Ringing);
+
+            SM.Configure(State.OffHook)
                 .OnEntry(() => OnEntryOffHook())
                 .OnExit(() => OnExitOffHook())
                 .Permit(Trigger.CallDialled, State.Ringing);
 
             // State Ringing
-            phoneCall.Configure(State.Ringing)
+            SM.Configure(State.Ringing)
                 .OnEntry(() => OnEntryRinging())
                 .OnExit(() => OnExitRinging())
                 .Permit(Trigger.HungUp, State.OffHook)
                 .Permit(Trigger.CallConnected, State.Connected);
 
             // State Connected
-            phoneCall.Configure(State.Connected)
+            SM.Configure(State.Connected)
                 .OnEntry(() => OnEntryConnected())
                 .OnExit(() => OnExitConnected())
                 .Permit(Trigger.LeftMessage, State.OffHook)
@@ -56,7 +61,7 @@ namespace StateMachine
                 .Permit(Trigger.PlacedOnHold, State.OnHold);
 
             // State OnHold
-            phoneCall.Configure(State.OnHold)
+            SM.Configure(State.OnHold)
                 .OnEntry(() => OnEntryOnHold())
                 .OnExit(() => OnExitOnHold())
                 .SubstateOf(State.Connected)
@@ -70,7 +75,7 @@ namespace StateMachine
             while (queue.Count > 0)
             {
                 Trigger trigger = queue.Dequeue();
-                phoneCall.Fire(trigger);
+                SM.Fire(trigger);
             }
         }
 
