@@ -7,7 +7,141 @@ using Stateless;
 
 namespace StateMachine
 {
+    public class StateIdle : BaseState
+    {
+        public StateIdle(string name)
+            : base(name)
+        {
+        }
+
+        public override void Init(StateMachine stateMachine)
+        {
+        }
+
+        public void OnEntry()
+        {
+            Console.WriteLine("OnEntry StateIdle");
+        }
+
+        public void OnExit()
+        {
+            Console.WriteLine("OnExit StateIdle");
+        }
+    }
+
+    public class StatePlay : BaseState
+    {
+        public StatePlay(string name)
+            : base(name)
+        {
+        }
+
+        public override void Init(StateMachine stateMachine)
+        {
+        }
+
+        public void OnEntry()
+        {
+            Console.WriteLine("OnEntry StatePlay");
+        }
+
+        public void OnExit()
+        {
+            Console.WriteLine("OnExit StatePlay");
+        }
+    }
+
+    public class StateGameOver : BaseState
+    {
+        public StateGameOver(string name)
+            : base(name)
+        {
+        }
+
+        public override void Init(StateMachine stateMachine)
+        {
+        }
+
+        public void OnEntry()
+        {
+            Console.WriteLine("OnEntry StateGameOver");
+        }
+
+        public void OnExit()
+        {
+            Console.WriteLine("OnExit StateGameOver");
+        }
+    }
+
+    public class TriggerStateIdle : BaseTrigger
+    {
+        public TriggerStateIdle(string name)
+            : base(name)
+        {
+        }
+    }
+
+    public class TriggerStatePlay : BaseTrigger
+    {
+        public TriggerStatePlay(string name)
+            : base(name)
+        {
+        }
+    }
+
+    public class TriggerStateGameOver : BaseTrigger
+    {
+        public TriggerStateGameOver(string name)
+            : base(name)
+        {
+        }
+    }
+
+
     public class StateMachine
+    {
+        public StateMachine<BaseState, BaseTrigger> SM { get; set; }
+        private Queue<BaseTrigger> queue = new Queue<BaseTrigger>();
+
+        public void Init()
+        {
+            // States.
+            StateIdle stateIdle = new StateIdle("StateIdle");
+            StatePlay statePlay = new StatePlay("StatePlay");
+            StateGameOver stateGameOver = new StateGameOver("StateGameOver");
+
+            // Triggers.
+            BaseTrigger triggerStateIdle = new TriggerStateIdle("TriggerStateIdle");
+            BaseTrigger triggerStatePlay = new TriggerStatePlay("TriggerStatePlay");
+            BaseTrigger triggerStateGameOver = new TriggerStateGameOver("TriggerStateGameOver");
+
+            SM = new StateMachine<BaseState, BaseTrigger>(stateIdle);
+
+            // StateIdle,
+            SM.Configure(stateIdle)
+                .OnEntry(() => stateIdle.OnEntry())
+                .OnExit(() => stateIdle.OnExit())
+                .Permit(triggerStatePlay, statePlay);
+
+            // StatePlay
+            SM.Configure(statePlay)
+                .OnEntry(() => statePlay.OnEntry())
+                .OnExit(() => statePlay.OnExit())
+                .Permit(triggerStateGameOver, stateGameOver);
+
+            // StateIdle
+            SM.Configure(stateGameOver)
+                .OnEntry(() => stateGameOver.OnEntry())
+                .OnExit(() => stateGameOver.OnExit())
+                .Permit(triggerStateIdle, stateIdle);
+
+            SM.Fire(triggerStatePlay);
+            SM.Fire(triggerStateGameOver);
+            SM.Fire(triggerStateIdle);
+        }
+    }
+
+    /*public class StateMachine
     {
         public StateMachine<State, Trigger> SM { get; set; }
 
@@ -126,5 +260,5 @@ namespace StateMachine
             Console.WriteLine("OnExitOnHold");
         }
         #endregion
-    }
+    }*/
 }

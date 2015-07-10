@@ -9,7 +9,7 @@ namespace StateMachine
     /// <summary>
     /// Base class for all state objects.
     /// </summary>
-    public class BaseState
+    public abstract class BaseState
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseState"/> class.
@@ -19,6 +19,8 @@ namespace StateMachine
         {
             Name = name;
         }
+
+        public abstract void Init(StateMachine stateMachine);
 
         /// <summary>
         /// Gets the name of the state.

@@ -14,9 +14,15 @@ namespace GameServer
         {
             Console.WriteLine("Starting GDK");
 
-            StateMachine sm = new StateMachine();
-            sm.Init();
-            sm.Run();
+            StateMachine stateMachine = new StateMachine();
+
+            Game game = new Slot();
+            game.ConfigureStates(stateMachine);
+
+
+
+            stateMachine.Init();
+            //stateMachine.Run();
 
             // External input such as comms with the platform and the client
             // will drive the state machine.
