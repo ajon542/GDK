@@ -9,13 +9,13 @@ namespace StateMachine
     /// <summary>
     /// Base class for all trigger objects.
     /// </summary>
-    public class BaseTrigger
+    public class Trigger
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTrigger"/> class.
+        /// Initializes a new instance of the <see cref="Trigger"/> class.
         /// </summary>
         /// <param name="name">The name of the trigger.</param>
-        public BaseTrigger(string name)
+        public Trigger(string name)
         {
             Name = name;
         }

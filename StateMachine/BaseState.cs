@@ -20,7 +20,7 @@ namespace StateMachine
             Name = name;
         }
 
-        public abstract void Init(StateMachine stateMachine);
+        public abstract void Init(GameStateMachine stateMachine);
 
         /// <summary>
         /// Gets the name of the state.

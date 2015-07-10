@@ -14,7 +14,7 @@ namespace StateMachine
         {
         }
 
-        public override void Init(StateMachine stateMachine)
+        public override void Init(GameStateMachine stateMachine)
         {
         }
 
@@ -36,7 +36,7 @@ namespace StateMachine
         {
         }
 
-        public override void Init(StateMachine stateMachine)
+        public override void Init(GameStateMachine stateMachine)
         {
         }
 
@@ -58,7 +58,7 @@ namespace StateMachine
         {
         }
 
-        public override void Init(StateMachine stateMachine)
+        public override void Init(GameStateMachine stateMachine)
         {
         }
 
@@ -73,35 +73,10 @@ namespace StateMachine
         }
     }
 
-    public class TriggerStateIdle : BaseTrigger
+    public class GameStateMachine
     {
-        public TriggerStateIdle(string name)
-            : base(name)
-        {
-        }
-    }
-
-    public class TriggerStatePlay : BaseTrigger
-    {
-        public TriggerStatePlay(string name)
-            : base(name)
-        {
-        }
-    }
-
-    public class TriggerStateGameOver : BaseTrigger
-    {
-        public TriggerStateGameOver(string name)
-            : base(name)
-        {
-        }
-    }
-
-
-    public class StateMachine
-    {
-        public StateMachine<BaseState, BaseTrigger> SM { get; set; }
-        private Queue<BaseTrigger> queue = new Queue<BaseTrigger>();
+        public StateMachine<BaseState, Trigger> SM { get; set; }
+        private Queue<Trigger> queue = new Queue<Trigger>();
 
         public void Init()
         {
@@ -111,11 +86,11 @@ namespace StateMachine
             StateGameOver stateGameOver = new StateGameOver("StateGameOver");
 
             // Triggers.
-            BaseTrigger triggerStateIdle = new TriggerStateIdle("TriggerStateIdle");
-            BaseTrigger triggerStatePlay = new TriggerStatePlay("TriggerStatePlay");
-            BaseTrigger triggerStateGameOver = new TriggerStateGameOver("TriggerStateGameOver");
+            Trigger triggerStateIdle = new Trigger("TriggerStateIdle");
+            Trigger triggerStatePlay = new Trigger("TriggerStatePlay");
+            Trigger triggerStateGameOver = new Trigger("TriggerStateGameOver");
 
-            SM = new StateMachine<BaseState, BaseTrigger>(stateIdle);
+            SM = new StateMachine<BaseState, Trigger>(stateIdle);
 
             // StateIdle,
             SM.Configure(stateIdle)

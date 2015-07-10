@@ -9,7 +9,7 @@ namespace GameServer
 {
     public class Game
     {
-        public virtual void ConfigureStates(StateMachine.StateMachine sm)
+        public virtual void ConfigureStates(StateMachine.GameStateMachine sm)
         {
 
         }

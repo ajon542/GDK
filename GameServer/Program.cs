@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StateMachine;
 
 namespace GameServer
 {
-    using StateMachine = StateMachine.StateMachine;
-
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Starting GDK");
 
-            StateMachine stateMachine = new StateMachine();
+            GameStateMachine stateMachine = new GameStateMachine();
 
             Game game = new Slot();
             game.ConfigureStates(stateMachine);

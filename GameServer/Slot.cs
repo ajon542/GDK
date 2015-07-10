@@ -8,7 +8,7 @@ namespace GameServer
 {
     public class Slot : Game
     {
-        public override void ConfigureStates(StateMachine.StateMachine sm)
+        public override void ConfigureStates(StateMachine.GameStateMachine sm)
         {
             // TODO: Probably want to initialize base class states first.
             // and then initialize our states.
