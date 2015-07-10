@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Util
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientComms", "ClientComms\ClientComms.csproj", "{76375C44-9C09-490B-8A01-503159B70CDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformComms", "PlatformComms\PlatformComms.csproj", "{B23DBFBC-0227-44A3-AC72-9C2FE2C816C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{76375C44-9C09-490B-8A01-503159B70CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76375C44-9C09-490B-8A01-503159B70CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76375C44-9C09-490B-8A01-503159B70CDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B23DBFBC-0227-44A3-AC72-9C2FE2C816C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B23DBFBC-0227-44A3-AC72-9C2FE2C816C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B23DBFBC-0227-44A3-AC72-9C2FE2C816C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B23DBFBC-0227-44A3-AC72-9C2FE2C816C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
