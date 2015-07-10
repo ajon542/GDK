@@ -17,23 +17,23 @@ namespace MathEngine
         /// <summary>
         /// The reel group.
         /// </summary>
-        public ReelGroup reelGroup;
+        public ReelGroup ReelGroup { get; set; }
 
         /// <summary>
         /// The paylines.
         /// </summary>
-        public PaylineGroup paylineGroup;
+        public PaylineGroup PaylineGroup { get; set; }
 
         /// <summary>
         /// The pay combinations.
         /// </summary>
-        public PayComboGroup payComboGroup;
+        public PayComboGroup PayComboGroup { get; set; }
 
         public void ConstructDummyPaytable()
         {
-            reelGroup = GenerateReelGroup();
-            paylineGroup = GeneratePaylineGroup();
-            payComboGroup = GeneratePayComboGroup();
+            ReelGroup = GenerateReelGroup();
+            PaylineGroup = GeneratePaylineGroup();
+            PayComboGroup = GeneratePayComboGroup();
         }
 
         private ReelGroup GenerateReelGroup()
@@ -79,19 +79,19 @@ namespace MathEngine
             PaylineGroup paylines = new PaylineGroup();
 
             Payline payline1 = new Payline();
-            payline1.AddPaylineCoord(new PaylineCoord() { ReelIndex = 0, Offset = 0 });
-            payline1.AddPaylineCoord(new PaylineCoord() { ReelIndex = 1, Offset = 0 });
-            payline1.AddPaylineCoord(new PaylineCoord() { ReelIndex = 2, Offset = 0 });
+            payline1.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 0 });
+            payline1.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 0 });
+            payline1.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 0 });
 
             Payline payline2 = new Payline();
-            payline2.AddPaylineCoord(new PaylineCoord() { ReelIndex = 0, Offset = 0 });
-            payline2.AddPaylineCoord(new PaylineCoord() { ReelIndex = 1, Offset = 0 });
-            payline2.AddPaylineCoord(new PaylineCoord() { ReelIndex = 2, Offset = 0 });
+            payline2.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 1 });
+            payline2.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 1 });
+            payline2.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 1 });
 
             Payline payline3 = new Payline();
-            payline3.AddPaylineCoord(new PaylineCoord() { ReelIndex = 0, Offset = 0 });
-            payline3.AddPaylineCoord(new PaylineCoord() { ReelIndex = 1, Offset = 0 });
-            payline3.AddPaylineCoord(new PaylineCoord() { ReelIndex = 2, Offset = 0 });
+            payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 2 });
+            payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 2 });
+            payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 2 });
 
             paylines.AddPayline(payline1);
             paylines.AddPayline(payline2);

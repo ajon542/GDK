@@ -48,5 +48,16 @@ namespace MathEngine
             Id = other.Id;
             Name = other.Name;
         }
+
+        /// <summary>
+        /// String representation of the Symbol.
+        /// </summary>
+        /// <returns>A string representation of the Symbol.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("Name: {0}, Id: {1}", Name, Id);
+            return sb.ToString();
+        }
     }
 }

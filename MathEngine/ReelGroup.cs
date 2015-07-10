@@ -20,13 +20,6 @@ namespace MathEngine
         /// Gets or sets the height of the reel window.
         /// </summary>
         public int Height { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReelProperties"/> class.
-        /// </summary>
-        public ReelProperties()
-        {
-        }
     }
 
     /// <summary>

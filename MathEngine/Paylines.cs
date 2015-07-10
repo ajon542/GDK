@@ -20,6 +20,17 @@ namespace MathEngine
         /// Get sor sets the offset into the reel window.
         /// </summary>
         public int Offset { get; set; }
+
+        /// <summary>
+        /// String representation of the PaylineCoord.
+        /// </summary>
+        /// <returns>A string representation of the PaylineCoord.</returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("ReelIndex: {0}, Offset: {1}", ReelIndex, Offset);
+            return sb.ToString();
+        }
     }
 
     /// <summary>
@@ -31,14 +42,14 @@ namespace MathEngine
         /// <summary>
         /// Gets the list of payline coordinates.
         /// </summary>
-        public List<PaylineCoord> PaylineCoordList { get; private set; }
+        public List<PaylineCoord> PaylineCoords { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Payline"/> class.
         /// </summary>
         public Payline()
         {
-            PaylineCoordList = new List<PaylineCoord>();
+            PaylineCoords = new List<PaylineCoord>();
         }
 
         /// <summary>
@@ -47,7 +58,7 @@ namespace MathEngine
         /// <param name="coord">The payline coordinate.</param>
         public void AddPaylineCoord(PaylineCoord coord)
         {
-            PaylineCoordList.Add(coord);
+            PaylineCoords.Add(coord);
         }
     }
 

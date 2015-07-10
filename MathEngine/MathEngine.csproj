@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluator.cs" />
     <Compile Include="PayCombo.cs" />
     <Compile Include="Paylines.cs" />
     <Compile Include="Paytable.cs" />

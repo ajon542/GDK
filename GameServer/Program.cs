@@ -14,9 +14,17 @@ namespace GameServer
         static void Main(string[] args)
         {
             // Example of (de)serializing a paytable.
-            PaytableGenerator paytableGenerator = new PaytableGenerator();
-            byte[] data = paytableGenerator.Serialize();
-            paytableGenerator.Deserialize(data);
+            //PaytableGenerator paytableGenerator = new PaytableGenerator();
+            //byte[] data = paytableGenerator.Serialize();
+            //paytableGenerator.Deserialize(data);
+
+            Paytable paytable = new Paytable();
+            paytable.ConstructDummyPaytable();
+
+            Evaluator evaluator = new Evaluator();
+            evaluator.Evaluate(paytable);
+
+
 
             Console.WriteLine("Starting GDK");
 
