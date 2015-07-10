@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="PayCombo.cs" />
     <Compile Include="Paylines.cs" />
+    <Compile Include="Paytable.cs" />
+    <Compile Include="PaytableGenerator.cs" />
     <Compile Include="Reel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReelGroup.cs" />

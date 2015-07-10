@@ -14,12 +14,19 @@ namespace MathEngine
         /// <summary>
         /// Gets the identifier for ths symbol. The identifier should be unique.
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets the name of the symbol. The name will most likely be useful when debugging.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Symbol"/> class.
+        /// </summary>
+        public Symbol()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Symbol"/> class.

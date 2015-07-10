@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MathEngine;
 using StateMachine;
 
 namespace GameServer
@@ -12,6 +13,11 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
+            // Example of (de)serializing a paytable.
+            PaytableGenerator paytableGenerator = new PaytableGenerator();
+            byte[] data = paytableGenerator.Serialize();
+            paytableGenerator.Deserialize(data);
+
             Console.WriteLine("Starting GDK");
 
             // Create the state machine.

@@ -18,12 +18,19 @@ namespace MathEngine
         /// <summary>
         /// Gets the symbol.
         /// </summary>
-        public Symbol Symbol { get; private set; }
+        public Symbol Symbol { get; set; }
 
         /// <summary>
         /// Gets the weight of the symbol.
         /// </summary>
-        public int Weight { get; private set; }
+        public int Weight { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReelSymbol"/> class.
+        /// </summary>
+        public ReelSymbol()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReelSymbol"/> class.
@@ -45,7 +52,7 @@ namespace MathEngine
         /// <summary>
         /// Gets the reel strip.
         /// </summary>
-        public List<ReelSymbol> Strip { get; private set; }
+        public List<ReelSymbol> Strip { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Reel"/> class.

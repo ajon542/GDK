@@ -14,16 +14,27 @@ namespace MathEngine
         /// <summary>
         /// Gets the list of symbols in the pay combination.
         /// </summary>
-        public List<Symbol> Symbols { get; private set; }
+        public List<Symbol> Symbols { get; set; }
 
         /// <summary>
         /// Gets the pay amount for this pay combination.
         /// </summary>
-        public int PayAmount { get; private set; }
+        public int PayAmount { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PayCombo"/> class.
         /// </summary>
+        public PayCombo()
+        {
+            Symbols = new List<Symbol>();
+            PayAmount = 0;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PayCombo"/> class.
+        /// </summary>
+        /// <param name="symbols">The symbols in the pay combination.</param>
+        /// <param name="payAmount">The pay amount.</param>
         public PayCombo(List<Symbol> symbols, int payAmount)
         {
             Symbols = symbols;
@@ -39,7 +50,7 @@ namespace MathEngine
         /// <summary>
         /// Gets the paylines in the payline group.
         /// </summary>
-        public List<PayCombo> Combos { get; private set; }
+        public List<PayCombo> Combos { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PayComboGroup"/> class.
