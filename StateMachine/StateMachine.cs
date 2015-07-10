@@ -7,233 +7,29 @@ using Stateless;
 
 namespace StateMachine
 {
-    public class StateIdle : BaseState
+    public class StateUnknown : BaseState
     {
-        public StateIdle(string name)
+        public StateUnknown(string name)
             : base(name)
         {
         }
 
         public override void Init(GameStateMachine stateMachine)
         {
-        }
-
-        public void OnEntry()
-        {
-            Console.WriteLine("OnEntry StateIdle");
-        }
-
-        public void OnExit()
-        {
-            Console.WriteLine("OnExit StateIdle");
-        }
-    }
-
-    public class StatePlay : BaseState
-    {
-        public StatePlay(string name)
-            : base(name)
-        {
-        }
-
-        public override void Init(GameStateMachine stateMachine)
-        {
-        }
-
-        public void OnEntry()
-        {
-            Console.WriteLine("OnEntry StatePlay");
-        }
-
-        public void OnExit()
-        {
-            Console.WriteLine("OnExit StatePlay");
-        }
-    }
-
-    public class StateGameOver : BaseState
-    {
-        public StateGameOver(string name)
-            : base(name)
-        {
-        }
-
-        public override void Init(GameStateMachine stateMachine)
-        {
-        }
-
-        public void OnEntry()
-        {
-            Console.WriteLine("OnEntry StateGameOver");
-        }
-
-        public void OnExit()
-        {
-            Console.WriteLine("OnExit StateGameOver");
         }
     }
 
     public class GameStateMachine
     {
-        public StateMachine<BaseState, Trigger> SM { get; set; }
-        private Queue<Trigger> queue = new Queue<Trigger>();
+        public StateMachine<string, string> StateMachine { get; private set; }
+        private Queue<string> queue = new Queue<string>();
 
-        public void Init()
+        public GameStateMachine()
         {
-            // States.
-            StateIdle stateIdle = new StateIdle("StateIdle");
-            StatePlay statePlay = new StatePlay("StatePlay");
-            StateGameOver stateGameOver = new StateGameOver("StateGameOver");
-
-            // Triggers.
-            Trigger triggerStateIdle = new Trigger("TriggerStateIdle");
-            Trigger triggerStatePlay = new Trigger("TriggerStatePlay");
-            Trigger triggerStateGameOver = new Trigger("TriggerStateGameOver");
-
-            SM = new StateMachine<BaseState, Trigger>(stateIdle);
-
-            // StateIdle,
-            SM.Configure(stateIdle)
-                .OnEntry(() => stateIdle.OnEntry())
-                .OnExit(() => stateIdle.OnExit())
-                .Permit(triggerStatePlay, statePlay);
-
-            // StatePlay
-            SM.Configure(statePlay)
-                .OnEntry(() => statePlay.OnEntry())
-                .OnExit(() => statePlay.OnExit())
-                .Permit(triggerStateGameOver, stateGameOver);
-
-            // StateIdle
-            SM.Configure(stateGameOver)
-                .OnEntry(() => stateGameOver.OnEntry())
-                .OnExit(() => stateGameOver.OnExit())
-                .Permit(triggerStateIdle, stateIdle);
-
-            SM.Fire(triggerStatePlay);
-            SM.Fire(triggerStateGameOver);
-            SM.Fire(triggerStateIdle);
+            StateUnknown stateUnknown = new StateUnknown("StateUnknown");
+            StateMachine = new StateMachine<string, string>(stateUnknown.Name);
+            StateMachine.Configure(stateUnknown.Name)
+                .Permit("TriggerStateIdle", "StateIdle");   
         }
     }
-
-    /*public class StateMachine
-    {
-        public StateMachine<State, Trigger> SM { get; set; }
-
-        Queue<Trigger> queue = new Queue<Trigger>();
-
-        public enum State
-        {
-            OffHook,
-            Ringing,
-            Connected,
-            OnHold
-        }
-
-        public enum Trigger
-        {
-            CallDialled,
-            HungUp,
-            CallConnected,
-            LeftMessage,
-            PlacedOnHold
-        }
-
-        public void Init()
-        {
-            SM = new StateMachine<State, Trigger>(State.OffHook);
-
-            // State Offhook
-            SM.Configure(State.OffHook)
-                .OnEntry(() => OnEntryOffHook())
-                .OnExit(() => OnExitOffHook())
-                .Permit(Trigger.CallDialled, State.Ringing);
-
-            SM.Configure(State.OffHook)
-                .OnEntry(() => OnEntryOffHook())
-                .OnExit(() => OnExitOffHook())
-                .Permit(Trigger.CallDialled, State.Ringing);
-
-            // State Ringing
-            SM.Configure(State.Ringing)
-                .OnEntry(() => OnEntryRinging())
-                .OnExit(() => OnExitRinging())
-                .Permit(Trigger.HungUp, State.OffHook)
-                .Permit(Trigger.CallConnected, State.Connected);
-
-            // State Connected
-            SM.Configure(State.Connected)
-                .OnEntry(() => OnEntryConnected())
-                .OnExit(() => OnExitConnected())
-                .Permit(Trigger.LeftMessage, State.OffHook)
-                .Permit(Trigger.HungUp, State.OffHook)
-                .Permit(Trigger.PlacedOnHold, State.OnHold);
-
-            // State OnHold
-            SM.Configure(State.OnHold)
-                .OnEntry(() => OnEntryOnHold())
-                .OnExit(() => OnExitOnHold())
-                .SubstateOf(State.Connected)
-                .Permit(Trigger.HungUp, State.OffHook);
-        }
-
-        public void Run()
-        {
-            queue.Enqueue(Trigger.CallDialled);
-
-            while (queue.Count > 0)
-            {
-                Trigger trigger = queue.Dequeue();
-                SM.Fire(trigger);
-            }
-        }
-
-        #region OffHook
-        private void OnEntryOffHook()
-        {
-            Console.WriteLine("OnEntryOffHook");
-        }
-
-        private void OnExitOffHook()
-        {
-            Console.WriteLine("OnExitOffHook");
-        }
-        #endregion
-        #region Ringing
-        private void OnEntryRinging()
-        {
-            Console.WriteLine("OnEntryRinging");
-            queue.Enqueue(Trigger.CallConnected);
-        }
-
-        private void OnExitRinging()
-        {
-            Console.WriteLine("OnExitRinging");
-        }
-        #endregion
-        #region Connected
-        private void OnEntryConnected()
-        {
-            Console.WriteLine("OnEntryConnected");
-            queue.Enqueue(Trigger.PlacedOnHold);
-        }
-
-        private void OnExitConnected()
-        {
-            Console.WriteLine("OnExitConnected");
-        }
-        #endregion
-        #region OnHold
-        private void OnEntryOnHold()
-        {
-            Console.WriteLine("OnEntryOnHold");
-            queue.Enqueue(Trigger.HungUp);
-        }
-
-        private void OnExitOnHold()
-        {
-            Console.WriteLine("OnExitOnHold");
-        }
-        #endregion
-    }*/
 }

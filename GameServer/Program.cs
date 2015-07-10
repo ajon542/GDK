@@ -19,8 +19,6 @@ namespace GameServer
             game.ConfigureStates(stateMachine);
 
 
-
-            stateMachine.Init();
             //stateMachine.Run();
 
             // External input such as comms with the platform and the client
