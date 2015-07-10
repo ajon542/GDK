@@ -16,14 +16,23 @@ namespace GameServer
 
         public override void Init(GameStateMachine stateMachine)
         {
+            stateMachine.StateMachine.Configure("StateDrawRandomNumbers")
+                .SubstateOf("StatePlay")
+                .OnEntry(OnEntry)
+                .OnExit(OnExit)
+                .Permit("TriggerStateGameOver", "StateGameOver");
+
+            // Since we are a substate, we must Permit a transition to ourselves.
+            stateMachine.StateMachine.Configure("StatePlay")
+                .Permit("TriggerStateDrawRandomNumbers", "StateDrawRandomNumbers");
         }
 
-        public void OnEntry()
+        private void OnEntry()
         {
             Console.WriteLine("OnEntry StateDrawRandomNumbers");
         }
 
-        public void OnExit()
+        private void OnExit()
         {
             Console.WriteLine("OnExit StateDrawRandomNumbers");
         }
@@ -31,7 +40,7 @@ namespace GameServer
 
     public class Slot : Game
     {
-        private StateDrawRandomNumbers stateDrawRandomNumbers;
+        private BaseState stateDrawRandomNumbers;
 
         public override void ConfigureStates(GameStateMachine stateMachine)
         {
@@ -39,11 +48,7 @@ namespace GameServer
             base.ConfigureStates(stateMachine);
 
             stateDrawRandomNumbers = new StateDrawRandomNumbers("StateDrawRandomNumbers");
-            stateMachine.StateMachine.Configure("StateDrawRandomNumbers")
-                .SubstateOf("StatePlay")
-                .OnEntry(stateDrawRandomNumbers.OnEntry)
-                .OnExit(stateDrawRandomNumbers.OnExit)
-                .Permit("TriggerStateGameOver", "StateGameOver");
+            stateDrawRandomNumbers.Init(stateMachine);
         }
     }
 }

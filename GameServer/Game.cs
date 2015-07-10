@@ -16,14 +16,18 @@ namespace GameServer
 
         public override void Init(GameStateMachine stateMachine)
         {
+            stateMachine.StateMachine.Configure("StateIdle")
+                .OnEntry(OnEntry)
+                .OnExit(OnExit)
+                .Permit("TriggerStatePlay", "StatePlay");
         }
 
-        public void OnEntry()
+        private void OnEntry()
         {
             Console.WriteLine("OnEntry StateIdle");
         }
 
-        public void OnExit()
+        private void OnExit()
         {
             Console.WriteLine("OnExit StateIdle");
         }
@@ -38,14 +42,18 @@ namespace GameServer
 
         public override void Init(GameStateMachine stateMachine)
         {
+            stateMachine.StateMachine.Configure("StatePlay")
+                .OnEntry(OnEntry)
+                .OnExit(OnExit)
+                .Permit("TriggerStateGameOver", "StateGameOver");
         }
 
-        public void OnEntry()
+        private void OnEntry()
         {
             Console.WriteLine("OnEntry StatePlay");
         }
 
-        public void OnExit()
+        private void OnExit()
         {
             Console.WriteLine("OnExit StatePlay");
         }
@@ -60,14 +68,18 @@ namespace GameServer
 
         public override void Init(GameStateMachine stateMachine)
         {
+            stateMachine.StateMachine.Configure("StateGameOver")
+                .OnEntry(OnEntry)
+                .OnExit(OnExit)
+                .Permit("TriggerStateIdle", "StateIdle");
         }
 
-        public void OnEntry()
+        private void OnEntry()
         {
             Console.WriteLine("OnEntry StateGameOver");
         }
 
-        public void OnExit()
+        private void OnExit()
         {
             Console.WriteLine("OnExit StateGameOver");
         }
@@ -76,31 +88,18 @@ namespace GameServer
 
     public class Game
     {
-        private StateIdle stateIdle;
-        private StatePlay statePlay;
-        private StateGameOver stateGameOver;
+        private BaseState stateIdle;
+        private BaseState statePlay;
+        private BaseState stateGameOver;
 
         public virtual void ConfigureStates(GameStateMachine stateMachine)
         {
             stateIdle = new StateIdle("StateIdle");
             statePlay = new StatePlay("StatePlay");
             stateGameOver = new StateGameOver("StateGameOver");
-
-            stateMachine.StateMachine.Configure("StateIdle")
-                .OnEntry(stateIdle.OnEntry)
-                .OnExit(stateIdle.OnExit)
-                .Permit("TriggerStatePlay", "StatePlay");
-
-            stateMachine.StateMachine.Configure("StatePlay")
-                .OnEntry(statePlay.OnEntry)
-                .OnExit(statePlay.OnExit)
-                .Permit("TriggerStateDrawRandomNumbers", "StateDrawRandomNumbers") // TODO: This is an issue because we shouldn't have to know anything about substates
-                .Permit("TriggerStateGameOver", "StateGameOver");
-
-            stateMachine.StateMachine.Configure("StateGameOver")
-                .OnEntry(stateGameOver.OnEntry)
-                .OnExit(stateGameOver.OnExit)
-                .Permit("TriggerStateIdle", "StateIdle");
+            stateIdle.Init(stateMachine);
+            statePlay.Init(stateMachine);
+            stateGameOver.Init(stateMachine);
         }
     }
 }
