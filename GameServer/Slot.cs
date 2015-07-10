@@ -54,7 +54,7 @@ namespace GameServer
 
     public class Slot : Game
     {
-        protected BaseState stateDrawRandomNumbers;
+        private BaseState stateDrawRandomNumbers;
 
         public override void ConfigureStates(GameStateMachine stateMachine)
         {
