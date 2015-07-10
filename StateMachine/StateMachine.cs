@@ -7,6 +7,9 @@ using Stateless;
 
 namespace StateMachine
 {
+    /// <summary>
+    /// This is the initial state when the state machine is created.
+    /// </summary>
     public class StateUnknown : BaseState
     {
         public StateUnknown(string name)
@@ -16,6 +19,11 @@ namespace StateMachine
 
         public override void Init(GameStateMachine stateMachine)
         {
+            // Configure this state to transition only to StateIdle.
+            // Once we have transitioned to StateIdle, we will never
+            // re-enter this state.
+            stateMachine.StateMachine.Configure(Name)
+                .Permit("TriggerStateIdle", "StateIdle");   
         }
     }
 
@@ -26,10 +34,23 @@ namespace StateMachine
 
         public GameStateMachine()
         {
-            StateUnknown stateUnknown = new StateUnknown("StateUnknown");
+            BaseState stateUnknown = new StateUnknown("StateUnknown");
             StateMachine = new StateMachine<string, string>(stateUnknown.Name);
-            StateMachine.Configure(stateUnknown.Name)
-                .Permit("TriggerStateIdle", "StateIdle");   
+            stateUnknown.Init(this);
+        }
+
+        public void ProcessStateTransitions()
+        {
+            if (queue.Count > 0)
+            {
+                string trigger = queue.Dequeue();
+                StateMachine.Fire(trigger);
+            }
+        }
+
+        public void AddTrigger(string trigger)
+        {
+            queue.Enqueue(trigger);
         }
     }
 }

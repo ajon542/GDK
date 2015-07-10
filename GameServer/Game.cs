@@ -76,34 +76,31 @@ namespace GameServer
 
     public class Game
     {
+        private StateIdle stateIdle;
+        private StatePlay statePlay;
+        private StateGameOver stateGameOver;
+
         public virtual void ConfigureStates(GameStateMachine stateMachine)
         {
-            StateIdle stateIdle = new StateIdle("StateIdle");
-            StatePlay statePlay = new StatePlay("StatePlay");
-            StateGameOver stateGameOver = new StateGameOver("StateGameOver");
+            stateIdle = new StateIdle("StateIdle");
+            statePlay = new StatePlay("StatePlay");
+            stateGameOver = new StateGameOver("StateGameOver");
 
-            // StateIdle
-            stateMachine.StateMachine.Configure(stateIdle.Name)
+            stateMachine.StateMachine.Configure("StateIdle")
                 .OnEntry(stateIdle.OnEntry)
                 .OnExit(stateIdle.OnExit)
-                .Permit("TriggerStatePlay", statePlay.Name);
+                .Permit("TriggerStatePlay", "StatePlay");
 
-            // StatePlay
-            stateMachine.StateMachine.Configure(statePlay.Name)
+            stateMachine.StateMachine.Configure("StatePlay")
                 .OnEntry(statePlay.OnEntry)
                 .OnExit(statePlay.OnExit)
-                .Permit("TriggerStateGameOver", stateGameOver.Name);
+                .Permit("TriggerStateDrawRandomNumbers", "StateDrawRandomNumbers") // TODO: This is an issue because we shouldn't have to know anything about substates
+                .Permit("TriggerStateGameOver", "StateGameOver");
 
-            // StateGameOver
-            stateMachine.StateMachine.Configure(stateGameOver.Name)
+            stateMachine.StateMachine.Configure("StateGameOver")
                 .OnEntry(stateGameOver.OnEntry)
                 .OnExit(stateGameOver.OnExit)
-                .Permit("TriggerStateIdle", stateIdle.Name);
-
-            stateMachine.StateMachine.Fire("TriggerStateIdle");
-            stateMachine.StateMachine.Fire("TriggerStatePlay");
-            stateMachine.StateMachine.Fire("TriggerStateGameOver");
-            stateMachine.StateMachine.Fire("TriggerStateIdle");
+                .Permit("TriggerStateIdle", "StateIdle");
         }
     }
 }
