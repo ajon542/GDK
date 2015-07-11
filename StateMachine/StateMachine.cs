@@ -13,15 +13,6 @@ namespace StateMachine
     public class StateUnknown : BaseState
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateUnknown"/> class.
-        /// </summary>
-        /// <param name="name">The name of the state.</param>
-        public StateUnknown(string name)
-            : base(name)
-        {
-        }
-
-        /// <summary>
         /// Configure the state in the given state machine.
         /// </summary>
         /// <param name="stateMachine">The state machine.</param>
@@ -30,7 +21,7 @@ namespace StateMachine
             // Configure this state to transition only to StateIdle.
             // Once we have transitioned to StateIdle, we will never
             // re-enter this state.
-            stateMachine.StateMachine.Configure(Name)
+            stateMachine.StateMachine.Configure("StateUnknown")
                 .Permit("TriggerStateConfiguration", "StateConfiguration");   
         }
     }
@@ -56,8 +47,8 @@ namespace StateMachine
         /// </summary>
         public GameStateMachine()
         {
-            BaseState stateUnknown = new StateUnknown("StateUnknown");
-            StateMachine = new StateMachine<string, string>(stateUnknown.Name);
+            BaseState stateUnknown = new StateUnknown();
+            StateMachine = new StateMachine<string, string>("StateUnknown");
             stateUnknown.Configure(this);
         }
 

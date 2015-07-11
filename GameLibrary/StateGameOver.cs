@@ -13,15 +13,6 @@ namespace GameLibrary
     public class StateGameOver : BaseState
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateGameOver"/> class.
-        /// </summary>
-        /// <param name="name">The name of the state.</param>
-        public StateGameOver(string name)
-            : base(name)
-        {
-        }
-
-        /// <summary>
         /// Configure the state in the given state machine.
         /// </summary>
         /// <param name="stateMachine">The state machine.</param>

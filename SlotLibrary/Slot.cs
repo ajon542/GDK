@@ -18,10 +18,10 @@ namespace SlotLibrary
             // Base states must be initialized first.
             base.ConfigureStates(stateMachine);
 
-            stateBeginPlay = new StateBeginPlay("StateBeginPlay");
+            stateBeginPlay = new StateBeginPlay();
             stateBeginPlay.Configure(stateMachine);
 
-            stateEvaluate = new StateEvaluate("StateEvaluate");
+            stateEvaluate = new StateEvaluate();
             stateEvaluate.Configure(stateMachine);
         }
     }

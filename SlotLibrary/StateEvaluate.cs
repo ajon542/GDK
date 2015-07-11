@@ -13,15 +13,6 @@ namespace SlotLibrary
     public class StateEvaluate : BaseState
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateEvaluate"/> class.
-        /// </summary>
-        /// <param name="name">The name of the state.</param>
-        public StateEvaluate(string name)
-            : base(name)
-        {
-        }
-
-        /// <summary>
         /// Configure the state in the given state machine.
         /// </summary>
         /// <param name="stateMachine">The state machine.</param>

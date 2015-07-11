@@ -13,15 +13,6 @@ namespace GameLibrary
     public class StateConfiguration : BaseState
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateConfiguration"/> class.
-        /// </summary>
-        /// <param name="name">The name of the state.</param>
-        public StateConfiguration(string name)
-            : base(name)
-        {
-        }
-
-        /// <summary>
         /// Configure the state in the given state machine.
         /// </summary>
         /// <param name="stateMachine">The state machine.</param>

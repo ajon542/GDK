@@ -10,15 +10,6 @@ namespace SlotLibrary
     public class StateBeginPlay : BaseState
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateBeginPlay"/> class.
-        /// </summary>
-        /// <param name="name">The name of the state.</param>
-        public StateBeginPlay(string name)
-            : base(name)
-        {
-        }
-
-        /// <summary>
         /// Configure the state in the given state machine.
         /// </summary>
         /// <param name="stateMachine">The state machine.</param>

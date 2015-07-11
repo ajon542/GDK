@@ -17,11 +17,11 @@ namespace GameLibrary
 
         public virtual void ConfigureStates(GameStateMachine stateMachine)
         {
-            stateConfiguration = new StateConfiguration("StateConfgiuration");
-            stateIdle = new StateIdle("StateIdle");
-            statePlay = new StatePlay("StatePlay");
-            statePayWin = new StatePayWin("StatePayWin");
-            stateGameOver = new StateGameOver("StateGameOver");
+            stateConfiguration = new StateConfiguration();
+            stateIdle = new StateIdle();
+            statePlay = new StatePlay();
+            statePayWin = new StatePayWin();
+            stateGameOver = new StateGameOver();
 
             stateConfiguration.Configure(stateMachine);
             stateIdle.Configure(stateMachine);
