@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StateMachine;
 
-namespace GameServer
+namespace GameLibrary
 {
     /// <summary>
     /// StateIdle.

@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
+// TODO: GameServer probably doesn't need reference to all these.
 using MathEngine;
 using StateMachine;
+using GameLibrary;
+using SlotLibrary;
 
 namespace GameServer
 {
