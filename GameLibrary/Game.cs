@@ -7,6 +7,9 @@ using StateMachine;
 
 namespace GameLibrary
 {
+    /// <summary>
+    /// Base class for games.
+    /// </summary>
     public class Game
     {
         private BaseState stateConfiguration;
@@ -15,6 +18,10 @@ namespace GameLibrary
         private BaseState statePayWin;
         private BaseState stateGameOver;
 
+        /// <summary>
+        /// Configure all the game states.
+        /// </summary>
+        /// <param name="stateMachine">The game state machine.</param>
         public virtual void ConfigureStates(GameStateMachine stateMachine)
         {
             stateConfiguration = new StateConfiguration();
