@@ -6,6 +6,18 @@ Implemented basic Game and Slot state machine. It is fairly easy to add states w
 
 Implemented basic paytable structure and investigating the evaluation methods. This is going to take a few more days.
 
+State machine flow is as follows:
+
+StateUnknown
+StateConfiguration
+StateIdle
+StatePlay
+	StateBeginPlay
+	StateEvaluate
+StatePayWin
+StateGameOver
+StateIdle
+
 
 
 

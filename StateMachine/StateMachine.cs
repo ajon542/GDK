@@ -31,7 +31,7 @@ namespace StateMachine
             // Once we have transitioned to StateIdle, we will never
             // re-enter this state.
             stateMachine.StateMachine.Configure(Name)
-                .Permit("TriggerStateIdle", "StateIdle");   
+                .Permit("TriggerStateConfiguration", "StateConfiguration");   
         }
     }
 

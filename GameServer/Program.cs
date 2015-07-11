@@ -40,10 +40,12 @@ namespace GameServer
             game.ConfigureStates(stateMachine);
 
             // Example of adding state triggers.
+            stateMachine.AddTrigger("TriggerStateConfiguration");
             stateMachine.AddTrigger("TriggerStateIdle");
             stateMachine.AddTrigger("TriggerStatePlay");
-            stateMachine.AddTrigger("TriggerStateBeginPlay");
-            stateMachine.AddTrigger("TriggerStateEvaluate");
+                stateMachine.AddTrigger("TriggerStateBeginPlay");
+                stateMachine.AddTrigger("TriggerStateEvaluate");
+            stateMachine.AddTrigger("TriggerStatePayWin");
             stateMachine.AddTrigger("TriggerStateGameOver");
             stateMachine.AddTrigger("TriggerStateIdle");
 

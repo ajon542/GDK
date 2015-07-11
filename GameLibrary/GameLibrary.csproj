@@ -44,8 +44,10 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateConfiguration.cs" />
     <Compile Include="StateGameOver.cs" />
     <Compile Include="StateIdle.cs" />
+    <Compile Include="StatePayWin.cs" />
     <Compile Include="StatePlay.cs" />
   </ItemGroup>
   <ItemGroup>

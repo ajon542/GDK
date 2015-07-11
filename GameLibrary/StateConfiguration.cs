@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using StateMachine;
 
-namespace SlotLibrary
+namespace GameLibrary
 {
     /// <summary>
-    /// State for evaluation of the paytable to provide a game result.
+    /// State to configure game with the appropriate paytables.
     /// </summary>
-    public class StateEvaluate : BaseState
+    public class StateConfiguration : BaseState
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateEvaluate"/> class.
+        /// Initializes a new instance of the <see cref="StateConfiguration"/> class.
         /// </summary>
         /// <param name="name">The name of the state.</param>
-        public StateEvaluate(string name)
+        public StateConfiguration(string name)
             : base(name)
         {
         }
@@ -27,15 +27,10 @@ namespace SlotLibrary
         /// <param name="stateMachine">The state machine.</param>
         public override void Configure(GameStateMachine stateMachine)
         {
-            stateMachine.StateMachine.Configure("StateEvaluate")
-                .SubstateOf("StatePlay")
+            stateMachine.StateMachine.Configure("StateConfiguration")
                 .OnEntry(OnEntry)
                 .OnExit(OnExit)
-                .Permit("TriggerStatePayWin", "StatePayWin");
-
-            // Since we are a substate, we must Permit a transition to ourselves.
-            stateMachine.StateMachine.Configure("StatePlay")
-                .Permit("TriggerStateEvaluate", "StateEvaluate");
+                .Permit("TriggerStateIdle", "StateIdle");
         }
 
         /// <summary>
@@ -43,7 +38,7 @@ namespace SlotLibrary
         /// </summary>
         private void OnEntry()
         {
-            Console.WriteLine("OnEntry StateEvaluate");
+            Console.WriteLine("OnEntry StateConfiguration");
         }
 
         /// <summary>
@@ -51,7 +46,7 @@ namespace SlotLibrary
         /// </summary>
         private void OnExit()
         {
-            Console.WriteLine("OnExit StateEvaluate");
+            Console.WriteLine("OnExit StateConfiguration");
         }
     }
 }
