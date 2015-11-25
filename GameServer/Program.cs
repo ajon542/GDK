@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 // TODO: GameServer probably doesn't need reference to all these.
 using MathEngine;
 using StateMachine;
 using GameLibrary;
 using SlotLibrary;
+using Utilities;
 
 namespace GameServer
 {
@@ -49,12 +46,20 @@ namespace GameServer
             stateMachine.AddTrigger("TriggerStateGameOver");
             stateMachine.AddTrigger("TriggerStateIdle");
 
+
+            Log.Info("hello");
+            Log.Warn("hello");
+            Log.Fail("hello");
+            Log.Info("hello");
+
             // Process the pending triggers and transition to the states.
             while (true)
             {
                 stateMachine.ProcessStateTransitions();
                 Thread.Sleep(10);
             }
+
+
         }
     }
 }
