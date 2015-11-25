@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathEngine
 {
@@ -58,6 +54,11 @@ namespace MathEngine
             return Name;
         }
 
+        /// <summary>
+        /// Determines if this object equals the given object.
+        /// </summary>
+        /// <param name="obj">The object to compare.</param>
+        /// <returns>Whether this object equals the given object.</returns>
         public override bool Equals(Object obj)
         {
             // If parameter is null return false.
@@ -67,28 +68,37 @@ namespace MathEngine
             }
 
             // If parameter cannot be cast to Point return false.
-            Symbol p = obj as Symbol;
-            if (p == null)
+            Symbol s = obj as Symbol;
+            if (s == null)
             {
                 return false;
             }
 
             // Return true if the fields match:
-            return (Name == p.Name) && (Id == p.Id);
+            return (Name == s.Name) && (Id == s.Id);
         }
 
-        public bool Equals(Symbol p)
+        /// <summary>
+        /// Determines if this object equals the given object.
+        /// </summary>
+        /// <param name="s">The object to compare.</param>
+        /// <returns>Whether this object equals the given object.</returns>
+        public bool Equals(Symbol s)
         {
             // If parameter is null return false:
-            if (p == null)
+            if (s == null)
             {
                 return false;
             }
 
             // Return true if the fields match:
-            return (Name == p.Name) && (Id == p.Id);
+            return (Name == s.Name) && (Id == s.Id);
         }
 
+        /// <summary>
+        /// Get the hashcode for the symbol.
+        /// </summary>
+        /// <returns>The hashcode for the symbol.</returns>
         public override int GetHashCode()
         {
             int hashName = Name.GetHashCode();
