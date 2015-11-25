@@ -56,6 +56,10 @@
       <Project>{aeecfbbd-8814-4704-ab66-9606992c7a67}</Project>
       <Name>StateMachine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{cca82453-518d-4336-8a2a-2093601cfc93}</Project>
+      <Name>Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

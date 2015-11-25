@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StateMachine;
+using Utilities;
 
 namespace GameLibrary
 {
@@ -29,7 +30,7 @@ namespace GameLibrary
         /// </summary>
         private void OnEntry()
         {
-            Console.WriteLine("OnEntry StateConfiguration");
+            Log.Info("OnEntry StateConfiguration");
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace GameLibrary
         /// </summary>
         private void OnExit()
         {
-            Console.WriteLine("OnExit StateConfiguration");
+            Log.Info("OnExit StateConfiguration");
         }
     }
 }

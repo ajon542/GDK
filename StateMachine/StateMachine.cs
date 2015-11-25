@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Stateless;
+using Utilities;
 
 namespace StateMachine
 {
@@ -72,7 +69,7 @@ namespace StateMachine
                 }
                 else
                 {
-                    Console.WriteLine("No valid transitions are permitted from state '{0}' for trigger '{1}'", StateMachine.State, trigger);
+                    Log.Fail("No valid transitions are permitted from state '{0}' for trigger '{1}'", StateMachine.State, trigger);
                 }
             }
         }

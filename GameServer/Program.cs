@@ -27,7 +27,7 @@ namespace GameServer
 
 
 
-            Console.WriteLine("Starting GDK");
+            Log.Info("Starting GDK");
 
             // Create the state machine.
             GameStateMachine stateMachine = new GameStateMachine();

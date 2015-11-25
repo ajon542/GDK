@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StateMachine;
+using Utilities;
 
 namespace SlotLibrary
 {
@@ -34,7 +35,7 @@ namespace SlotLibrary
         /// </summary>
         private void OnEntry()
         {
-            Console.WriteLine("OnEntry StateEvaluate");
+            Log.Info("OnEntry StateEvaluate");
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace SlotLibrary
         /// </summary>
         private void OnExit()
         {
-            Console.WriteLine("OnExit StateEvaluate");
+            Log.Info("OnExit StateEvaluate");
         }
     }
 }
