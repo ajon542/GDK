@@ -26,7 +26,7 @@ namespace MathEngine
 
         private bool CheckMatch(PayCombo payCombo, List<Symbol> symbolsInPayline)
         {
-            if (payCombo.Symbols.Count != symbolsInPayline.Count)
+            if (payCombo.Symbols.Count > symbolsInPayline.Count)
             {
                 return false;
             }
@@ -46,6 +46,7 @@ namespace MathEngine
 
         public void Evaluate(Paytable paytable)
         {
+            SlotResults results = new SlotResults();
             List<Symbol> symbolsInPayline = new List<Symbol>();
 
             // For each payline.
@@ -64,7 +65,7 @@ namespace MathEngine
                 // That being said, there are many other pay strategies that could be used.
 
                 int bestPayAmount = 0;
-                PayCombo bestPayCombo;
+                PayCombo bestPayCombo = null;
 
                 List<PayCombo> payCombos = paytable.PayComboGroup.Combos;
 
@@ -75,10 +76,14 @@ namespace MathEngine
                     {
                         Log.Info("PayCombo Match: {0}", payCombo);
                         bestPayCombo = payCombo;
+                        bestPayAmount = payCombo.PayAmount;
                     }
                 }
 
-                // TODO: Add the combos to a list to return.
+                if (bestPayCombo != null)
+                {
+                    results.Results.Add(new SlotResult(bestPayCombo, payline));
+                }
 
                 symbolsInPayline.Clear();
             }

@@ -99,6 +99,11 @@ namespace MathEngine
 
             List<Symbol> payAA = new List<Symbol>
             {
+                new Symbol(0, "AA"), new Symbol(0, "AA")
+            };
+
+            List<Symbol> payAAA = new List<Symbol>
+            {
                 new Symbol(0, "AA"), new Symbol(0, "AA"), new Symbol(0, "AA")
             };
 
@@ -112,7 +117,8 @@ namespace MathEngine
                 new Symbol(2, "CC"), new Symbol(2, "CC"), new Symbol(2, "CC")
             };
 
-            payCombos.AddPayCombo(new PayCombo(payAA, 100));
+            payCombos.AddPayCombo(new PayCombo(payAA, 10));
+            payCombos.AddPayCombo(new PayCombo(payAAA, 100));
             payCombos.AddPayCombo(new PayCombo(payBB, 50));
             payCombos.AddPayCombo(new PayCombo(payCC, 20));
 
