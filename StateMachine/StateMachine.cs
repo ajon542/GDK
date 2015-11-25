@@ -8,32 +8,35 @@ using Stateless;
 namespace StateMachine
 {
     /// <summary>
-    /// This is the initial state when the state machine is created.
-    /// </summary>
-    public class StateUnknown : BaseState
-    {
-        /// <summary>
-        /// Configure the state in the given state machine.
-        /// </summary>
-        /// <param name="stateMachine">The state machine.</param>
-        public override void Configure(GameStateMachine stateMachine)
-        {
-            // Configure this state to transition only to StateIdle.
-            // Once we have transitioned to StateIdle, we will never
-            // re-enter this state.
-            stateMachine.StateMachine.Configure("StateUnknown")
-                .Permit("TriggerStateConfiguration", "StateConfiguration");   
-        }
-    }
-
-    /// <summary>
     /// Container for the game state machine.
     /// </summary>
     public class GameStateMachine
     {
+        #region Initial State
+
+        /// <summary>
+        /// This is the initial state when the state machine is created.
+        /// </summary>
+        private class StateUnknown : BaseState
+        {
+            /// <summary>
+            /// Configure the state in the given state machine.
+            /// </summary>
+            /// <param name="stateMachine">The state machine.</param>
+            public override void Configure(GameStateMachine stateMachine)
+            {
+                // Configure this state to transition only to StateIdle.
+                // Once we have transitioned to StateIdle, we will never
+                // re-enter this state.
+                stateMachine.StateMachine.Configure("StateUnknown")
+                    .Permit("TriggerStateConfiguration", "StateConfiguration");
+            }
+        }
+
+        #endregion
+
         /// <summary>
         /// Gets the handle to the state machine.
-        /// TODO: Probably shouldn't be accessible, wrap the basic SM functionality instead.
         /// </summary>
         public StateMachine<string, string> StateMachine { get; private set; }
 
@@ -61,7 +64,16 @@ namespace StateMachine
             if (queue.Count > 0)
             {
                 string trigger = queue.Dequeue();
-                StateMachine.Fire(trigger);
+                
+                // Check if there are any valid transitions permitted for the trigger.
+                if (StateMachine.CanFire(trigger))
+                {
+                    StateMachine.Fire(trigger);
+                }
+                else
+                {
+                    Console.WriteLine("No valid transitions are permitted from state '{0}' for trigger '{1}'", StateMachine.State, trigger);
+                }
             }
         }
 
