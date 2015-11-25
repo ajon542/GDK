@@ -109,7 +109,7 @@ namespace MathEngine
 
             List<Symbol> payCC = new List<Symbol>
             {
-                new Symbol(1, "CC"), new Symbol(1, "CC"), new Symbol(1, "CC")
+                new Symbol(2, "CC"), new Symbol(2, "CC"), new Symbol(2, "CC")
             };
 
             payCombos.AddPayCombo(new PayCombo(payAA, 100));

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.Odbc;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MathEngine
 {
@@ -39,6 +38,11 @@ namespace MathEngine
         {
             Symbols = symbols;
             PayAmount = payAmount;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(", ", Symbols);
         }
     }
 

@@ -55,9 +55,47 @@ namespace MathEngine
         /// <returns>A string representation of the Symbol.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Name: {0}, Id: {1}", Name, Id);
-            return sb.ToString();
+            return Name;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Symbol p = obj as Symbol;
+            if (p == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (Name == p.Name) && (Id == p.Id);
+        }
+
+        public bool Equals(Symbol p)
+        {
+            // If parameter is null return false:
+            if (p == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return (Name == p.Name) && (Id == p.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashName = Name.GetHashCode();
+            int hashId = Id.GetHashCode();
+
+            //Calculate the hash code for the symbol. 
+            return hashName ^ hashId;
         }
     }
 }

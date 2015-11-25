@@ -53,7 +53,7 @@ namespace MathEngine
         }
 
         /// <summary>
-        /// Add a payline cooredinate to the payline.
+        /// Add a payline coordinate to the payline.
         /// </summary>
         /// <param name="coord">The payline coordinate.</param>
         public void AddPaylineCoord(PaylineCoord coord)
