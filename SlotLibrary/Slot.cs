@@ -33,5 +33,16 @@ namespace SlotLibrary
             stateEvaluate = new StateEvaluate();
             stateEvaluate.Configure(stateMachine);
         }
+
+        public override void StartGameResponse()
+        {
+            stateMachine.AddTrigger("TriggerStateBeginPlay");
+            stateMachine.AddTrigger("TriggerStateEvaluate");
+            
+            // This should be called at the end so we can trigger the appropriate
+            // game specific states. If we called this at the start of the method,
+            // the triggers for the slot substates would be invalid.
+            base.StartGameResponse();
+        }
     }
 }

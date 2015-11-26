@@ -18,12 +18,16 @@ namespace GameLibrary
         private BaseState statePayWin;
         private BaseState stateGameOver;
 
+        protected GameStateMachine stateMachine;
+
         /// <summary>
         /// Configure all the game states.
         /// </summary>
         /// <param name="stateMachine">The game state machine.</param>
         public virtual void ConfigureStates(GameStateMachine stateMachine)
         {
+            this.stateMachine = stateMachine;
+
             stateConfiguration = new StateConfiguration();
             stateIdle = new StateIdle();
             statePlay = new StatePlay();
@@ -35,6 +39,11 @@ namespace GameLibrary
             statePlay.Configure(stateMachine);
             statePayWin.Configure(stateMachine);
             stateGameOver.Configure(stateMachine);
+        }
+
+        public virtual void StartGameResponse()
+        {
+            stateMachine.AddTrigger("TriggerStatePayWin");
         }
     }
 }
