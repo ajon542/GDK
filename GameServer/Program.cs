@@ -42,6 +42,8 @@ namespace GameServer
             stateMachine.AddTrigger("TriggerStateConfiguration");
             stateMachine.AddTrigger("TriggerStateIdle");
             stateMachine.AddTrigger("TriggerStatePlay");
+
+            // How do we know to trigger this substate?
                 stateMachine.AddTrigger("TriggerStateBeginPlay");
                 stateMachine.AddTrigger("TriggerStateEvaluate");
             stateMachine.AddTrigger("TriggerStatePayWin");

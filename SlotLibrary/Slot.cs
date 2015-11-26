@@ -28,6 +28,7 @@ namespace SlotLibrary
             // Substates of StatePlay.
             stateBeginPlay = new StateBeginPlay();
             stateBeginPlay.Configure(stateMachine);
+                
 
             stateEvaluate = new StateEvaluate();
             stateEvaluate.Configure(stateMachine);

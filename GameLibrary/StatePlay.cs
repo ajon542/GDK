@@ -22,7 +22,7 @@ namespace GameLibrary
             stateMachine.StateMachine.Configure("StatePlay")
                 .OnEntry(OnEntry)
                 .OnExit(OnExit)
-                .Permit("TriggerStateGameOver", "StateGameOver");
+                .Permit("TriggerStatePayWin", "StatePayWin");
         }
 
         /// <summary>
