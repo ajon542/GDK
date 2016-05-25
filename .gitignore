@@ -42,6 +42,13 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-obj
 bin
+obj
+Library
+UnityVS
+UnityVS.meta
+Temp
+*.csproj
+*.sln
+*.DotSettings
 *.suo

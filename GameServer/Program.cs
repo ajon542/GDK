@@ -31,32 +31,28 @@ namespace GameServer
     {
         static void Main(string[] args)
         {
-            BaseMsg acc = new Account { Type = 102, Email = "blah@blah.com", Active = true };
-            string json = JsonConvert.SerializeObject(acc, Formatting.Indented);
-            Console.WriteLine(json);
+            //BaseMsg acc = new Account { Type = 102, Email = "blah@blah.com", Active = true };
+            //string json = JsonConvert.SerializeObject(acc, Formatting.Indented);
+            //Console.WriteLine(json);
 
-            BaseMsg result = JsonConvert.DeserializeObject<BaseMsg>(json);
-            if (result.Type == 102)
-            {
-                BaseMsg accResult = JsonConvert.DeserializeObject<Account>(json);
-            }
+            //BaseMsg result = JsonConvert.DeserializeObject<BaseMsg>(json);
+            //if (result.Type == 102)
+            //{
+            //    BaseMsg accResult = JsonConvert.DeserializeObject<Account>(json);
+            //}
 
-            Console.ReadLine();
-
+            //Console.ReadLine();
 
             // Example of (de)serializing a paytable.
-            PaytableGenerator paytableGenerator = new PaytableGenerator();
-            byte[] data = paytableGenerator.Serialize();
-            paytableGenerator.Deserialize(data);
+            //PaytableGenerator paytableGenerator = new PaytableGenerator();
+            //byte[] data = paytableGenerator.Serialize();
+            //paytableGenerator.Deserialize(data);
 
+            //Paytable paytable = new Paytable();
+            //paytable.ConstructDummyPaytable();
 
-            Paytable paytable = new Paytable();
-            paytable.ConstructDummyPaytable();
-
-            Evaluator evaluator = new Evaluator();
-            evaluator.Evaluate(paytable);
-
-
+            //Evaluator evaluator = new Evaluator();
+            //evaluator.Evaluate(paytable);
 
             Log.Info("Starting GDK");
 
@@ -95,10 +91,13 @@ namespace GameServer
             stateMachine.AddTrigger("TriggerStateIdle");
 
 
-            Log.Info("hello");
-            Log.Warn("hello");
-            Log.Fail("hello");
-            Log.Info("hello");
+            //Log.Info("hello");
+            //Log.Warn("hello");
+            //Log.Fail("hello");
+            //Log.Info("hello");
+
+            ClientComms.Server server = new ClientComms.Server();
+            server.Listen();
 
             // Process the pending triggers and transition to the states.
             while (true)

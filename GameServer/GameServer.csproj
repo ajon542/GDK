@@ -54,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClientComms\ClientComms.csproj">
+      <Project>{76375c44-9c09-490b-8a01-503159b70cdb}</Project>
+      <Name>ClientComms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameLibrary\GameLibrary.csproj">
       <Project>{3e882b36-0b1e-4f41-9326-7961c6768cdf}</Project>
       <Name>GameLibrary</Name>
