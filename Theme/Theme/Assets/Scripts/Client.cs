@@ -50,16 +50,17 @@ public class Client : MonoBehaviour
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             // Connect to the remote endpoint.
+            Debug.Log("Attempting to connect to server...");
             client.Connect(remoteEP);
 
-            Console.WriteLine("Client connected to {0}", client.RemoteEndPoint);
+            Debug.Log("Client connected to " + client.RemoteEndPoint);
 
             // Begin receiving data from the server.
             client.BeginReceive(buffer, 0, BufferSize, 0, ReceiveCallback, null);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Debug.LogError(e);
         }
     }
 
@@ -76,7 +77,7 @@ public class Client : MonoBehaviour
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Debug.LogError(e);
         }
     }
 
@@ -91,7 +92,7 @@ public class Client : MonoBehaviour
             // Read data from the remote device.
             int bytesRead = client.EndReceive(ar);
 
-            Console.WriteLine("Client Received: {0}", bytesRead);
+            Debug.Log("Client Received: " + bytesRead);
 
             // Copy the data from the buffer.
             byte[] data = new byte[bytesRead];
@@ -102,7 +103,7 @@ public class Client : MonoBehaviour
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Debug.LogError(e);
         }
     }
 
