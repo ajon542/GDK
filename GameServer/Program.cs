@@ -90,12 +90,6 @@ namespace GameServer
             stateMachine.AddTrigger("TriggerStateGameOver");
             stateMachine.AddTrigger("TriggerStateIdle");
 
-
-            //Log.Info("hello");
-            //Log.Warn("hello");
-            //Log.Fail("hello");
-            //Log.Info("hello");
-
             ClientComms.Server server = new ClientComms.Server();
             server.Listen();
 
@@ -105,8 +99,6 @@ namespace GameServer
                 stateMachine.ProcessStateTransitions();
                 Thread.Sleep(10);
             }
-
-
         }
     }
 }

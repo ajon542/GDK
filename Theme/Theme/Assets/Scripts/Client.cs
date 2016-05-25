@@ -12,6 +12,14 @@ public class Client : MonoBehaviour
         Connect();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            Send("Client says Hello!");
+        }
+    }
+
     /// <summary>
     /// The size of buffer for receiving data.
     /// </summary>

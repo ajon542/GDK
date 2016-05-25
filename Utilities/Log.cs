@@ -7,6 +7,7 @@ namespace Utilities
     /// </summary>
     public static class Log
     {
+        // TODO: We need to ge trid of this logging and use NLOG.
         public static void Info(string message)
         {
             Console.Write("[INFO] ");
