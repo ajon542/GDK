@@ -97,10 +97,10 @@ namespace ClientComms
 
                 if (bytesRead > 0)
                 {
-                    Console.WriteLine("Server Received: {0}", bytesRead);
-
                     byte[] data = new byte[bytesRead];
                     Array.Copy(buffer, 0, data, 0, bytesRead);
+                    string msg = Encoding.ASCII.GetString(data);
+                    Console.WriteLine("Server Received: {0}", msg);
 
                     // Continue receiving data.
                     client.BeginReceive(buffer, 0, BufferSize, 0, ReceiveCallback, null);
