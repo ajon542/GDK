@@ -13,7 +13,7 @@ namespace GDK.MathEngine
 		/// <summary>
 		/// Gets or sets the reel.
 		/// </summary>
-		public ReelStrip Reel { get; set; }
+		public ReelStrip ReelStrip { get; set; }
 
 		/// <summary>
 		/// Gets or sets the height of the reel window.
@@ -63,7 +63,7 @@ namespace GDK.MathEngine
 		/// <param name="reelHeight">The height of the reel window.</param>
 		public void AddReel (ReelStrip reelStrip, int reelHeight = 3)
 		{
-			Reels.Add (new ReelProperties { Reel = reelStrip, Height = reelHeight });
+			Reels.Add (new ReelProperties { ReelStrip = reelStrip, Height = reelHeight });
 		}
 	}
 }

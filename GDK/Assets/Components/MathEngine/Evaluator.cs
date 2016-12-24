@@ -5,19 +5,41 @@ namespace GDK.MathEngine
 {
 	public class Evaluator : IEvaluator
 	{
-		public void Evaluate (Paytable paytable)
+		private IRng rng;
+
+		private Paytable paytable;
+
+		public SlotResults Evaluate (Paytable paytable, IRng rng)
 		{
+			if (paytable == null)
+			{
+				throw new ArgumentNullException ("paytable cannot be null");
+			}
+
+			if (rng == null)
+			{
+				throw new ArgumentNullException ("random number generator cannot be null");
+			}
+
+			this.paytable = paytable;
+
 			SlotResults results = new SlotResults ();
 			List<Symbol> symbolsInPayline = new List<Symbol> ();
 
-			// For each payline.
+			// Get random numbers for each reel.
+			List<int> randomNumbers = new List<int> ();
+			for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
+			{
+				ReelStrip reelStrip = paytable.ReelGroup.Reels [reel].ReelStrip;
+				randomNumbers.Add (rng.GetRandomNumber (reelStrip.Strip.Count));
+			}
+
 			List<Payline> paylines = paytable.PaylineGroup.Paylines;
 			foreach (Payline payline in paylines)
 			{
 				// Get the symbols in the payline based on the reel window.
-				symbolsInPayline = GetSymbolsInPayline (paytable, payline);
+				symbolsInPayline = GetSymbolsInPayline (randomNumbers, payline);
 
-				// TODO: Create a pay evaluation strategy.
 				// At this point we are looking for the best win on the given payline.
 				// For example: If the symbolsInPayline are "A A A", and the payCombo is "A A" with a pay of 10,
 				// we record that pay combo as a win.
@@ -47,21 +69,33 @@ namespace GDK.MathEngine
 
 				symbolsInPayline.Clear ();
 			}
+
+			return results;
 		}
 
-		private List<Symbol> GetSymbolsInPayline (Paytable paytable, Payline payline)
+		private List<Symbol> GetSymbolsInPayline (List<int> randomNumbers, Payline payline)
 		{
-			List<Symbol> symbolsInPayline = new List<Symbol> ();
+			if (payline.PaylineCoords.Count > randomNumbers.Count)
+			{
+				throw new InvalidOperationException (string.Format ("cannot evaluate payline, not enough random numbers"));
+			}
 
+			List<Symbol> symbolsInPayline = new List<Symbol> ();
 			List<PaylineCoord> paylineCoords = payline.PaylineCoords;
+
+			int numberIndex = 0;
 			foreach (PaylineCoord paylineCoord in paylineCoords)
 			{
-				// TODO: Use a random number.
-				int randomNumber = 0;
+				// Get next random number for the reel.
+				int randomNumber = randomNumbers [numberIndex++];
 				int reelIndex = paylineCoord.ReelIndex;
-				int stripIndex = randomNumber + paylineCoord.Offset;
 
-				symbolsInPayline.Add (paytable.ReelGroup.Reels [reelIndex].Reel.Strip [stripIndex].Symbol);
+				// Get the reel strip index based on the random number and the payline offset.
+				ReelStrip reelStrip = paytable.ReelGroup.Reels [reelIndex].ReelStrip;
+				int stripIndex = (randomNumber + paylineCoord.Offset) % reelStrip.Strip.Count;
+
+				// Add that symbol to the payline.
+				symbolsInPayline.Add (reelStrip.Strip [stripIndex].Symbol);
 			}
 
 			return symbolsInPayline;

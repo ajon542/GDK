@@ -7,7 +7,7 @@ namespace GDK.MathEngine
 	/// Container for <see cref="PayCombo"/> and <see cref="Payline"/> which
 	/// represents a single result for a slot style game.
 	/// </summary>
-	class SlotResult
+	public class SlotResult
 	{
 		public SlotResult (PayCombo payCombo, Payline payline)
 		{
@@ -31,7 +31,7 @@ namespace GDK.MathEngine
 		public Payline Payline { get; private set; }
 	}
 
-	class SlotResults
+	public class SlotResults
 	{
 		public SlotResults ()
 		{
