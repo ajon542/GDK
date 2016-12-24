@@ -2,13 +2,13 @@
 using UnityEditor;
 using NUnit.Framework;
 
-public class PaylineTests
-{
+public class EvaluationTests {
+
 	[Test]
-	public void EditorTest ()
+	public void EditorTest()
 	{
 		//Arrange
-		var gameObject = new GameObject ();
+		var gameObject = new GameObject();
 
 		//Act
 		//Try to rename the GameObject
@@ -17,6 +17,6 @@ public class PaylineTests
 
 		//Assert
 		//The object has a new name
-		Assert.AreEqual (newGameObjectName, gameObject.name);
+		Assert.AreEqual(newGameObjectName, gameObject.name);
 	}
 }

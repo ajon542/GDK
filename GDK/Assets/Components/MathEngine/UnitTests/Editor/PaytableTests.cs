@@ -2,7 +2,7 @@
 using UnityEditor;
 using NUnit.Framework;
 
-public class PaylineTests
+public class PaytableTests
 {
 	[Test]
 	public void EditorTest ()

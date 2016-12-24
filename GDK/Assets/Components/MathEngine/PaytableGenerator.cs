@@ -4,29 +4,19 @@ using System.Xml.Serialization;
 
 namespace GDK.MathEngine
 {
-	/// <summary>
-	/// Class to (de)serialize the paytable data.
-	/// </summary>
-	/// <remarks>
-	/// A paytable generator would normally be part of the math tools.
-	/// The math would be implemented in spreadsheet or using a GUI.
-	/// The tool would generate an XML/JSON file describing the math.
-	/// The GDK would read this file in and create the appropriate structures.
-	/// </remarks>
-	public class PaytableGenerator
+	public class PaytableGenerator : IPaytableGenerator
 	{
-		/// <summary>
-		/// Create the paytable.
-		/// </summary>
-		private Paytable paytable = new Paytable ();
+		private string filename;
+		private Paytable paytable;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="PaytableGenerator"/> class.
-		/// </summary>
-		public PaytableGenerator ()
+		public PaytableGenerator (string filename)
 		{
-			// Construct a dummy paytable using hardcoded data.
-			paytable.ConstructDummyPaytable ();
+			throw new NotImplementedException ();
+		}
+
+		public Paytable Generate ()
+		{
+			throw new NotImplementedException ();
 		}
 
 		/// <summary>
@@ -56,7 +46,6 @@ namespace GDK.MathEngine
 			}
 
 			x.Serialize (Console.Out, paytable);
-			Console.WriteLine ();
 		}
 	}
 }
