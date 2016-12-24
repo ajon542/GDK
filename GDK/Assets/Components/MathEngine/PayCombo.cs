@@ -39,6 +39,32 @@ namespace GDK.MathEngine
 			PayAmount = payAmount;
 		}
 
+		/// <summary>
+		/// Determines whether the given symbols meet the minimum requirements for a match.
+		/// </summary>
+		/// <returns><c>true</c> if this instance matches the specified symbols; otherwise, <c>false</c>.</returns>
+		/// <param name="symbolsInPayline">The symbols to match.</param>
+		public bool IsMatch(List<Symbol> symbolsInPayline)
+		{
+			// Cannot match if the PayCombo requires more symbols than we are given.
+			if (Symbols.Count > symbolsInPayline.Count)
+			{
+				return false;
+			}
+
+			bool match = true;
+			for (int i = 0; i < Symbols.Count; ++i)
+			{
+				if (!Symbols [i].Equals (symbolsInPayline [i]))
+				{
+					match = false;
+					break;
+				}
+			}
+
+			return match;
+		}
+
 		//public override string ToString()
 		//{
 		//    return string.Join(", ", Symbols);

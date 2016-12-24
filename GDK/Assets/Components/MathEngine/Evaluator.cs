@@ -54,7 +54,7 @@ namespace GDK.MathEngine
 
 				foreach (PayCombo payCombo in payCombos)
 				{
-					bool match = CheckMatch (payCombo, symbolsInPayline);
+					bool match = payCombo.IsMatch (symbolsInPayline);
 					if (match && (payCombo.PayAmount > bestPayAmount))
 					{
 						bestPayCombo = payCombo;
@@ -99,26 +99,6 @@ namespace GDK.MathEngine
 			}
 
 			return symbolsInPayline;
-		}
-
-		private bool CheckMatch (PayCombo payCombo, List<Symbol> symbolsInPayline)
-		{
-			if (payCombo.Symbols.Count > symbolsInPayline.Count)
-			{
-				return false;
-			}
-
-			bool match = true;
-			for (int i = 0; i < payCombo.Symbols.Count; ++i)
-			{
-				if (!payCombo.Symbols [i].Equals (symbolsInPayline [i]))
-				{
-					match = false;
-					break;
-				}
-			}
-
-			return match;
 		}
 	}
 }
