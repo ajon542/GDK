@@ -46,7 +46,7 @@ namespace MathEngine
     /// <summary>
     /// Represents a reel strip.
     /// </summary>
-    public class Reel
+    public class ReelStrip
     {
         /// <summary>
         /// Gets the reel strip.
@@ -56,7 +56,7 @@ namespace MathEngine
         /// <summary>
         /// Initializes a new instance of the <see cref="Reel"/> class.
         /// </summary>
-        public Reel()
+        public ReelStrip()
         {
             Strip = new List<ReelSymbol>();
         }
@@ -65,7 +65,7 @@ namespace MathEngine
         /// Initializes a new instance of the <see cref="Reel"/> class.
         /// </summary>
         /// <param name="strip">A strip of <see cref="ReelSymbol"/> objects.</param>
-        public Reel(List<ReelSymbol> strip)
+        public ReelStrip(List<ReelSymbol> strip)
         {
             Strip = new List<ReelSymbol>(strip);
         }

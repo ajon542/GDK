@@ -13,7 +13,7 @@ namespace MathEngine
         /// <summary>
         /// Gets or sets the reel.
         /// </summary>
-        public Reel Reel { get; set; }
+        public ReelStrip Reel { get; set; }
 
         /// <summary>
         /// Gets or sets the height of the reel window.
@@ -59,11 +59,11 @@ namespace MathEngine
         /// <summary>
         /// Adds a reel to the reel group.
         /// </summary>
-        /// <param name="reel">The reel to add.</param>
+		/// <param name="reelStrip">The reel strip to add.</param>
         /// <param name="reelHeight">The height of the reel window.</param>
-        public void AddReel(Reel reel, int reelHeight = 3)
+        public void AddReel(ReelStrip reelStrip, int reelHeight = 3)
         {
-            Reels.Add(new ReelProperties { Reel = reel, Height = reelHeight });
+            Reels.Add(new ReelProperties { Reel = reelStrip, Height = reelHeight });
         }
     }
 }

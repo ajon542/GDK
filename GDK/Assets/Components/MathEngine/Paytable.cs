@@ -33,7 +33,7 @@ namespace MathEngine
         {
             ReelGroup reels = new ReelGroup();
 
-            Reel reel1 = new Reel();
+            ReelStrip reel1 = new ReelStrip();
             reel1.AddSymbol(new Symbol(0, "AA"));
             reel1.AddSymbol(new Symbol(1, "BB"));
             reel1.AddSymbol(new Symbol(2, "CC"));
@@ -42,7 +42,7 @@ namespace MathEngine
             reel1.AddSymbol(new Symbol(5, "FF"));
             reel1.AddSymbol(new Symbol(6, "GG"));
 
-            Reel reel2 = new Reel();
+            ReelStrip reel2 = new ReelStrip();
             reel2.AddSymbol(new Symbol(0, "AA"));
             reel2.AddSymbol(new Symbol(1, "BB"));
             reel2.AddSymbol(new Symbol(2, "CC"));
@@ -51,7 +51,7 @@ namespace MathEngine
             reel2.AddSymbol(new Symbol(5, "FF"));
             reel2.AddSymbol(new Symbol(6, "GG"));
 
-            Reel reel3 = new Reel();
+            ReelStrip reel3 = new ReelStrip();
             reel3.AddSymbol(new Symbol(0, "AA"));
             reel3.AddSymbol(new Symbol(1, "BB"));
             reel3.AddSymbol(new Symbol(2, "CC"));
