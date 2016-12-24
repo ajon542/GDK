@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MathEngine
+namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Container for properties of a reel.

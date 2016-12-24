@@ -8,8 +8,6 @@ public class CreditsTests
 	public void Credits_Initialization ()
 	{
 		Credits credits = 5;
-
-		// assert (verify) that healthAmount was updated.
 		Assert.AreEqual (5, credits);
 	}
 
@@ -18,8 +16,6 @@ public class CreditsTests
 	{
 		Credits credits = 5;
 		credits += credits;
-
-		// assert (verify) that healthAmount was updated.
 		Assert.AreEqual (10, credits);
 	}
 
@@ -28,8 +24,6 @@ public class CreditsTests
 	{
 		Credits credits = 5;
 		credits -= credits;
-
-		// assert (verify) that healthAmount was updated.
 		Assert.AreEqual (0, credits);
 	}
 }

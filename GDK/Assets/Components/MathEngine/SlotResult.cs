@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MathEngine
+namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Container for <see cref="PayCombo"/> and <see cref="Payline"/> which

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MathEngine
+namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Represents a simple paytable for a slot game.

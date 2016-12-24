@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MathEngine
+namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Represents a simple left to right pay combination.

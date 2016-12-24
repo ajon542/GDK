@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace MathEngine
+namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Represents a single payline coordinate in the reel window.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MathEngine
+namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Represents a symbol.
