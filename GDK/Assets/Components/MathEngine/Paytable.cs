@@ -99,28 +99,28 @@ namespace MathEngine
 
             List<Symbol> payAA = new List<Symbol>
             {
-                new Symbol(0, "AA"), new Symbol(0, "AA")
+                new Symbol(0, "A"), new Symbol(0, "A")
             };
 
             List<Symbol> payAAA = new List<Symbol>
             {
-                new Symbol(0, "AA"), new Symbol(0, "AA"), new Symbol(0, "AA")
+                new Symbol(0, "A"), new Symbol(0, "A"), new Symbol(0, "A")
             };
 
-            List<Symbol> payBB = new List<Symbol>
+            List<Symbol> payBBB = new List<Symbol>
             {
-                new Symbol(1, "BB"), new Symbol(1, "BB"), new Symbol(1, "BB")
+                new Symbol(1, "B"), new Symbol(1, "B"), new Symbol(1, "B")
             };
 
-            List<Symbol> payCC = new List<Symbol>
+            List<Symbol> payCCC = new List<Symbol>
             {
-                new Symbol(2, "CC"), new Symbol(2, "CC"), new Symbol(2, "CC")
+                new Symbol(2, "C"), new Symbol(2, "C"), new Symbol(2, "C")
             };
 
             payCombos.AddPayCombo(new PayCombo(payAA, 10));
             payCombos.AddPayCombo(new PayCombo(payAAA, 100));
-            payCombos.AddPayCombo(new PayCombo(payBB, 50));
-            payCombos.AddPayCombo(new PayCombo(payCC, 20));
+            payCombos.AddPayCombo(new PayCombo(payBBB, 50));
+            payCombos.AddPayCombo(new PayCombo(payCCC, 20));
 
             return payCombos;
         }
