@@ -5,31 +5,31 @@ using NUnit.Framework;
 public class CreditsTests
 {
 	[Test]
-	public void Credits_Initialization()
+	public void Credits_Initialization ()
 	{
 		Credits credits = 5;
 
 		// assert (verify) that healthAmount was updated.
-		Assert.AreEqual(5, credits);
+		Assert.AreEqual (5, credits);
 	}
 
 	[Test]
-	public void Credits_Addition()
+	public void Credits_Addition ()
 	{
 		Credits credits = 5;
 		credits += credits;
 
 		// assert (verify) that healthAmount was updated.
-		Assert.AreEqual(10, credits);
+		Assert.AreEqual (10, credits);
 	}
 
 	[Test]
-	public void Credits_Subtraction()
+	public void Credits_Subtraction ()
 	{
 		Credits credits = 5;
 		credits -= credits;
 
 		// assert (verify) that healthAmount was updated.
-		Assert.AreEqual(0, credits);
+		Assert.AreEqual (0, credits);
 	}
 }
