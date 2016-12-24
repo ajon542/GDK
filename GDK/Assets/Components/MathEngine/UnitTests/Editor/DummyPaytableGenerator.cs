@@ -85,19 +85,19 @@ namespace GDK.MathEngine
 			PayComboGroup payCombos = new PayComboGroup ();
 
 			List<Symbol> payAA = new List<Symbol> {
-				new Symbol (0, "A"), new Symbol (0, "A")
+				new Symbol (0, "AA"), new Symbol (0, "AA")
 			};
 
 			List<Symbol> payAAA = new List<Symbol> {
-				new Symbol (0, "A"), new Symbol (0, "A"), new Symbol (0, "A")
+				new Symbol (0, "AA"), new Symbol (0, "AA"), new Symbol (0, "AA")
 			};
 
 			List<Symbol> payBBB = new List<Symbol> {
-				new Symbol (1, "B"), new Symbol (1, "B"), new Symbol (1, "B")
+				new Symbol (1, "BB"), new Symbol (1, "BB"), new Symbol (1, "BB")
 			};
 
 			List<Symbol> payCCC = new List<Symbol> {
-				new Symbol (2, "C"), new Symbol (2, "C"), new Symbol (2, "C")
+				new Symbol (2, "CC"), new Symbol (2, "CC"), new Symbol (2, "CC")
 			};
 
 			payCombos.AddPayCombo (new PayCombo (payAA, 10));
