@@ -3,6 +3,28 @@ using System.Collections.Generic;
 
 namespace GDK.MathEngine
 {
+	/// <summary>
+	/// The reel window is defined by a set of random numbers. The random numbers provided
+	/// are where the first index of the reel window starts. It might be easier to explain via a picture.
+	/// </summary>
+	/// <remarks>
+	/// Imagine this is how our reel window is set up:
+	/// 
+	///     0  [ ][ ][ ][ ][ ]
+	///     1  [ ]   [ ][ ][ ]
+	///     2  [ ]   [ ]   [ ]
+	///     3        [ ]   [ ]
+	///     4              [ ]
+	/// 
+	/// If we are given the random numbers [1, 14, 23, 9, 17], the reel window would be mapped as follows:
+	/// 
+	///     0  [ 1][14][23][ 9][17]
+	///     1  [ 2]    [24][10][18]
+	///     2  [ 3]    [25]    [19]
+	///     3          [26]    [20]
+	///     4                  [21]
+	/// 
+	/// </remarks>
 	public static class ReelWindow
 	{
 		public static List<Symbol> GetSymbolsInPayline (ReelGroup reelGroup, List<int> randomNumbers, Payline payline)
