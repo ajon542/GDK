@@ -7,8 +7,6 @@ namespace GDK.MathEngine
 	{
 		private IRng rng;
 
-		private Paytable paytable;
-
 		public SlotResults Evaluate (Paytable paytable, IRng rng)
 		{
 			if (paytable == null)
@@ -20,8 +18,6 @@ namespace GDK.MathEngine
 			{
 				throw new ArgumentNullException ("random number generator cannot be null");
 			}
-
-			this.paytable = paytable;
 
 			SlotResults results = new SlotResults ();
 			List<Symbol> symbolsInPayline = new List<Symbol> ();
@@ -37,8 +33,10 @@ namespace GDK.MathEngine
 			List<Payline> paylines = paytable.PaylineGroup.Paylines;
 			foreach (Payline payline in paylines)
 			{
-				// Get the symbols in the payline based on the reel window.
-				symbolsInPayline = GetSymbolsInPayline (randomNumbers, payline);
+				// A payline is essentially just a list of offsets from the 0 position.
+				// We add these offsets to the random number generated to obtain the final
+				// index into the reel strip.
+				symbolsInPayline = ReelWindow.GetSymbolsInPayline (paytable.ReelGroup, randomNumbers, payline);
 
 				// At this point we are looking for the best win on the given payline.
 				// For example: If the symbolsInPayline are "A A A", and the payCombo is "A A" with a pay of 10,
@@ -71,34 +69,6 @@ namespace GDK.MathEngine
 			}
 
 			return results;
-		}
-
-		private List<Symbol> GetSymbolsInPayline (List<int> randomNumbers, Payline payline)
-		{
-			if (payline.PaylineCoords.Count > randomNumbers.Count)
-			{
-				throw new InvalidOperationException (string.Format ("cannot evaluate payline, not enough random numbers"));
-			}
-
-			List<Symbol> symbolsInPayline = new List<Symbol> ();
-			List<PaylineCoord> paylineCoords = payline.PaylineCoords;
-
-			int numberIndex = 0;
-			foreach (PaylineCoord paylineCoord in paylineCoords)
-			{
-				// Get next random number for the reel.
-				int randomNumber = randomNumbers [numberIndex++];
-				int reelIndex = paylineCoord.ReelIndex;
-
-				// Get the reel strip index based on the random number and the payline offset.
-				ReelStrip reelStrip = paytable.ReelGroup.Reels [reelIndex].ReelStrip;
-				int stripIndex = (randomNumber + paylineCoord.Offset) % reelStrip.Strip.Count;
-
-				// Add that symbol to the payline.
-				symbolsInPayline.Add (reelStrip.Strip [stripIndex].Symbol);
-			}
-
-			return symbolsInPayline;
 		}
 	}
 }
