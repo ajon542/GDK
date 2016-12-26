@@ -20,13 +20,13 @@ namespace StateMachine
 			/// Configure the state in the given state machine.
 			/// </summary>
 			/// <param name="stateMachine">The state machine.</param>
-			public override void Configure(GameStateMachine stateMachine)
+			public override void Configure (GameStateMachine stateMachine)
 			{
 				// Configure this state to transition only to StateIdle.
 				// Once we have transitioned to StateIdle, we will never
 				// re-enter this state.
-				stateMachine.StateMachine.Configure("StateUnknown")
-					.Permit("TriggerStateConfiguration", "StateConfiguration");
+				stateMachine.StateMachine.Configure ("StateUnknown")
+					.Permit ("TriggerStateConfiguration", "StateConfiguration");
 			}
 		}
 
@@ -40,36 +40,35 @@ namespace StateMachine
 		/// <summary>
 		/// Internal queue for processing the state transitions.
 		/// </summary>
-		private Queue<string> queue = new Queue<string>();
+		private Queue<string> queue = new Queue<string> ();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GameStateMachine"/> class.
 		/// </summary>
-		public GameStateMachine()
+		public GameStateMachine ()
 		{
-			BaseState stateUnknown = new StateUnknown();
-			StateMachine = new StateMachine<string, string>("StateUnknown");
-			stateUnknown.Configure(this);
+			BaseState stateUnknown = new StateUnknown ();
+			StateMachine = new StateMachine<string, string> ("StateUnknown");
+			stateUnknown.Configure (this);
 		}
 
 		/// <summary>
 		/// Determine if there are any outstanding triggers. If so, transition to
 		/// the next state.
 		/// </summary>
-		public void ProcessStateTransitions()
+		public void ProcessStateTransitions ()
 		{
 			if (queue.Count > 0)
 			{
-				string trigger = queue.Dequeue();
+				string trigger = queue.Dequeue ();
 
 				// Check if there are any valid transitions permitted for the trigger.
-				if (StateMachine.CanFire(trigger))
+				if (StateMachine.CanFire (trigger))
 				{
-					StateMachine.Fire(trigger);
-				}
-				else
+					StateMachine.Fire (trigger);
+				} else
 				{
-					Debug.LogError("No valid transitions are permitted from state [" + StateMachine.State + "] for trigger [" + trigger + "]");
+					Debug.LogError ("No valid transitions are permitted from state [" + StateMachine.State + "] for trigger [" + trigger + "]");
 				}
 			}
 		}
@@ -78,9 +77,9 @@ namespace StateMachine
 		/// Add a trigger to the state transition queue.
 		/// </summary>
 		/// <param name="trigger">The trigger.</param>
-		public void AddTrigger(string trigger)
+		public void AddTrigger (string trigger)
 		{
-			queue.Enqueue(trigger);
+			queue.Enqueue (trigger);
 		}
 	}
 }

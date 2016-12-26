@@ -11,6 +11,6 @@ namespace StateMachine
 		/// Configure the state in the given state machine.
 		/// </summary>
 		/// <param name="stateMachine">The state machine.</param>
-		public abstract void Configure(GameStateMachine stateMachine);
+		public abstract void Configure (GameStateMachine stateMachine);
 	}
 }
