@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
 	GameStateMachine stateMachine;
 	Game game;
 
-	// Use this for initialization
 	void Start ()
 	{
 		// Create the state machine.
@@ -18,41 +17,20 @@ public class GameController : MonoBehaviour
 		// Create and configure the game.
 		game = new Slot ();
 		game.ConfigureStates (stateMachine);
-		stateMachine.AddTrigger ("TriggerStateConfiguration");
-		stateMachine.AddTrigger ("TriggerStateIdle");
+		game.StartConfiguration ();
+		game.StartIdle ();
 	}
-	
-	// Update is called once per frame
+
 	void Update ()
 	{
 		stateMachine.ProcessStateTransitions ();
 
 		if (Input.GetKeyDown (KeyCode.Space))
 		{
-			// Example of adding state triggers.
-			stateMachine.AddTrigger ("TriggerStatePlay");
-
-			// How do we know to trigger this substate?
-			// Something must call "TriggerStateBeginPlay" in order to transition to the substate.
-			// If nothing calls this trigger, then something must call "TriggerStatePayWin".
-			//stateMachine.AddTrigger("TriggerStateBeginPlay");
-			//stateMachine.AddTrigger("TriggerStateEvaluate");
-			//stateMachine.AddTrigger("TriggerStatePayWin");
-
-			// Consider the scenario where the game asks the platform if it can begin a game.
-			// The platform responds OK and the method StartGameResponse() is called.
-			// The idea behind this is if Slot overrides this method, it will trigger all the
-			// appropriate Slot specific substates.
-			// If the method isn't overridden, it will just trigger the Game states.
-			// In this case, the Slot overrides this method and calls:
-			//     stateMachine.AddTrigger("TriggerStateBeginPlay");
-			//     stateMachine.AddTrigger("TriggerStateEvaluate");
-			// It will then call the base class method which in turn calls:
-			//     stateMachine.AddTrigger("TriggerStatePayWin");
-			game.StartGameResponse ();
-
-			stateMachine.AddTrigger ("TriggerStateGameOver");
-			stateMachine.AddTrigger ("TriggerStateIdle");
+			game.StartPlay ();
+			game.StartPayWin ();
+			game.StartGameOver ();
+			game.StartIdle ();
 		}
 	}
 }

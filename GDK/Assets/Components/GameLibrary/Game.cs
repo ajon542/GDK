@@ -40,9 +40,29 @@ namespace GameLibrary
 			stateGameOver.Configure (stateMachine);
 		}
 
-		public virtual void StartGameResponse ()
+		public virtual void StartConfiguration()
+		{
+			stateMachine.AddTrigger ("TriggerStateConfiguration");
+		}
+
+		public virtual void StartIdle()
+		{
+			stateMachine.AddTrigger ("TriggerStateIdle");
+		}
+
+		public virtual void StartPlay()
+		{
+			stateMachine.AddTrigger ("TriggerStatePlay");
+		}
+
+		public virtual void StartPayWin ()
 		{
 			stateMachine.AddTrigger ("TriggerStatePayWin");
+		}
+
+		public virtual void StartGameOver()
+		{
+			stateMachine.AddTrigger ("TriggerStateGameOver");
 		}
 	}
 }

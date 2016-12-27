@@ -59,4 +59,50 @@ public class PayComboTests
 
 		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
 	}
+
+	[Test]
+	public void PayCombo_Match4 ()
+	{	
+		List<Symbol> symbolsToMatch = new List<Symbol> {
+			new Symbol(0, "AA"),
+		};
+
+		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+	}
+
+	[Test]
+	public void PayCombo_Match5 ()
+	{	
+		List<Symbol> symbolsToMatch = new List<Symbol> {
+			new Symbol(1, "BB"),
+		};
+
+		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+	}
+
+	[Test]
+	public void PayCombo_Match6 ()
+	{	
+		List<Symbol> symbolsToMatch = new List<Symbol> {
+			new Symbol(0, "AA"),
+			new Symbol(0, "AA"),
+			new Symbol(0, "AA"),
+			new Symbol(1, "BB"),
+		};
+
+		Assert.IsTrue (combo.IsMatch(symbolsToMatch));
+	}
+
+	[Test]
+	public void PayCombo_Match7 ()
+	{	
+		List<Symbol> symbolsToMatch = new List<Symbol> {
+			new Symbol(1, "BB"),
+			new Symbol(0, "AA"),
+			new Symbol(0, "AA"),
+			new Symbol(0, "AA"),
+		};
+
+		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+	}
 }

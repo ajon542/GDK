@@ -27,21 +27,30 @@ namespace SlotLibrary
 			// Substates of StatePlay.
 			stateBeginPlay = new StateBeginPlay ();
 			stateBeginPlay.Configure (stateMachine);
-                
 
 			stateEvaluate = new StateEvaluate ();
 			stateEvaluate.Configure (stateMachine);
 		}
 
-		public override void StartGameResponse ()
+		public override void StartPlay ()
+		{   
+			// This should be called at the start so we can trigger the appropriate
+			// game specific states. If we called this at the end of the method,
+			// the triggers for the slot substates would be invalid.
+			base.StartPlay ();
+
+			StartBeginPlay ();
+			StartEvaluate ();
+		}
+
+		public virtual void StartBeginPlay()
 		{
 			stateMachine.AddTrigger ("TriggerStateBeginPlay");
+		}
+
+		public virtual void StartEvaluate()
+		{
 			stateMachine.AddTrigger ("TriggerStateEvaluate");
-            
-			// This should be called at the end so we can trigger the appropriate
-			// game specific states. If we called this at the start of the method,
-			// the triggers for the slot substates would be invalid.
-			base.StartGameResponse ();
 		}
 	}
 }
