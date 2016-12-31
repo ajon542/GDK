@@ -5,24 +5,37 @@ using StateMachine;
 
 namespace Reels
 {
-	public abstract class BaseMonoBehaviourState : MonoBehaviour
+	public class BaseMonoBehaviourState : MonoBehaviour
 	{
+		[SerializeField]
+		private string stateName;
+
+		[SerializeField]
+		private string trigger;
+
+		[SerializeField]
+		private string destinationState;
+
 		protected bool IsActive { get; private set; }
 
-		/// <summary>
-		/// Configure the state in the given state machine.
-		/// </summary>
-		/// <param name="stateMachine">The state machine.</param>
-		public abstract void Configure (GameStateMachine stateMachine);
+		public virtual void Configure (GameStateMachine stateMachine)
+		{
+			stateMachine.StateMachine.Configure (stateName)
+				.OnEntry (OnEntry)
+				.OnExit (OnExit)
+				.Permit (trigger, destinationState);
+		}
 
 		protected virtual void OnEntry()
 		{
 			IsActive = true;
+			Debug.Log ("OnEntry " + stateName);
 		}
 
 		protected virtual void OnExit()
 		{
 			IsActive = false;
+			Debug.Log ("OnExit " + stateName);
 		}
 	}
 }
