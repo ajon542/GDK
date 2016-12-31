@@ -105,7 +105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &39039822
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &220779176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &256814679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fef08a158e3147399083f345e3afee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateName: StateSpinning
+  trigger: TriggerStateStopping
+  destinationState: StateStopping
 --- !u!4 &351405257
 Transform:
   m_ObjectHideFlags: 0
@@ -396,10 +399,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973bbc7765df742998c38b99a7c0e487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateConfiguration: {fileID: 896544260}
-  stateIdle: {fileID: 1545580613}
-  stateSpinning: {fileID: 351405256}
-  stateStopping: {fileID: 1767750213}
+  states:
+  - {fileID: 896544260}
+  - {fileID: 1545580613}
+  - {fileID: 351405256}
+  - {fileID: 1767750213}
 --- !u!4 &471857978
 Transform:
   m_ObjectHideFlags: 0
@@ -511,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &617478093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0438e875301024a658968631492bc5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateName: StateConfiguration
+  trigger: TriggerStateIdle
+  destinationState: StateIdle
 --- !u!4 &896544261
 Transform:
   m_ObjectHideFlags: 0
@@ -675,7 +682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1009789445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -794,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1292350976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -930,6 +937,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c577b0e14cc4cf5b1f67ac7535bd48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateName: StateIdle
+  trigger: TriggerStateSpinning
+  destinationState: StateSpinning
 --- !u!4 &1545580614
 Transform:
   m_ObjectHideFlags: 0
@@ -1033,6 +1043,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1daf1aaf355843ba964765dd1788eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateName: StateStopping
+  trigger: TriggerStateIdle
+  destinationState: StateIdle
 --- !u!4 &1767750214
 Transform:
   m_ObjectHideFlags: 0

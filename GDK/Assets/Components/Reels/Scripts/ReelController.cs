@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using StateMachine;
 
 namespace Reels
@@ -9,27 +9,17 @@ namespace Reels
 		private GameStateMachine stateMachine;
 
 		[SerializeField]
-		private BaseMonoBehaviourState stateConfiguration;
-
-		[SerializeField]
-		private BaseMonoBehaviourState stateIdle;
-
-		[SerializeField]
-		private BaseMonoBehaviourState stateSpinning;
-
-		[SerializeField]
-		private BaseMonoBehaviourState stateStopping;
+		private List<BaseMonoBehaviourState> states;
 
 		void Start ()
 		{
 			// Create the state machine.
 			stateMachine = new GameStateMachine ();
 
-			// Create and configure the reel states.
-			stateConfiguration.Configure (stateMachine);
-			stateIdle.Configure (stateMachine);
-			stateSpinning.Configure (stateMachine);
-			stateStopping.Configure (stateMachine);
+			foreach (BaseMonoBehaviourState state in states)
+			{
+				state.Configure (stateMachine);
+			}
 
 			StartConfiguration ();
 			StartIdle ();
@@ -39,7 +29,7 @@ namespace Reels
 		{
 			stateMachine.ProcessStateTransitions ();
 
-			if (Input.GetKeyDown (KeyCode.Space))
+			//if (Input.GetKeyDown (KeyCode.Space))
 			{
 				StartSpinning ();
 				StartStopping ();
@@ -47,6 +37,7 @@ namespace Reels
 			}
 		}
 
+		// TODO: This kinda sucks, if each state provides the triggers, how will we know about them here?
 		public virtual void StartConfiguration()
 		{
 			stateMachine.AddTrigger ("TriggerStateConfiguration");
