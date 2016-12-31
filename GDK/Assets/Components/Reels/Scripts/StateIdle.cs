@@ -7,7 +7,7 @@ namespace Reels
 	/// <summary>
 	/// StateIdle.
 	/// </summary>
-	public class StateIdle : BaseState
+	public class StateIdle : BaseMonoBehaviourState
 	{
 		/// <summary>
 		/// Configure the state in the given state machine.
@@ -24,17 +24,27 @@ namespace Reels
 		/// <summary>
 		/// Entry method to the state.
 		/// </summary>
-		private void OnEntry ()
+		protected override void OnEntry ()
 		{
 			UnityEngine.Debug.Log ("OnEntry StateIdle");
+			base.OnEntry ();
 		}
 
 		/// <summary>
 		/// Exit method from the state.
 		/// </summary>
-		private void OnExit ()
+		protected override void OnExit ()
 		{
 			UnityEngine.Debug.Log ("OnExit StateIdle");
+			base.OnExit ();
+		}
+
+		private void Update()
+		{
+			if (IsActive == false)
+			{
+				return;
+			}
 		}
 	}
 }

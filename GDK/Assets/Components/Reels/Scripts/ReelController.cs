@@ -7,10 +7,18 @@ namespace Reels
 	public class ReelController : MonoBehaviour
 	{
 		private GameStateMachine stateMachine;
-		private BaseState stateConfiguration;
-		private BaseState stateIdle;
-		private BaseState stateSpinning;
-		private BaseState stateStopping;
+
+		[SerializeField]
+		private BaseMonoBehaviourState stateConfiguration;
+
+		[SerializeField]
+		private BaseMonoBehaviourState stateIdle;
+
+		[SerializeField]
+		private BaseMonoBehaviourState stateSpinning;
+
+		[SerializeField]
+		private BaseMonoBehaviourState stateStopping;
 
 		void Start ()
 		{
@@ -18,11 +26,6 @@ namespace Reels
 			stateMachine = new GameStateMachine ();
 
 			// Create and configure the reel states.
-			stateConfiguration = new StateConfiguration ();
-			stateIdle = new StateIdle ();
-			stateSpinning = new StateSpinning ();
-			stateStopping = new StateStopping ();
-
 			stateConfiguration.Configure (stateMachine);
 			stateIdle.Configure (stateMachine);
 			stateSpinning.Configure (stateMachine);

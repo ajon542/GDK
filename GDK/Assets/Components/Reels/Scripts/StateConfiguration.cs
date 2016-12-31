@@ -7,7 +7,7 @@ namespace Reels
 	/// <summary>
 	/// State to configure game with the appropriate paytables.
 	/// </summary>
-	public class StateConfiguration : BaseState
+	public class StateConfiguration : BaseMonoBehaviourState
 	{
 		/// <summary>
 		/// Configure the state in the given state machine.
@@ -24,17 +24,29 @@ namespace Reels
 		/// <summary>
 		/// Entry method to the state.
 		/// </summary>
-		private void OnEntry ()
+		protected override void OnEntry ()
 		{
 			UnityEngine.Debug.Log ("OnEntry StateConfiguration");
+			base.OnEntry ();
 		}
 
 		/// <summary>
 		/// Exit method from the state.
 		/// </summary>
-		private void OnExit ()
+		protected override void OnExit ()
 		{
 			UnityEngine.Debug.Log ("OnExit StateConfiguration");
+			base.OnExit ();
+		}
+
+		private void Update()
+		{
+			if (IsActive == false)
+			{
+				return;
+			}
+
+			UnityEngine.Debug.Log ("StateConfiguration...");
 		}
 	}
 }

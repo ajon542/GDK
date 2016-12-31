@@ -7,7 +7,7 @@ namespace Reels
 	/// <summary>
 	/// StateStopping.
 	/// </summary>
-	public class StateStopping : BaseState
+	public class StateStopping : BaseMonoBehaviourState
 	{
 		/// <summary>
 		/// Configure the state in the given state machine.
@@ -24,17 +24,29 @@ namespace Reels
 		/// <summary>
 		/// Entry method to the state.
 		/// </summary>
-		private void OnEntry ()
+		protected override void OnEntry ()
 		{
 			UnityEngine.Debug.Log ("OnEntry StateStopping");
+			base.OnEntry ();
 		}
 
 		/// <summary>
 		/// Exit method from the state.
 		/// </summary>
-		private void OnExit ()
+		protected override void OnExit ()
 		{
 			UnityEngine.Debug.Log ("OnExit StateStopping");
+			base.OnExit ();
+		}
+
+		private void Update()
+		{
+			if (IsActive == false)
+			{
+				return;
+			}
+
+			UnityEngine.Debug.Log ("StateStopping...");
 		}
 	}
 }
