@@ -6,8 +6,8 @@ using SlotLibrary;
 
 public class GameController : MonoBehaviour
 {
-	GameStateMachine stateMachine;
-	Game game;
+	private GameStateMachine stateMachine;
+	private Game game;
 
 	void Start ()
 	{

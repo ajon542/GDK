@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GDK.MathEngine
+namespace GDK.MathEngine.Evaluator
 {
 	/// <summary>
 	/// Class to handle the evaluation of a paytable.

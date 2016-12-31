@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GDK.MathEngine;
+using GDK.MathEngine.Evaluator;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
