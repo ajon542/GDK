@@ -10,13 +10,22 @@ namespace ObjectPool
 	/// </summary>
 	public class Pool : MonoBehaviour
 	{
-		public int Capacity { get; private set; }
+		[SerializeField]
+		private int capacity = 15;
+
+		[SerializeField]
+		private GameObject pooledObject;
+
+		public int Capacity { 
+			get { return capacity; } 
+			private set { capacity = value; }
+		}
 
 		private Queue<GameObject> pool = new Queue<GameObject> ();
 
 		private Dictionary<int, bool> objectStatus = new Dictionary<int, bool> ();
 
-		public Pool (GameObject gameObject, int capacity)
+		private void Start ()
 		{
 			AddNewObjectsToPool (capacity);
 		}
@@ -60,7 +69,8 @@ namespace ObjectPool
 
 		private void AddNewObjectToPool ()
 		{
-			GameObject go = Instantiate (gameObject) as GameObject;
+			GameObject go = Instantiate (pooledObject) as GameObject;
+			go.transform.parent = gameObject.transform;
 			pool.Enqueue (go);
 			objectStatus.Add (go.GetInstanceID (), true);
 			Capacity++;
