@@ -29,7 +29,7 @@ namespace Reels
 		{
 			stateMachine.ProcessStateTransitions ();
 
-			//if (Input.GetKeyDown (KeyCode.Space))
+			if (Input.GetKeyDown (KeyCode.Space))
 			{
 				StartSpinning ();
 				StartStopping ();

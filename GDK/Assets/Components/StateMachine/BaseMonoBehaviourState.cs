@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using StateMachine;
-
-namespace Reels
+namespace StateMachine
 {
 	public class BaseMonoBehaviourState : MonoBehaviour
 	{
