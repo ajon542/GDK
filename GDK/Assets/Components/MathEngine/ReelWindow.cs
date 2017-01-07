@@ -25,43 +25,44 @@ namespace GDK.MathEngine
 	///     4                  [21]
 	/// 
 	/// </remarks>
-	public static class ReelWindow
+	public class ReelWindow
 	{
-		public static List<Symbol> GetSymbolsInPayline (ReelGroup reelGroup, List<int> randomNumbers, Payline payline)
-		{
-			if (payline.PaylineCoords.Count > randomNumbers.Count)
-			{
-				throw new InvalidOperationException (string.Format ("cannot evaluate payline, not enough random numbers"));
-			}
+		// TODO: Might need the positions of the symbols.
+		public List<List<Symbol>> Window { get; set; }
 
+		public Dictionary<Symbol, int> SymbolCount { get; set; }
+
+		public ReelWindow (ReelGroup reelGroup, List<int> randomNumbers)
+		{
+			UpdateReelWindow (reelGroup, randomNumbers);
+		}
+
+		public List<Symbol> GetSymbolsInPayline (Payline payline)
+		{
 			List<Symbol> symbolsInPayline = new List<Symbol> ();
 			List<PaylineCoord> paylineCoords = payline.PaylineCoords;
 
-			int numberIndex = 0;
 			foreach (PaylineCoord paylineCoord in paylineCoords)
 			{
-				// Get next random number for the reel.
-				int randomNumber = randomNumbers [numberIndex++];
 				int reelIndex = paylineCoord.ReelIndex;
+				int offset = paylineCoord.Offset;
 
-				// Get the reel strip index based on the random number and the payline offset.
-				ReelStrip reelStrip = reelGroup.Reels [reelIndex].ReelStrip;
-				int stripIndex = (randomNumber + paylineCoord.Offset) % reelStrip.Strip.Count;
+				Symbol symbol = Window [reelIndex] [offset];
 
-				// Add that symbol to the payline.
-				symbolsInPayline.Add (reelStrip.Strip [stripIndex]);
+				symbolsInPayline.Add (symbol);
 			}
 
 			return symbolsInPayline;
 		}
 			
-		public static List<List<Symbol>> GetReelWindow(ReelGroup reelGroup, List<int> randomNumbers)
+		public void UpdateReelWindow(ReelGroup reelGroup, List<int> randomNumbers)
 		{
-			List<List<Symbol>> reelWindow = new List<List<Symbol>> ();
+			Window = new List<List<Symbol>> ();
+			SymbolCount = new Dictionary<Symbol, int> ();
 
 			for (int reelIndex = 0; reelIndex < reelGroup.Reels.Count; ++reelIndex)
 			{
-				reelWindow.Add (new List<Symbol> ());
+				Window.Add (new List<Symbol> ());
 
 				int reelHeight = reelGroup.Reels [reelIndex].Height;
 				ReelStrip reelStrip = reelGroup.Reels [reelIndex].ReelStrip;
@@ -71,44 +72,16 @@ namespace GDK.MathEngine
 				{
 					int stripIndex = (randomNumber + offset) % reelStrip.Strip.Count;
 
+					// Add the symbol to the reel window.
 					Symbol symbol = new Symbol(reelStrip.Strip [stripIndex]);
-					reelWindow [reelIndex].Add (new Symbol (symbol));
+					Window [reelIndex].Add (new Symbol (symbol));
+
+					// Update the symbol count in the dictionary.
+					if (SymbolCount.ContainsKey (symbol) == false)
+						SymbolCount.Add (symbol, 0);
+					SymbolCount [symbol]++;
 				}
 			}
-
-			return reelWindow;
-		}
-
-		public static bool ContainsAllSymbols(ReelGroup reelGroup, List<Symbol> symbol, List<int> randomNumbers)
-		{
-			throw new NotImplementedException ();
-		}
-
-		public static int GetSymbolCount(ReelGroup reelGroup, Symbol symbol, List<int> randomNumbers)
-		{
-			int symbolCount = 0;
-
-			for (int reelIndex = 0; reelIndex < reelGroup.Reels.Count; ++reelIndex)
-			{
-				// Get the height of the individual reel window.
-				int reelHeight = reelGroup.Reels [reelIndex].Height;
-
-				// Count the given symbols in that reel window.
-				ReelStrip reelStrip = reelGroup.Reels [reelIndex].ReelStrip;
-
-				int randomNumber = randomNumbers [reelIndex];
-				for (int offset = 0; offset < reelHeight; ++offset)
-				{
-					int stripIndex = (randomNumber + offset) % reelStrip.Strip.Count;
-
-					if (reelStrip.Strip [stripIndex] == symbol)
-					{
-						++symbolCount;
-					}
-				}
-			}
-
-			return symbolCount;
 		}
 	}
 }

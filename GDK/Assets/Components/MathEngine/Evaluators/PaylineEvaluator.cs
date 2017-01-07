@@ -8,6 +8,8 @@ namespace GDK.MathEngine.Evaluators
 	/// </summary>
 	public class PaylineEvaluator : IEvaluator
 	{
+		private ReelWindow reelWindow;
+
 		public SlotResults Evaluate (Paytable paytable, IRng rng)
 		{
 			SlotResults results = new SlotResults ();
@@ -20,12 +22,14 @@ namespace GDK.MathEngine.Evaluators
 				randomNumbers.Add (rng.GetRandomNumber (reelStrip.Strip.Count));
 			}
 
+			reelWindow = new ReelWindow (paytable.ReelGroup, randomNumbers);
+
 			List<Payline> paylines = paytable.PaylineGroup.Paylines;
 			foreach (Payline payline in paylines)
 			{
 				// Obtain the reel window based on the random numbers.
 				List<Symbol> symbolsInPayline = 
-					ReelWindow.GetSymbolsInPayline (paytable.ReelGroup, randomNumbers, payline);
+					reelWindow.GetSymbolsInPayline (payline);
 
 				// Look for the highest pay amount on a given payline.
 				int bestPayAmount = 0;

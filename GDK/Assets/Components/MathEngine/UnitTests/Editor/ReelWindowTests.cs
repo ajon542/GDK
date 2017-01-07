@@ -29,8 +29,8 @@ public class ReelWindowTests
 		reels.AddReel (reel2);
 		reels.AddReel (reel3);
 
-		List<List<Symbol>> window =
-			ReelWindow.GetReelWindow (reels, new List<int> { 0, 0, 0 });
+		ReelWindow reelWindow = new ReelWindow (reels, new List<int> { 0, 0, 0 });
+		List<List<Symbol>> window = reelWindow.Window;
 
 		Assert.AreEqual (3, window.Count);
 
@@ -57,8 +57,8 @@ public class ReelWindowTests
 
 		reels.AddReel (reel1);
 
-		List<List<Symbol>> window =
-			ReelWindow.GetReelWindow (reels, new List<int> { 0 });
+		ReelWindow reelWindow = new ReelWindow (reels, new List<int> { 0 });
+		List<List<Symbol>> window = reelWindow.Window;
 
 		Assert.AreEqual (3, window[0].Count);
 	}
@@ -77,8 +77,8 @@ public class ReelWindowTests
 
 		reels.AddReel (reel1, 5);
 
-		List<List<Symbol>> window =
-			ReelWindow.GetReelWindow (reels, new List<int> { 0 });
+		ReelWindow reelWindow = new ReelWindow (reels, new List<int> { 0 });
+		List<List<Symbol>> window = reelWindow.Window;
 
 		Assert.AreEqual (5, window[0].Count);
 	}
@@ -97,8 +97,8 @@ public class ReelWindowTests
 
 		reels.AddReel (reel1);
 
-		List<List<Symbol>> window =
-			ReelWindow.GetReelWindow (reels, new List<int> { 0 });
+		ReelWindow reelWindow = new ReelWindow (reels, new List<int> { 0 });
+		List<List<Symbol>> window = reelWindow.Window;
 
 		ReelStrip expected = new ReelStrip ();
 		expected.AddSymbol (new Symbol (0, "AA"));
@@ -107,7 +107,8 @@ public class ReelWindowTests
 
 		CollectionAssert.AreEqual (expected.Strip, window[0]);
 
-		window = ReelWindow.GetReelWindow (reels, new List<int> { 1 });
+		reelWindow.UpdateReelWindow (reels, new List<int> { 1 });
+		window = reelWindow.Window;
 
 		expected = new ReelStrip ();
 		expected.AddSymbol (new Symbol (1, "BB"));
@@ -116,7 +117,8 @@ public class ReelWindowTests
 
 		CollectionAssert.AreEqual (expected.Strip, window[0]);
 
-		window = ReelWindow.GetReelWindow (reels, new List<int> { 2 });
+		reelWindow.UpdateReelWindow (reels, new List<int> { 2 });
+		window = reelWindow.Window;
 
 		expected = new ReelStrip ();
 		expected.AddSymbol (new Symbol (2, "CC"));
@@ -125,7 +127,8 @@ public class ReelWindowTests
 
 		CollectionAssert.AreEqual (expected.Strip, window[0]);
 
-		window = ReelWindow.GetReelWindow (reels, new List<int> { 3 });
+		reelWindow.UpdateReelWindow (reels, new List<int> { 3 });
+		window = reelWindow.Window;
 
 		expected = new ReelStrip ();
 		expected.AddSymbol (new Symbol (3, "DD"));
@@ -134,7 +137,8 @@ public class ReelWindowTests
 
 		CollectionAssert.AreEqual (expected.Strip, window[0]);
 
-		window = ReelWindow.GetReelWindow (reels, new List<int> { 4 });
+		reelWindow.UpdateReelWindow (reels, new List<int> { 4 });
+		window = reelWindow.Window;
 
 		expected = new ReelStrip ();
 		expected.AddSymbol (new Symbol (4, "EE"));
@@ -143,7 +147,8 @@ public class ReelWindowTests
 
 		CollectionAssert.AreEqual (expected.Strip, window[0]);
 
-		window = ReelWindow.GetReelWindow (reels, new List<int> { 5 });
+		reelWindow.UpdateReelWindow (reels, new List<int> { 5 });
+		window = reelWindow.Window;
 
 		expected = new ReelStrip ();
 		expected.AddSymbol (new Symbol (0, "AA"));
