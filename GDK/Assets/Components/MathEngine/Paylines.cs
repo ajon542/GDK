@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace GDK.MathEngine
@@ -6,6 +7,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a single payline coordinate in the reel window.
 	/// </summary>
+	[Serializable]
 	public class PaylineCoord
 	{
 		/// <summary>
@@ -33,7 +35,8 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a single payline. A payline consists of one or more
 	/// <see cref="PaylineCoord"/>.
-	/// </summary>
+	/// </summary> 
+	[Serializable]
 	public class Payline
 	{
 		/// <summary>
@@ -62,6 +65,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a set, or group of paylines.
 	/// </summary>
+	[Serializable]
 	public class PaylineGroup
 	{
 		/// <summary>

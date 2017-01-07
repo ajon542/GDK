@@ -12,6 +12,7 @@ namespace GDK.MathEngine
 	/// A symbol on a reel strip can have additional properties such
 	/// as weight.
 	/// </remarks>
+	[Serializable]
 	public class ReelSymbol
 	{
 		/// <summary>
@@ -46,6 +47,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a reel strip.
 	/// </summary>
+	[Serializable]
 	public class ReelStrip
 	{
 		/// <summary>

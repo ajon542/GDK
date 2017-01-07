@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using GDK.MathEngine;
 using GDK.MathEngine.Evaluator;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -9,20 +11,25 @@ public class EvaluationTests
 {
 	private IRng rng;
 	private IEvaluator paytableEvaluator;
-	private IPaytableGenerator paytableGenerator;
+	private Paytable paytable;
 
 	[TestFixtureSetUp]
 	public void Init ()
 	{
 		paytableEvaluator = new Evaluator ();
-		paytableGenerator = new DummyPaytableGenerator ();
+
+		//string json = JsonConvert.SerializeObject(paytable, Formatting.Indented);
+		//File.WriteAllText ("/Users/andrew/development/logs/Paytable.txt", json);
+
+		string result = File.ReadAllText ("Assets/Components/MathEngine/UnitTests/Data/Paytable.txt");
+		paytable = JsonConvert.DeserializeObject<Paytable>(result);
 	}
 
 	[Test]
 	public void Evaluation_Initialization ()
 	{
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
-		SlotResults results = paytableEvaluator.Evaluate (paytableGenerator.Generate (), rng);
+		SlotResults results = paytableEvaluator.Evaluate (paytable, rng);
 		Assert.IsNotNull (results);
 	}
 
@@ -35,7 +42,7 @@ public class EvaluationTests
 		// CC CC CC
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
-		SlotResults results = paytableEvaluator.Evaluate (paytableGenerator.Generate (), rng);
+		SlotResults results = paytableEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (3, results.Results.Count);
 
 		Assert.AreEqual (100, results.Results[0].PayCombo.PayAmount); // 3 x AA
@@ -52,7 +59,7 @@ public class EvaluationTests
 		// DD DD DD
 
 		rng = new DummyRng (new List<int> { 1, 1, 1 });
-		SlotResults results = paytableEvaluator.Evaluate (paytableGenerator.Generate (), rng);
+		SlotResults results = paytableEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (2, results.Results.Count);
 
 		Assert.AreEqual (50, results.Results[0].PayCombo.PayAmount);  // 3 x BB
@@ -68,7 +75,7 @@ public class EvaluationTests
 		// EE EE EE
 
 		rng = new DummyRng (new List<int> { 2, 2, 2 });
-		SlotResults results = paytableEvaluator.Evaluate (paytableGenerator.Generate (), rng);
+		SlotResults results = paytableEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (1, results.Results.Count);
 
 		Assert.AreEqual (20, results.Results[0].PayCombo.PayAmount);  // 3 x CC
@@ -83,7 +90,7 @@ public class EvaluationTests
 		// BB BB BB
 
 		rng = new DummyRng (new List<int> { 6, 6, 6 });
-		SlotResults results = paytableEvaluator.Evaluate (paytableGenerator.Generate (), rng);
+		SlotResults results = paytableEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (2, results.Results.Count);
 
 		Assert.AreEqual (100, results.Results[0].PayCombo.PayAmount);  // 3 x AA
@@ -99,7 +106,7 @@ public class EvaluationTests
 		// AA AA AA
 
 		rng = new DummyRng (new List<int> { 5, 5, 5 });
-		SlotResults results = paytableEvaluator.Evaluate (paytableGenerator.Generate (), rng);
+		SlotResults results = paytableEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (1, results.Results.Count);
 
 		Assert.AreEqual (100, results.Results[0].PayCombo.PayAmount);  // 3 x AA

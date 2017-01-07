@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GDK.MathEngine
 {
 	/// <summary>
 	/// Represents a simple paytable for a slot game.
 	/// </summary>
+	[Serializable]
 	public class Paytable
 	{
 		/// <summary>

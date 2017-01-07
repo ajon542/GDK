@@ -7,6 +7,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a simple left to right pay combination.
 	/// </summary>
+	[Serializable]
 	public class PayCombo
 	{
 		/// <summary>
@@ -74,6 +75,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a set, or group of pay combinations.
 	/// </summary>
+	[Serializable]
 	public class PayComboGroup
 	{
 		/// <summary>

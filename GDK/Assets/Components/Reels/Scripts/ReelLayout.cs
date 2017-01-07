@@ -13,7 +13,7 @@ namespace Reels
 		private int visibleSymbols;
 
 		private List<GameObject> symbolObjects = new List<GameObject> ();
-		private AnimationCurve layoutCurve;
+		private AnimationCurve layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
 		private float topSymbolPosition;
 		private float symbolEnterPosition;
 
@@ -30,8 +30,6 @@ namespace Reels
 		void OnDrawGizmos ()
 		{
 			Gizmos.color = Color.green;
-
-			layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
 
 			// Get the position of the top symbol. This will never change.
 			// All other symbol positions will be calculation from this value.
@@ -63,8 +61,6 @@ namespace Reels
 				symbol.SetActive (false);
 				symbolPool.Enqueue (symbol);
 			}
-
-			layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
 
 			// Get the position of the top symbol. This will never change.
 			// All other symbol positions will be calculation from this value.
@@ -106,10 +102,9 @@ namespace Reels
 			// TODO: Deal with moving backwards / forwards (possibly based on user interaction).
 			topSymbolPosition += speed;
 
-			// TODO: Need to implement a pool of objects / symbols.
 			// TODO: Probably want to use a linked list to be able to remove from head and tail efficiently.
 			// TODO: Reduce the curve Evaluate method calls
-			if (layoutCurve.Evaluate (symbolPosition - symbolEnterPosition) <= -5.0f)
+			if (layoutCurve.Evaluate (symbolPosition - symbolEnterPosition) <= -10.0f)
 			{
 				// Add a new symbol to the start of the list.
 				topSymbolPosition -= symbolEnterPosition;

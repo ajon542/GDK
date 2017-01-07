@@ -8,6 +8,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Container for properties of a reel.
 	/// </summary>
+	[Serializable]
 	public class ReelProperties
 	{
 		/// <summary>
@@ -41,6 +42,7 @@ namespace GDK.MathEngine
 	///     4              [ ]
 	/// 
 	/// </remarks>
+	[Serializable]
 	public class ReelGroup
 	{
 		/// <summary>

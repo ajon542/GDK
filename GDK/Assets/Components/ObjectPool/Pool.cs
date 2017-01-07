@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 namespace ObjectPool
 {
+	// An object pool is an essential part of the game. We should really make
+	// an editor window for runtime object analysis. We should be able to look at this
+	// window and see all objects (not)present in the pool and possibly who obtained them.
+	// Being able to see who obtained them might be useful especially if a user can obtain
+	// objects from a pool they did not create.
+	// With the runtime analysis, it may turn out some pools are under/over-utilized
+	// and we can tune each accordingly.
+
 	/// <summary>
 	/// Quick and dirty implementation of a game object pool.
 	/// Would be nice to have the pool displayed in an editor window at runtime.

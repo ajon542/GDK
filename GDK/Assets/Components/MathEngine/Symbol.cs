@@ -5,6 +5,7 @@ namespace GDK.MathEngine
 	/// <summary>
 	/// Represents a symbol.
 	/// </summary>
+	[Serializable]
 	public class Symbol
 	{
 		/// <summary>

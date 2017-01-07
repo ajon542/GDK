@@ -1,0 +1,294 @@
+{
+  "ReelGroup": {
+    "Reels": [
+      {
+        "ReelStrip": {
+          "Strip": [
+            {
+              "Symbol": {
+                "Id": 0,
+                "Name": "AA"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 1,
+                "Name": "BB"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 2,
+                "Name": "CC"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 3,
+                "Name": "DD"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 4,
+                "Name": "EE"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 5,
+                "Name": "FF"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 6,
+                "Name": "GG"
+              },
+              "Weight": 1
+            }
+          ]
+        },
+        "Height": 3
+      },
+      {
+        "ReelStrip": {
+          "Strip": [
+            {
+              "Symbol": {
+                "Id": 0,
+                "Name": "AA"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 1,
+                "Name": "BB"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 2,
+                "Name": "CC"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 3,
+                "Name": "DD"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 4,
+                "Name": "EE"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 5,
+                "Name": "FF"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 6,
+                "Name": "GG"
+              },
+              "Weight": 1
+            }
+          ]
+        },
+        "Height": 3
+      },
+      {
+        "ReelStrip": {
+          "Strip": [
+            {
+              "Symbol": {
+                "Id": 0,
+                "Name": "AA"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 1,
+                "Name": "BB"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 2,
+                "Name": "CC"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 3,
+                "Name": "DD"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 4,
+                "Name": "EE"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 5,
+                "Name": "FF"
+              },
+              "Weight": 1
+            },
+            {
+              "Symbol": {
+                "Id": 6,
+                "Name": "GG"
+              },
+              "Weight": 1
+            }
+          ]
+        },
+        "Height": 3
+      }
+    ]
+  },
+  "PaylineGroup": {
+    "Paylines": [
+      {
+        "PaylineCoords": [
+          {
+            "ReelIndex": 0,
+            "Offset": 0
+          },
+          {
+            "ReelIndex": 1,
+            "Offset": 0
+          },
+          {
+            "ReelIndex": 2,
+            "Offset": 0
+          }
+        ]
+      },
+      {
+        "PaylineCoords": [
+          {
+            "ReelIndex": 0,
+            "Offset": 1
+          },
+          {
+            "ReelIndex": 1,
+            "Offset": 1
+          },
+          {
+            "ReelIndex": 2,
+            "Offset": 1
+          }
+        ]
+      },
+      {
+        "PaylineCoords": [
+          {
+            "ReelIndex": 0,
+            "Offset": 2
+          },
+          {
+            "ReelIndex": 1,
+            "Offset": 2
+          },
+          {
+            "ReelIndex": 2,
+            "Offset": 2
+          }
+        ]
+      }
+    ]
+  },
+  "PayComboGroup": {
+    "Combos": [
+      {
+        "Symbols": [
+          {
+            "Id": 0,
+            "Name": "AA"
+          },
+          {
+            "Id": 0,
+            "Name": "AA"
+          }
+        ],
+        "PayAmount": 10
+      },
+      {
+        "Symbols": [
+          {
+            "Id": 0,
+            "Name": "AA"
+          },
+          {
+            "Id": 0,
+            "Name": "AA"
+          },
+          {
+            "Id": 0,
+            "Name": "AA"
+          }
+        ],
+        "PayAmount": 100
+      },
+      {
+        "Symbols": [
+          {
+            "Id": 1,
+            "Name": "BB"
+          },
+          {
+            "Id": 1,
+            "Name": "BB"
+          },
+          {
+            "Id": 1,
+            "Name": "BB"
+          }
+        ],
+        "PayAmount": 50
+      },
+      {
+        "Symbols": [
+          {
+            "Id": 2,
+            "Name": "CC"
+          },
+          {
+            "Id": 2,
+            "Name": "CC"
+          },
+          {
+            "Id": 2,
+            "Name": "CC"
+          }
+        ],
+        "PayAmount": 20
+      }
+    ]
+  }
+}
