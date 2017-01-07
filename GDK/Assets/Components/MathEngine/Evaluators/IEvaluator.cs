@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace GDK.MathEngine.Evaluator
+namespace GDK.MathEngine.Evaluators
 {
 	/// <summary>
 	/// Interface for evaluating a paytable.

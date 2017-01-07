@@ -9,19 +9,9 @@ namespace GDK.MathEngine
 	/// </summary>
 	public class SlotResult
 	{
+		// TODO: A SlotResult is going to be more than just a PayCombo and Payline.
 		public SlotResult (PayCombo payCombo, Payline payline)
 		{
-			// TODO: Probably should make a GDKException class.
-			if (payCombo == null)
-			{
-				throw new ArgumentNullException ("payCombo");
-			}
-
-			if (payline == null)
-			{
-				throw new ArgumentNullException ("payline");
-			}
-
 			PayCombo = payCombo;
 			Payline = payline;
 		}
