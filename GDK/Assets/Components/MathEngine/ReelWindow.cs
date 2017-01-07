@@ -54,5 +54,42 @@ namespace GDK.MathEngine
 
 			return symbolsInPayline;
 		}
+
+		public static List<List<Symbol>> GetReelWindow()
+		{
+			throw new NotImplementedException ();
+		}
+
+		public static bool ContainsAllSymbols(ReelGroup reelGroup, List<Symbol> symbol, List<int> randomNumbers)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public static int GetSymbolCount(ReelGroup reelGroup, Symbol symbol, List<int> randomNumbers)
+		{
+			int symbolCount = 0;
+
+			for (int reelIndex = 0; reelIndex < reelGroup.Reels.Count; ++reelIndex)
+			{
+				// Get the height of the individual reel window.
+				int reelHeight = reelGroup.Reels [reelIndex].Height;
+
+				// Count the given symbols in that reel window.
+				ReelStrip reelStrip = reelGroup.Reels [reelIndex].ReelStrip;
+
+				int randomNumber = randomNumbers [reelIndex];
+				for (int offset = 0; offset < reelHeight; ++offset)
+				{
+					int stripIndex = (randomNumber + offset) % reelStrip.Strip.Count;
+
+					if (reelStrip.Strip [stripIndex].Symbol == symbol)
+					{
+						++symbolCount;
+					}
+				}
+			}
+
+			return symbolCount;
+		}
 	}
 }

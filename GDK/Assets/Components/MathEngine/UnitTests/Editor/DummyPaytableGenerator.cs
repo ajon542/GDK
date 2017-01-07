@@ -13,6 +13,7 @@ namespace GDK.MathEngine
 			paytable.ReelGroup = GenerateReelGroup ();
 			paytable.PaylineGroup = GeneratePaylineGroup ();
 			paytable.PayComboGroup = GeneratePayComboGroup ();
+			paytable.ScatterComboGroup = GenerateScatterComboGroup ();
 
 			return paytable;
 		}
@@ -29,6 +30,7 @@ namespace GDK.MathEngine
 			reel1.AddSymbol (new Symbol (4, "EE"));
 			reel1.AddSymbol (new Symbol (5, "FF"));
 			reel1.AddSymbol (new Symbol (6, "GG"));
+			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			ReelStrip reel2 = new ReelStrip ();
 			reel2.AddSymbol (new Symbol (0, "AA"));
@@ -38,6 +40,7 @@ namespace GDK.MathEngine
 			reel2.AddSymbol (new Symbol (4, "EE"));
 			reel2.AddSymbol (new Symbol (5, "FF"));
 			reel2.AddSymbol (new Symbol (6, "GG"));
+			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			ReelStrip reel3 = new ReelStrip ();
 			reel3.AddSymbol (new Symbol (0, "AA"));
@@ -47,6 +50,7 @@ namespace GDK.MathEngine
 			reel3.AddSymbol (new Symbol (4, "EE"));
 			reel3.AddSymbol (new Symbol (5, "FF"));
 			reel3.AddSymbol (new Symbol (6, "GG"));
+			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			reels.AddReel (reel1);
 			reels.AddReel (reel2);
@@ -85,26 +89,23 @@ namespace GDK.MathEngine
 		{
 			PayComboGroup payCombos = new PayComboGroup ();
 
-			List<Symbol> payAA = new List<Symbol> {
-				new Symbol (0, "AA"), new Symbol (0, "AA")
-			};
+			// TODO: This is where we might want to add the triggers.
+			payCombos.AddPayCombo (new PayCombo (new Symbol (0, "AA"), 2, 10));
+			payCombos.AddPayCombo (new PayCombo (new Symbol (0, "AA"), 3, 100));
+			payCombos.AddPayCombo (new PayCombo (new Symbol (1, "BB"), 3, 50));
+			payCombos.AddPayCombo (new PayCombo (new Symbol (2, "CC"), 3, 20));
 
-			List<Symbol> payAAA = new List<Symbol> {
-				new Symbol (0, "AA"), new Symbol (0, "AA"), new Symbol (0, "AA")
-			};
+			return payCombos;
+		}
 
-			List<Symbol> payBBB = new List<Symbol> {
-				new Symbol (1, "BB"), new Symbol (1, "BB"), new Symbol (1, "BB")
-			};
+		private PayComboGroup GenerateScatterComboGroup ()
+		{
+			PayComboGroup payCombos = new PayComboGroup ();
 
-			List<Symbol> payCCC = new List<Symbol> {
-				new Symbol (2, "CC"), new Symbol (2, "CC"), new Symbol (2, "CC")
-			};
-
-			payCombos.AddPayCombo (new PayCombo (payAA, 10));
-			payCombos.AddPayCombo (new PayCombo (payAAA, 100));
-			payCombos.AddPayCombo (new PayCombo (payBBB, 50));
-			payCombos.AddPayCombo (new PayCombo (payCCC, 20));
+			// TODO: This is where we might want to add the triggers.
+			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 3, 100));
+			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 4, 500));
+			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 5, 1000));
 
 			return payCombos;
 		}

@@ -5,7 +5,7 @@ using System.Text;
 namespace GDK.MathEngine
 {
 	/// <summary>
-	/// Represents a simple left to right pay combination.
+	/// Represents a pay combination.
 	/// </summary>
 	[Serializable]
 	public class PayCombo
@@ -37,6 +37,16 @@ namespace GDK.MathEngine
 		public PayCombo (List<Symbol> symbols, int payAmount)
 		{
 			Symbols = symbols;
+			PayAmount = payAmount;
+		}
+
+		public PayCombo (Symbol symbol, int count, int payAmount)
+		{
+			Symbols = new List<Symbol> ();
+			for (int i = 0; i < count; ++i)
+			{
+				Symbols.Add (symbol);
+			}
 			PayAmount = payAmount;
 		}
 

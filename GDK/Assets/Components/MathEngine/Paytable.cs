@@ -9,19 +9,9 @@ namespace GDK.MathEngine
 	[Serializable]
 	public class Paytable
 	{
-		/// <summary>
-		/// The reel group.
-		/// </summary>
 		public ReelGroup ReelGroup { get; set; }
-
-		/// <summary>
-		/// The paylines.
-		/// </summary>
 		public PaylineGroup PaylineGroup { get; set; }
-
-		/// <summary>
-		/// The pay combinations.
-		/// </summary>
 		public PayComboGroup PayComboGroup { get; set; }
+		public PayComboGroup ScatterComboGroup { get; set; }
 	}
 }

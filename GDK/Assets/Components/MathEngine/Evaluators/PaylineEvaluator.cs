@@ -11,7 +11,6 @@ namespace GDK.MathEngine.Evaluators
 		public SlotResults Evaluate (Paytable paytable, IRng rng)
 		{
 			SlotResults results = new SlotResults ();
-			List<Symbol> symbolsInPayline = new List<Symbol> ();
 
 			// Get random numbers for each reel.
 			List<int> randomNumbers = new List<int> ();
@@ -25,7 +24,8 @@ namespace GDK.MathEngine.Evaluators
 			foreach (Payline payline in paylines)
 			{
 				// Obtain the reel window based on the random numbers.
-				symbolsInPayline = ReelWindow.GetSymbolsInPayline (paytable.ReelGroup, randomNumbers, payline);
+				List<Symbol> symbolsInPayline = 
+					ReelWindow.GetSymbolsInPayline (paytable.ReelGroup, randomNumbers, payline);
 
 				// Look for the highest pay amount on a given payline.
 				int bestPayAmount = 0;
