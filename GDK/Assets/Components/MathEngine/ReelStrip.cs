@@ -6,45 +6,6 @@ using System.Text;
 namespace GDK.MathEngine
 {
 	/// <summary>
-	/// Represents a symbol on the reel strip.
-	/// </summary>
-	/// <remarks>
-	/// A symbol on a reel strip can have additional properties such
-	/// as weight.
-	/// </remarks>
-	[Serializable]
-	public class ReelSymbol
-	{
-		/// <summary>
-		/// Gets the symbol.
-		/// </summary>
-		public Symbol Symbol { get; set; }
-
-		/// <summary>
-		/// Gets the weight of the symbol.
-		/// </summary>
-		public int Weight { get; set; }
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ReelSymbol"/> class.
-		/// </summary>
-		public ReelSymbol ()
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ReelSymbol"/> class.
-		/// </summary>
-		/// <param name="symbol">The symbol.</param>
-		/// <param name="weight">The weight of the symbol.</param>
-		public ReelSymbol (Symbol symbol, int weight = 1)
-		{
-			Symbol = symbol;
-			Weight = weight;
-		}
-	}
-
-	/// <summary>
 	/// Represents a reel strip.
 	/// </summary>
 	[Serializable]
@@ -53,33 +14,32 @@ namespace GDK.MathEngine
 		/// <summary>
 		/// Gets the reel strip.
 		/// </summary>
-		public List<ReelSymbol> Strip { get; set; }
+		public List<Symbol> Strip { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Reel"/> class.
 		/// </summary>
 		public ReelStrip ()
 		{
-			Strip = new List<ReelSymbol> ();
+			Strip = new List<Symbol> ();
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Reel"/> class.
 		/// </summary>
 		/// <param name="strip">A strip of <see cref="ReelSymbol"/> objects.</param>
-		public ReelStrip (List<ReelSymbol> strip)
+		public ReelStrip (List<Symbol> strip)
 		{
-			Strip = new List<ReelSymbol> (strip);
+			Strip = new List<Symbol> (strip);
 		}
 
 		/// <summary>
 		/// Add a symbol to the reel strip.
 		/// </summary>
 		/// <param name="symbol">The symbol.</param>
-		/// <param name="weight">The weight of the symbol.</param>
-		public void AddSymbol (Symbol symbol, int weight = 1)
+		public void AddSymbol (Symbol symbol)
 		{
-			Strip.Add (new ReelSymbol (symbol, weight));
+			Strip.Add (symbol);
 		}
 	}
 }

@@ -30,7 +30,6 @@ namespace GDK.MathEngine
 			reel1.AddSymbol (new Symbol (4, "EE"));
 			reel1.AddSymbol (new Symbol (5, "FF"));
 			reel1.AddSymbol (new Symbol (6, "GG"));
-			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			ReelStrip reel2 = new ReelStrip ();
 			reel2.AddSymbol (new Symbol (0, "AA"));
@@ -40,7 +39,6 @@ namespace GDK.MathEngine
 			reel2.AddSymbol (new Symbol (4, "EE"));
 			reel2.AddSymbol (new Symbol (5, "FF"));
 			reel2.AddSymbol (new Symbol (6, "GG"));
-			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			ReelStrip reel3 = new ReelStrip ();
 			reel3.AddSymbol (new Symbol (0, "AA"));
@@ -50,7 +48,6 @@ namespace GDK.MathEngine
 			reel3.AddSymbol (new Symbol (4, "EE"));
 			reel3.AddSymbol (new Symbol (5, "FF"));
 			reel3.AddSymbol (new Symbol (6, "GG"));
-			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			reels.AddReel (reel1);
 			reels.AddReel (reel2);

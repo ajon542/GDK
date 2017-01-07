@@ -49,15 +49,34 @@ namespace GDK.MathEngine
 				int stripIndex = (randomNumber + paylineCoord.Offset) % reelStrip.Strip.Count;
 
 				// Add that symbol to the payline.
-				symbolsInPayline.Add (reelStrip.Strip [stripIndex].Symbol);
+				symbolsInPayline.Add (reelStrip.Strip [stripIndex]);
 			}
 
 			return symbolsInPayline;
 		}
-
-		public static List<List<Symbol>> GetReelWindow()
+			
+		public static List<List<Symbol>> GetReelWindow(ReelGroup reelGroup, List<int> randomNumbers)
 		{
-			throw new NotImplementedException ();
+			List<List<Symbol>> reelWindow = new List<List<Symbol>> ();
+
+			for (int reelIndex = 0; reelIndex < reelGroup.Reels.Count; ++reelIndex)
+			{
+				reelWindow.Add (new List<Symbol> ());
+
+				int reelHeight = reelGroup.Reels [reelIndex].Height;
+				ReelStrip reelStrip = reelGroup.Reels [reelIndex].ReelStrip;
+
+				int randomNumber = randomNumbers [reelIndex];
+				for (int offset = 0; offset < reelHeight; ++offset)
+				{
+					int stripIndex = (randomNumber + offset) % reelStrip.Strip.Count;
+
+					Symbol symbol = new Symbol(reelStrip.Strip [stripIndex]);
+					reelWindow [reelIndex].Add (new Symbol (symbol));
+				}
+			}
+
+			return reelWindow;
 		}
 
 		public static bool ContainsAllSymbols(ReelGroup reelGroup, List<Symbol> symbol, List<int> randomNumbers)
@@ -82,7 +101,7 @@ namespace GDK.MathEngine
 				{
 					int stripIndex = (randomNumber + offset) % reelStrip.Strip.Count;
 
-					if (reelStrip.Strip [stripIndex].Symbol == symbol)
+					if (reelStrip.Strip [stripIndex] == symbol)
 					{
 						++symbolCount;
 					}
