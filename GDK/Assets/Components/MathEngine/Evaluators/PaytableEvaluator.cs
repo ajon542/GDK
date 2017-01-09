@@ -28,7 +28,13 @@ namespace GDK.MathEngine.Evaluators
 			paylineResults = paylineEvaluator.Evaluate (paytable, rng);
 			scatterResults = scatterEvaluator.Evaluate (paytable, rng);
 
-			return results;
+			// TODO: Get all triggers from the results
+			// TODO: Evaluate those triggers in turn.
+
+			// Try to keep the SlotResults separate, possibly in a list as this will assist with
+			// the presentation being able to pull apart the results later.
+
+			return paylineResults;
 		}
 	}
 }
