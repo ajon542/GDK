@@ -21,6 +21,11 @@ namespace GDK.MathEngine
 		public int PayAmount { get; set; }
 
 		/// <summary>
+		/// Paytable item to trigger. TODO: Might even be a list.
+		/// </summary>
+		public string Trigger { get; set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="PayCombo"/> class.
 		/// </summary>
 		public PayCombo ()
@@ -34,13 +39,14 @@ namespace GDK.MathEngine
 		/// </summary>
 		/// <param name="symbols">The symbols in the pay combination.</param>
 		/// <param name="payAmount">The pay amount.</param>
-		public PayCombo (List<Symbol> symbols, int payAmount)
+		public PayCombo (List<Symbol> symbols, int payAmount, string trigger = "")
 		{
 			Symbols = symbols;
 			PayAmount = payAmount;
+			Trigger = trigger;
 		}
 
-		public PayCombo (Symbol symbol, int count, int payAmount)
+		public PayCombo (Symbol symbol, int count, int payAmount, string trigger = "")
 		{
 			Symbols = new List<Symbol> ();
 			for (int i = 0; i < count; ++i)
@@ -48,6 +54,7 @@ namespace GDK.MathEngine
 				Symbols.Add (symbol);
 			}
 			PayAmount = payAmount;
+			Trigger = trigger;
 		}
 
 		/// <summary>

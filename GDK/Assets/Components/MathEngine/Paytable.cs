@@ -13,5 +13,7 @@ namespace GDK.MathEngine
 		public PaylineGroup PaylineGroup { get; set; }
 		public PayComboGroup PayComboGroup { get; set; }
 		public PayComboGroup ScatterComboGroup { get; set; }
+		public PaytableTriggerGroup PaytableTriggerGroup { get; set; }
+		public PickTableGroup PickTableGroup { get; set; }
 	}
 }

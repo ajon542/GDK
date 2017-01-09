@@ -14,6 +14,8 @@ namespace GDK.MathEngine
 			paytable.PaylineGroup = GeneratePaylineGroup ();
 			paytable.PayComboGroup = GeneratePayComboGroup ();
 			paytable.ScatterComboGroup = GenerateScatterComboGroup ();
+			paytable.PaytableTriggerGroup = GeneratePaytableTriggerGroup ();
+			paytable.PickTableGroup = GeneratePickTable ();
 
 			return paytable;
 		}
@@ -30,6 +32,7 @@ namespace GDK.MathEngine
 			reel1.AddSymbol (new Symbol (4, "EE"));
 			reel1.AddSymbol (new Symbol (5, "FF"));
 			reel1.AddSymbol (new Symbol (6, "GG"));
+			reel1.AddSymbol (new Symbol (7, "SC"));
 
 			ReelStrip reel2 = new ReelStrip ();
 			reel2.AddSymbol (new Symbol (0, "AA"));
@@ -39,6 +42,7 @@ namespace GDK.MathEngine
 			reel2.AddSymbol (new Symbol (4, "EE"));
 			reel2.AddSymbol (new Symbol (5, "FF"));
 			reel2.AddSymbol (new Symbol (6, "GG"));
+			reel2.AddSymbol (new Symbol (7, "SC"));
 
 			ReelStrip reel3 = new ReelStrip ();
 			reel3.AddSymbol (new Symbol (0, "AA"));
@@ -48,6 +52,7 @@ namespace GDK.MathEngine
 			reel3.AddSymbol (new Symbol (4, "EE"));
 			reel3.AddSymbol (new Symbol (5, "FF"));
 			reel3.AddSymbol (new Symbol (6, "GG"));
+			reel3.AddSymbol (new Symbol (7, "SC"));
 
 			reels.AddReel (reel1);
 			reels.AddReel (reel2);
@@ -100,11 +105,36 @@ namespace GDK.MathEngine
 			PayComboGroup payCombos = new PayComboGroup ();
 
 			// TODO: This is where we might want to add the triggers.
-			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 3, 100));
-			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 4, 500));
-			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 5, 1000));
+			payCombos.AddPayCombo (new PayCombo (new Symbol (7, "SC"), 3, 100, "Pick Feature"));
 
 			return payCombos;
+		}
+			
+		private PaytableTriggerGroup GeneratePaytableTriggerGroup()
+		{
+			PaytableTriggerGroup triggerGroup = new PaytableTriggerGroup ();
+			triggerGroup.PaytableTriggerList.Add(new PaytableTrigger { Name = "Free Spins", Evaluator = "ReelSetEvaluator" });
+			triggerGroup.PaytableTriggerList.Add(new PaytableTrigger { Name = "Pick Feature", Evaluator = "PickEvaluator" });
+			return triggerGroup;
+		}
+
+		private PickTableGroup GeneratePickTable ()
+		{
+			PickTableGroup pickTableGroup = new PickTableGroup ();
+			PickTable pickTable = new PickTable ("Pick Feature");
+
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_10", Value = 10 });
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_10", Value = 10 });
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_10", Value = 10 });
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_10", Value = 10 });
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_20", Value = 20 });
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_20", Value = 20 });
+			pickTable.PickItemList.Add (new PickItem { Name = "Prize_30", Value = 30 });
+			pickTable.PickItemList.Add (new PickItem { Name = "PickComplete", Trigger = new PaytableTrigger { Name = "Free Spins" } });
+
+			pickTableGroup.PickTable.Add (pickTable.Name, pickTable);
+
+			return pickTableGroup;
 		}
 	}
 }

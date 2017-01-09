@@ -20,10 +20,13 @@ namespace GDK.MathEngine.Evaluators
 
 		public SlotResults Evaluate (Paytable paytable, IRng rng)
 		{
-			SlotResults results = new SlotResults ();
-
 			PaylineEvaluator paylineEvaluator = new PaylineEvaluator ();
-			results = paylineEvaluator.Evaluate (paytable, rng);
+			ScatterEvaluator scatterEvaluator = new ScatterEvaluator ();
+
+			SlotResults paylineResults;
+			SlotResults scatterResults;
+			paylineResults = paylineEvaluator.Evaluate (paytable, rng);
+			scatterResults = scatterEvaluator.Evaluate (paytable, rng);
 
 			return results;
 		}
