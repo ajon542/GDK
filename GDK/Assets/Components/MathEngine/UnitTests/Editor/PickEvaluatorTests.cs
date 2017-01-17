@@ -7,26 +7,9 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-public class PickEvaluatorTests
+public class PickPaytableBuilder : PaytableBuilder
 {
-	private IRng rng;
-	private IEvaluator pickEvaluator;
-	private Paytable paytable;
-
-	[TestFixtureSetUp]
-	public void Init ()
-	{
-		pickEvaluator = new PickEvaluator ("Pick Feature");
-		paytable = new Paytable ();
-		paytable.PickTableGroup = GeneratePickTableGroup ();
-	}
-
-	[Test]
-	public void EditorTest ()
-	{
-	}
-
-	private PickTableGroup GeneratePickTableGroup ()
+	public override PickTableGroup BuildPickTableGroup ()
 	{
 		PickTableGroup pickTableGroup = new PickTableGroup ();
 		PickTable pickTable = new PickTable ("Pick Feature");
@@ -41,7 +24,27 @@ public class PickEvaluatorTests
 		pickTable.PickItemList.Add (new PickItem { Name = "PickComplete", Trigger = new PaytableTrigger { Name = "Free Spins" } });
 
 		pickTableGroup.PickTable.Add (pickTable.Name, pickTable);
-
 		return pickTableGroup;
+	}
+}
+
+public class PickEvaluatorTests
+{
+	private IRng rng;
+	private IEvaluator pickEvaluator;
+	private Paytable paytable;
+
+	[TestFixtureSetUp]
+	public void Init ()
+	{
+		PaytableBuilder builder = new PickPaytableBuilder ();
+		pickEvaluator = new PickEvaluator ("Pick Feature");
+		paytable = new Paytable ();
+		paytable.PickTableGroup = builder.BuildPickTableGroup ();
+	}
+
+	[Test]
+	public void EditorTest ()
+	{
 	}
 }

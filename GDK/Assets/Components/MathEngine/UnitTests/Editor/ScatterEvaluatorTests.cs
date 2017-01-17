@@ -19,27 +19,13 @@ public class ScatterEvaluatorTests
 		paytable = new Paytable ();
 		scatterEvaluator = new ScatterEvaluator ();
 
-		paytable.ReelGroup = new ReelGroup ();
-		paytable.ScatterComboGroup = new PayComboGroup ();
-
-		ReelStrip reel1 = new ReelStrip ();
-		reel1.AddSymbol (new Symbol (0, "AA"));
-		reel1.AddSymbol (new Symbol (1, "BB"));
-		reel1.AddSymbol (new Symbol (2, "CC"));
-
-		ReelStrip reel2 = new ReelStrip ();
-		reel2.AddSymbol (new Symbol (0, "AA"));
-		reel2.AddSymbol (new Symbol (1, "BB"));
-		reel2.AddSymbol (new Symbol (2, "CC"));
-
-		ReelStrip reel3 = new ReelStrip ();
-		reel3.AddSymbol (new Symbol (0, "AA"));
-		reel3.AddSymbol (new Symbol (1, "BB"));
-		reel3.AddSymbol (new Symbol (2, "CC"));
-
-		paytable.ReelGroup.AddReel (reel1);
-		paytable.ReelGroup.AddReel (reel2);
-		paytable.ReelGroup.AddReel (reel3);
+		PaytableBuilder builder = new ScatterPaytableBuilder ();
+		paytable.ReelGroup = builder.BuildReelGroup ();
+		paytable.PaylineGroup = builder.BuildPaylineGroup ();
+		paytable.PayComboGroup = builder.BuildPayComboGroup ();
+		paytable.ScatterComboGroup = builder.BuildScatterComboGroup ();
+		paytable.PickTableGroup = builder.BuildPickTableGroup ();
+		paytable.PaytableTriggerGroup = builder.BuildPaytableTriggerGroup ();
 	}
 
 	[Test]
