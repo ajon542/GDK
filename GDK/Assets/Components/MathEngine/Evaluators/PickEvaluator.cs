@@ -25,21 +25,29 @@ namespace GDK.MathEngine.Evaluators
 			// Make a copy of the list since we will be removing elements from it.
 			List<PickItem> pickItems = new List<PickItem> (pickTable.PickItemList);
 
-			int totalValue = 0;
 			PickItem item;
+			SlotResults results = new SlotResults ();
 
 			do
 			{
 				// Continue picking items until a trigger is found.
 				int randomNumber = rng.GetRandomNumber (pickItems.Count);
 				item = pickItems [randomNumber];
-				totalValue = item.Value;
+				pickItems.RemoveAt(randomNumber);
+
+				SlotResult slotResult = new SlotResult { 
+					PickResult = new PickResult { 
+						Name = item.Name, 
+						Value = item.Value, 
+						Trigger = item.Trigger.Name 
+					}
+				};
+
+				results.Results.Add (slotResult);
+
 			} while (string.IsNullOrEmpty (item.Trigger.Name));
 				
-			// TODO: Need a way to add a trigger
-			// TODO: Need a way to add a prize which isn't a paycombo/payline
-			SlotResults slotResults = new SlotResults ();
-			return slotResults;
+			return results;
 		}
 	}
 }

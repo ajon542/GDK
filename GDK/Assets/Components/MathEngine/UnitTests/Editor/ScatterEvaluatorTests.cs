@@ -82,7 +82,7 @@ public class ScatterEvaluatorTests
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (0, results.Results.Count);
 	}
-
+		
 	[Test]
 	public void Evaluation_SlotResult5 ()
 	{
@@ -118,23 +118,12 @@ public class ScatterEvaluatorTests
 	[Test]
 	public void Evaluation_SlotResult7 ()
 	{
-		List<Symbol> combo = new List<Symbol> () {
-			new Symbol (0, "AA"),
-			new Symbol (1, "BB"),
-			new Symbol (2, "CC")
-		};
-
 		paytable.ScatterComboGroup.Combos.Clear ();
-		paytable.ScatterComboGroup.AddPayCombo (new PayCombo(combo, 150));
+		paytable.ScatterComboGroup.AddPayCombo (new PayCombo(new Symbol(0, "AA"), 3, 100, "Free Spins"));
 
-		// TODO: The requirements for this haven't been set.
-		// We may have to separate the idea of a single scatter symbol and a multiple scatter symbol works.
-		// It might make evaluation easier if we can apply different techniques depending on the situation.
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (3, results.Results.Count);
-		//Assert.AreEqual (150, results.Results [0].TotalValue);
-		//Assert.AreEqual (150, results.Results [1].TotalValue);
-		//Assert.AreEqual (150, results.Results [2].TotalValue);
+		Assert.AreEqual (1, results.Results.Count);
+		Assert.AreEqual ("Free Spins", results.Results [0].PayCombo.Trigger);
 	}
 }

@@ -3,40 +3,38 @@ using System.Collections.Generic;
 
 namespace GDK.MathEngine
 {
-	public class Result
-	{
-	}
-
 	/// <summary>
 	/// Container for <see cref="PayCombo"/> and <see cref="Payline"/> which
 	/// represents a single result for a slot style game.
 	/// </summary>
-	public class SlotResult : Result
+	public class SlotResult
 	{
-		public SlotResult (PayCombo payCombo, Payline payline)
+		public PayCombo PayCombo { get; set; }
+		public Payline Payline { get; set; }
+		public PickResult PickResult { get; set; }
+
+		public SlotResult()
 		{
-			PayCombo = payCombo;
-			Payline = payline;
+			PayCombo = new PayCombo ();
+			Payline = new Payline ();
+			PickResult = new PickResult ();
 		}
-
-		public PayCombo PayCombo { get; private set; }
-
-		public Payline Payline { get; private set; }
 	}
 
-	public class PickResult : Result
+	public class PickResult
 	{
+		public string Name { get; set; }
 		public int Value { get; set; }
-		public PaytableTrigger Trigger { get; set; }
+		public string Trigger { get; set; }
 	}
 
 	public class SlotResults
 	{
 		public SlotResults ()
 		{
-			Results = new List<Result> ();
+			Results = new List<SlotResult> ();
 		}
 
-		public List<Result> Results { get; set; }
+		public List<SlotResult> Results { get; set; }
 	}
 }

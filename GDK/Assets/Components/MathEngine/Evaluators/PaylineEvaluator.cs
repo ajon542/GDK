@@ -49,7 +49,7 @@ namespace GDK.MathEngine.Evaluators
 					
 				if (bestPayCombo != null)
 				{
-					results.Results.Add (new SlotResult (bestPayCombo, payline));
+					results.Results.Add (new SlotResult { PayCombo = bestPayCombo, Payline = payline });
 				}
 			}
 

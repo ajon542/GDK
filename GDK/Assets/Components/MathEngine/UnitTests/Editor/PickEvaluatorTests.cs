@@ -44,7 +44,41 @@ public class PickEvaluatorTests
 	}
 
 	[Test]
-	public void EditorTest ()
+	public void Evaluation_SlotResult1 ()
 	{
+		rng = new DummyRng (new List<int> { 7 });
+		SlotResults results = pickEvaluator.Evaluate (paytable, rng);
+
+		Assert.AreEqual (1, results.Results.Count);
+		Assert.AreEqual ("Free Spins", results.Results[0].PickResult.Trigger);
+	}
+
+	[Test]
+	public void Evaluation_SlotResult2 ()
+	{
+		rng = new DummyRng (new List<int> { 6, 6 });
+		SlotResults results = pickEvaluator.Evaluate (paytable, rng);
+
+		Assert.AreEqual (2, results.Results.Count);
+		Assert.AreEqual ("Prize_30", results.Results[0].PickResult.Name);
+		Assert.AreEqual (30, results.Results[0].PickResult.Value);
+		Assert.AreEqual ("Free Spins", results.Results[1].PickResult.Trigger);
+	}
+
+	[Test]
+	public void Evaluation_SlotResult3 ()
+	{
+		rng = new DummyRng (new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 });
+		SlotResults results = pickEvaluator.Evaluate (paytable, rng);
+
+		Assert.AreEqual (8, results.Results.Count);
+		Assert.AreEqual ("Prize_10", results.Results[0].PickResult.Name);
+		Assert.AreEqual ("Prize_10", results.Results[1].PickResult.Name);
+		Assert.AreEqual ("Prize_10", results.Results[2].PickResult.Name);
+		Assert.AreEqual ("Prize_10", results.Results[3].PickResult.Name);
+		Assert.AreEqual ("Prize_20", results.Results[4].PickResult.Name);
+		Assert.AreEqual ("Prize_20", results.Results[5].PickResult.Name);
+		Assert.AreEqual ("Prize_30", results.Results[6].PickResult.Name);
+		Assert.AreEqual ("PickComplete", results.Results[7].PickResult.Name);
 	}
 }

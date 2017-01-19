@@ -48,7 +48,7 @@ namespace GDK.MathEngine.Evaluators
 				// TODO: Add the payline the win occurred on.
 				if (bestPayCombo != null)
 				{
-					results.Results.Add (new SlotResult (payCombo, null));
+					results.Results.Add (new SlotResult { PayCombo = bestPayCombo, Payline = null });
 				}
 			}
 

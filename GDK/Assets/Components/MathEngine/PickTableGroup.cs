@@ -10,6 +10,11 @@ namespace GDK.MathEngine
 
 		public int Value { get; set; }
 
+		public PickItem()
+		{
+			Trigger = new PaytableTrigger ();
+		}
+
 		public PaytableTrigger Trigger { get; set; }
 	}
 
