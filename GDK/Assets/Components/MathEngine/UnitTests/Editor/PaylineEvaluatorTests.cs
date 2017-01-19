@@ -49,9 +49,9 @@ public class PaylineEvaluatorTests
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (3, results.Results.Count);
 
-		Assert.AreEqual (100, (results.Results [0] as SlotResult).PayCombo.PayAmount); // 3 x AA
-		Assert.AreEqual (50, (results.Results [1] as SlotResult).PayCombo.PayAmount);  // 3 x BB
-		Assert.AreEqual (20, (results.Results [2] as SlotResult).PayCombo.PayAmount);  // 3 x CC
+		Assert.AreEqual (100, results.Results [0].PayCombo.PayAmount); // 3 x AA
+		Assert.AreEqual (50, results.Results [1].PayCombo.PayAmount);  // 3 x BB
+		Assert.AreEqual (20, results.Results [2].PayCombo.PayAmount);  // 3 x CC
 	}
 
 	[Test]
@@ -66,8 +66,8 @@ public class PaylineEvaluatorTests
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (2, results.Results.Count);
 
-		Assert.AreEqual (50, (results.Results [0] as SlotResult).PayCombo.PayAmount);  // 3 x BB
-		Assert.AreEqual (20, (results.Results [1] as SlotResult).PayCombo.PayAmount);  // 3 x CC
+		Assert.AreEqual (50, results.Results [0].PayCombo.PayAmount);  // 3 x BB
+		Assert.AreEqual (20, results.Results [1].PayCombo.PayAmount);  // 3 x CC
 	}
 
 	[Test]
@@ -82,7 +82,7 @@ public class PaylineEvaluatorTests
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (1, results.Results.Count);
 
-		Assert.AreEqual (20, (results.Results [0] as SlotResult).PayCombo.PayAmount);  // 3 x CC
+		Assert.AreEqual (20, results.Results [0].PayCombo.PayAmount);  // 3 x CC
 	}
 
 	[Test]
@@ -97,8 +97,8 @@ public class PaylineEvaluatorTests
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (2, results.Results.Count);
 
-		Assert.AreEqual (100, (results.Results [0] as SlotResult).PayCombo.PayAmount);  // 3 x AA
-		Assert.AreEqual (50, (results.Results [1] as SlotResult).PayCombo.PayAmount);   // 3 x BB
+		Assert.AreEqual (100, results.Results [0].PayCombo.PayAmount);  // 3 x AA
+		Assert.AreEqual (50, results.Results [1].PayCombo.PayAmount);   // 3 x BB
 	}
 
 	[Test]
@@ -113,6 +113,6 @@ public class PaylineEvaluatorTests
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
 		Assert.AreEqual (1, results.Results.Count);
 
-		Assert.AreEqual (100, (results.Results [0] as SlotResult).PayCombo.PayAmount);  // 3 x AA
+		Assert.AreEqual (100, results.Results [0].PayCombo.PayAmount);  // 3 x AA
 	}
 }
