@@ -25,7 +25,7 @@ namespace GDK.GameSimulation
 			simulationThread.Start ();
 		}
 
-		private int bet = 1;
+		private int bet = 3;
 		private int totalBet;
 		private int totalWin;
 
