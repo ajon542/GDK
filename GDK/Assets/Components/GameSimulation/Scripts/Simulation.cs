@@ -9,6 +9,10 @@ namespace GDK.GameSimulation
 {
 	public class Simulation : MonoBehaviour
 	{
+		// Add number of simulations
+		// Add RTP progress
+		// Add paytable name or evaluator name
+		// Select metrics???
 		private PaytableBuilder builder = new SimulationPaytableBuilder ();
 		private Paytable paytable = new Paytable ();
 		private IEvaluator evaluator = new PaylineEvaluator ();
