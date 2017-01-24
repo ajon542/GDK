@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-using ObjectPool;
+using GDK.Pool;
 
 using GDK.MathEngine;
 using Zenject;
@@ -54,13 +54,13 @@ namespace GDK.Reels
 		// TODO: Draw a gizmo for the animation curve and symbol locations.
 		void Start ()
 		{
-			for (int i = 0; i < 20; ++i)
+			/*for (int i = 0; i < 20; ++i)
 			{
 				GameObject symbol = Instantiate (symbolPrefab, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
 				symbol.transform.parent = gameObject.transform;
 				symbol.SetActive (false);
 				symbolPool.Enqueue (symbol);
-			}
+			}*/
 
 			// Get the position of the top symbol. This will never change.
 			// All other symbol positions will be calculation from this value.
@@ -73,7 +73,7 @@ namespace GDK.Reels
 			{
 				float y = layoutCurve.Evaluate (i * topSymbolPosition);
 
-				GameObject symbol = symbolPool.Dequeue ();
+				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefab);
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
 				symbol.SetActive (true);
 				symbolObjects.Add (symbol);
@@ -109,14 +109,15 @@ namespace GDK.Reels
 				// Add a new symbol to the start of the list.
 				topSymbolPosition -= symbolEnterPosition;
 
-				GameObject symbol = symbolPool.Dequeue ();
+				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefab);
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPosition));
 				symbol.SetActive (true);
 				symbolObjects.Insert (0, symbol);
 
 				// Remove the last symbol.
 				symbolObjects [symbolObjects.Count - 1].SetActive (false);
-				symbolPool.Enqueue (symbolObjects [symbolObjects.Count - 1]);
+				//symbolPool.Enqueue (symbolObjects [symbolObjects.Count - 1]);
+				PoolManager.Instance.Return (symbolObjects [symbolObjects.Count - 1]);
 				symbolObjects.RemoveAt (symbolObjects.Count - 1);
 			}
 		}

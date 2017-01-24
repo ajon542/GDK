@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ObjectPool
+namespace GDK.Pool
 {
 	// An object pool is an essential part of the game. We should really make
 	// an editor window for runtime object analysis. We should be able to look at this
@@ -18,24 +18,17 @@ namespace ObjectPool
 	/// </summary>
 	public class Pool : MonoBehaviour
 	{
-		[SerializeField]
-		private int capacity = 15;
-
-		[SerializeField]
 		private GameObject pooledObject;
 
-		public int Capacity { 
-			get { return capacity; } 
-			private set { capacity = value; }
-		}
+		public int Capacity { get; private set; }
 
 		private Queue<GameObject> pool = new Queue<GameObject> ();
 
 		private Dictionary<int, bool> objectStatus = new Dictionary<int, bool> ();
 
-		private void Start ()
+		public void Init(GameObject pooledObject)
 		{
-			AddNewObjectsToPool (capacity);
+			this.pooledObject = pooledObject;
 		}
 
 		public GameObject Obtain ()
@@ -65,14 +58,6 @@ namespace ObjectPool
 				DestroyImmediate (ObtainObjectFromPool ());
 			}
 			objectStatus.Clear ();
-		}
-
-		private void AddNewObjectsToPool (int count)
-		{
-			for (int i = 0; i < count; ++i)
-			{
-				AddNewObjectToPool ();
-			}
 		}
 
 		private void AddNewObjectToPool ()
