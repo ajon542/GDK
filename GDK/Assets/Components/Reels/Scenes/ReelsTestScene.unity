@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefab: {fileID: 1000012460819622, guid: 38f1601786a704744b0887da61f5a433,
+  symbolPrefab: {fileID: 1000010422316950, guid: 26422732f5065489fab0b012db54743b,
     type: 2}
   visibleSymbols: 7
   speed: 0.003
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefab: {fileID: 1000012460819622, guid: 38f1601786a704744b0887da61f5a433,
+  symbolPrefab: {fileID: 1000010553706094, guid: d6fd8e4ed8e0445f4ba3491a6022feee,
     type: 2}
   visibleSymbols: 7
   speed: 0.003
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefab: {fileID: 1000012460819622, guid: 38f1601786a704744b0887da61f5a433,
+  symbolPrefab: {fileID: 1000013587307448, guid: 4e6d879eb3500495c948e4ad16346bc7,
     type: 2}
   visibleSymbols: 7
   speed: 0.003
@@ -813,7 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefab: {fileID: 1000012460819622, guid: 38f1601786a704744b0887da61f5a433,
+  symbolPrefab: {fileID: 1000013424175794, guid: 164273b0107ca4b5da59ff013232fdea,
     type: 2}
   visibleSymbols: 7
   speed: 0.003
