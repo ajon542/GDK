@@ -3,7 +3,10 @@ using System.Collections.Generic;
 
 using ObjectPool;
 
-namespace Reels
+using GDK.MathEngine;
+using Zenject;
+
+namespace GDK.Reels
 {
 	public class ReelLayout : MonoBehaviour
 	{
@@ -11,6 +14,8 @@ namespace Reels
 		private GameObject symbolPrefab;
 		[SerializeField]
 		private int visibleSymbols;
+
+		[Inject] Paytable paytable;
 
 		private List<GameObject> symbolObjects = new List<GameObject> ();
 		private AnimationCurve layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
@@ -52,6 +57,14 @@ namespace Reels
 			if (symbolPrefab == null)
 			{
 				return;
+			}
+
+			if (paytable == null)
+			{
+				Debug.Log ("paytable == null");
+			} else
+			{
+				Debug.Log ("paytable != null");
 			}
 
 			for (int i = 0; i < 20; ++i)

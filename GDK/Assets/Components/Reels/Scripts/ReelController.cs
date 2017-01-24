@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using StateMachine;
 
-namespace Reels
+namespace GDK.Reels
 {
 	public class ReelController : MonoBehaviour
 	{

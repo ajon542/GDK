@@ -2,7 +2,7 @@
 using System.Collections;
 using StateMachine;
 
-namespace Reels
+namespace GDK.Reels
 {
 	public class StateConfiguration : BaseMonoBehaviourState
 	{
