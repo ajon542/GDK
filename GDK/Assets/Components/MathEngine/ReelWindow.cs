@@ -70,10 +70,10 @@ namespace GDK.MathEngine
 				int randomNumber = randomNumbers [reelIndex];
 				for (int offset = 0; offset < reelHeight; ++offset)
 				{
-					int stripIndex = (randomNumber + offset) % reelStrip.Strip.Count;
+					int stripIndex = (randomNumber + offset) % reelStrip.Symbols.Count;
 
 					// Add the symbol to the reel window.
-					Symbol symbol = new Symbol(reelStrip.Strip [stripIndex]);
+					Symbol symbol = new Symbol(reelStrip.Symbols [stripIndex]);
 					Window [reelIndex].Add (new Symbol (symbol));
 
 					// Update the symbol count in the dictionary.

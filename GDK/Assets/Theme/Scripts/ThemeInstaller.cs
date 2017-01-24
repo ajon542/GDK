@@ -17,6 +17,7 @@ namespace Theme
 		public override void InstallBindings ()
 		{
 			InstallPaytable ();
+			InstallGameConfig ();
 		}
 
 		private void InstallPaytable ()
@@ -32,6 +33,10 @@ namespace Theme
 			paytable.PaytableTriggerGroup = builder.BuildPaytableTriggerGroup ();
 
 			Container.Bind<Paytable> ().FromInstance (paytable);
+		}
+
+		private void InstallGameConfig()
+		{
 		}
 	}
 }

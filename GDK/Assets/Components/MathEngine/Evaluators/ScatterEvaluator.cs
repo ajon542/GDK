@@ -17,7 +17,7 @@ namespace GDK.MathEngine.Evaluators
 			for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
 			{
 				ReelStrip reelStrip = paytable.ReelGroup.Reels [reel].ReelStrip;
-				randomNumbers.Add (rng.GetRandomNumber (reelStrip.Strip.Count));
+				randomNumbers.Add (rng.GetRandomNumber (reelStrip.Symbols.Count));
 			}
 
 			reelWindow = new ReelWindow (paytable.ReelGroup, randomNumbers);

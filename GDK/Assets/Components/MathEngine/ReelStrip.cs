@@ -14,14 +14,14 @@ namespace GDK.MathEngine
 		/// <summary>
 		/// Gets the reel strip.
 		/// </summary>
-		public List<Symbol> Strip { get; set; }
+		public List<Symbol> Symbols { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Reel"/> class.
 		/// </summary>
 		public ReelStrip ()
 		{
-			Strip = new List<Symbol> ();
+			Symbols = new List<Symbol> ();
 		}
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace GDK.MathEngine
 		/// <param name="strip">A strip of <see cref="ReelSymbol"/> objects.</param>
 		public ReelStrip (List<Symbol> strip)
 		{
-			Strip = new List<Symbol> (strip);
+			Symbols = new List<Symbol> (strip);
 		}
 
 		/// <summary>
@@ -39,7 +39,7 @@ namespace GDK.MathEngine
 		/// <param name="symbol">The symbol.</param>
 		public void AddSymbol (Symbol symbol)
 		{
-			Strip.Add (symbol);
+			Symbols.Add (symbol);
 		}
 	}
 }

@@ -69,7 +69,7 @@ namespace GDK.MathEngine
 				new ReelProperties 
 				{ 
 					ReelStrip = reelStrip, 
-					Height = (reelStrip.Strip.Count < reelHeight) ? reelStrip.Strip.Count : reelHeight
+					Height = (reelStrip.Symbols.Count < reelHeight) ? reelStrip.Symbols.Count : reelHeight
 				});
 		}
 	}

@@ -54,19 +54,6 @@ namespace GDK.Reels
 		// TODO: Draw a gizmo for the animation curve and symbol locations.
 		void Start ()
 		{
-			if (symbolPrefab == null)
-			{
-				return;
-			}
-
-			if (paytable == null)
-			{
-				Debug.Log ("paytable == null");
-			} else
-			{
-				Debug.Log ("paytable != null");
-			}
-
 			for (int i = 0; i < 20; ++i)
 			{
 				GameObject symbol = Instantiate (symbolPrefab, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
