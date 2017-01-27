@@ -20,6 +20,7 @@ namespace GDK.Pool
 			Pool pool = prefabLookup [prefab];
 			GameObject clone = pool.Obtain ();
 			instanceLookup.Add (clone, pool);
+			clone.SetActive (true);
 			return clone;
 		}
 
@@ -31,6 +32,7 @@ namespace GDK.Pool
 			}
 
 			instanceLookup [go].Return (go);
+			go.SetActive (false);
 			instanceLookup.Remove (go);
 		}
 	}

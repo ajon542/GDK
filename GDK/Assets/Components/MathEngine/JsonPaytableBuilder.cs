@@ -14,9 +14,6 @@ namespace GDK.MathEngine
 		{
 			string result = File.ReadAllText ("Assets/Components/MathEngine/UnitTests/Data/PaylineEvaluatorTest-Paytable.txt");
 			paytable = JsonConvert.DeserializeObject<Paytable> (result);
-
-			//string json = JsonConvert.SerializeObject(paytable, Formatting.Indented);
-			//File.WriteAllText ("/Users/andrew/development/logs/Paytable.txt", json);
 		}
 
 		public override ReelGroup BuildReelGroup ()

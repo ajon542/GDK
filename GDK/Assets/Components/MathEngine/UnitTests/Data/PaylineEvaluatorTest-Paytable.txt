@@ -3,55 +3,34 @@
     "Reels": [
       {
         "ReelStrip": {
-          "Strip": [
+          "Symbols": [
             {
-              "Symbol": {
-                "Id": 0,
-                "Name": "AA"
-              },
-              "Weight": 1
+              "Id": 0,
+              "Name": "AA"
             },
             {
-              "Symbol": {
-                "Id": 1,
-                "Name": "BB"
-              },
-              "Weight": 1
+              "Id": 1,
+              "Name": "BB"
             },
             {
-              "Symbol": {
-                "Id": 2,
-                "Name": "CC"
-              },
-              "Weight": 1
+              "Id": 2,
+              "Name": "CC"
             },
             {
-              "Symbol": {
-                "Id": 3,
-                "Name": "DD"
-              },
-              "Weight": 1
+              "Id": 3,
+              "Name": "DD"
             },
             {
-              "Symbol": {
-                "Id": 4,
-                "Name": "EE"
-              },
-              "Weight": 1
+              "Id": 4,
+              "Name": "EE"
             },
             {
-              "Symbol": {
-                "Id": 5,
-                "Name": "FF"
-              },
-              "Weight": 1
+              "Id": 5,
+              "Name": "FF"
             },
             {
-              "Symbol": {
-                "Id": 6,
-                "Name": "GG"
-              },
-              "Weight": 1
+              "Id": 6,
+              "Name": "GG"
             }
           ]
         },
@@ -59,55 +38,34 @@
       },
       {
         "ReelStrip": {
-          "Strip": [
+          "Symbols": [
             {
-              "Symbol": {
-                "Id": 0,
-                "Name": "AA"
-              },
-              "Weight": 1
+              "Id": 0,
+              "Name": "AA"
             },
             {
-              "Symbol": {
-                "Id": 1,
-                "Name": "BB"
-              },
-              "Weight": 1
+              "Id": 1,
+              "Name": "BB"
             },
             {
-              "Symbol": {
-                "Id": 2,
-                "Name": "CC"
-              },
-              "Weight": 1
+              "Id": 2,
+              "Name": "CC"
             },
             {
-              "Symbol": {
-                "Id": 3,
-                "Name": "DD"
-              },
-              "Weight": 1
+              "Id": 3,
+              "Name": "DD"
             },
             {
-              "Symbol": {
-                "Id": 4,
-                "Name": "EE"
-              },
-              "Weight": 1
+              "Id": 4,
+              "Name": "EE"
             },
             {
-              "Symbol": {
-                "Id": 5,
-                "Name": "FF"
-              },
-              "Weight": 1
+              "Id": 5,
+              "Name": "FF"
             },
             {
-              "Symbol": {
-                "Id": 6,
-                "Name": "GG"
-              },
-              "Weight": 1
+              "Id": 6,
+              "Name": "GG"
             }
           ]
         },
@@ -115,55 +73,34 @@
       },
       {
         "ReelStrip": {
-          "Strip": [
+          "Symbols": [
             {
-              "Symbol": {
-                "Id": 0,
-                "Name": "AA"
-              },
-              "Weight": 1
+              "Id": 0,
+              "Name": "AA"
             },
             {
-              "Symbol": {
-                "Id": 1,
-                "Name": "BB"
-              },
-              "Weight": 1
+              "Id": 1,
+              "Name": "BB"
             },
             {
-              "Symbol": {
-                "Id": 2,
-                "Name": "CC"
-              },
-              "Weight": 1
+              "Id": 2,
+              "Name": "CC"
             },
             {
-              "Symbol": {
-                "Id": 3,
-                "Name": "DD"
-              },
-              "Weight": 1
+              "Id": 3,
+              "Name": "DD"
             },
             {
-              "Symbol": {
-                "Id": 4,
-                "Name": "EE"
-              },
-              "Weight": 1
+              "Id": 4,
+              "Name": "EE"
             },
             {
-              "Symbol": {
-                "Id": 5,
-                "Name": "FF"
-              },
-              "Weight": 1
+              "Id": 5,
+              "Name": "FF"
             },
             {
-              "Symbol": {
-                "Id": 6,
-                "Name": "GG"
-              },
-              "Weight": 1
+              "Id": 6,
+              "Name": "GG"
             }
           ]
         },
@@ -236,7 +173,8 @@
             "Name": "AA"
           }
         ],
-        "PayAmount": 10
+        "PayAmount": 10,
+        "Trigger": ""
       },
       {
         "Symbols": [
@@ -253,7 +191,8 @@
             "Name": "AA"
           }
         ],
-        "PayAmount": 100
+        "PayAmount": 100,
+        "Trigger": ""
       },
       {
         "Symbols": [
@@ -270,7 +209,8 @@
             "Name": "BB"
           }
         ],
-        "PayAmount": 50
+        "PayAmount": 50,
+        "Trigger": ""
       },
       {
         "Symbols": [
@@ -287,8 +227,18 @@
             "Name": "CC"
           }
         ],
-        "PayAmount": 20
+        "PayAmount": 20,
+        "Trigger": ""
       }
     ]
+  },
+  "ScatterComboGroup": {
+    "Combos": []
+  },
+  "PaytableTriggerGroup": {
+    "PaytableTriggerList": []
+  },
+  "PickTableGroup": {
+    "PickTable": {}
   }
 }

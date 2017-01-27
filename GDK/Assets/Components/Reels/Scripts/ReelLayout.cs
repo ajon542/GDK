@@ -12,10 +12,16 @@ namespace GDK.Reels
 	{
 		[SerializeField]
 		private GameObject symbolPrefab;
+
+		[SerializeField]
+		private List<GameObject> symbolPrefabs;
+
 		[SerializeField]
 		private int visibleSymbols;
 
-		[Inject] Paytable paytable;
+		//[Inject] Paytable paytable;
+
+		[Inject] IRng rng;
 
 		private List<GameObject> symbolObjects = new List<GameObject> ();
 		private AnimationCurve layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
@@ -50,17 +56,14 @@ namespace GDK.Reels
 				Gizmos.DrawCube (new Vector3 (gameObject.transform.position.x, y, -1), Vector3.one);
 			}
 		}
-
-		// TODO: Draw a gizmo for the animation curve and symbol locations.
+			
 		void Start ()
 		{
-			/*for (int i = 0; i < 20; ++i)
-			{
-				GameObject symbol = Instantiate (symbolPrefab, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
-				symbol.transform.parent = gameObject.transform;
-				symbol.SetActive (false);
-				symbolPool.Enqueue (symbol);
-			}*/
+			//List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
+			//Debug.Log (reelProps[0].ReelStrip.Symbols.Count);
+			//Debug.Log (reelProps[1].ReelStrip.Symbols.Count);
+			//Debug.Log (reelProps[2].ReelStrip.Symbols.Count);
+
 
 			// Get the position of the top symbol. This will never change.
 			// All other symbol positions will be calculation from this value.
@@ -73,9 +76,8 @@ namespace GDK.Reels
 			{
 				float y = layoutCurve.Evaluate (i * topSymbolPosition);
 
-				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefab);
+				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefabs[rng.GetRandomNumber(symbolPrefabs.Count)]);
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
-				symbol.SetActive (true);
 				symbolObjects.Add (symbol);
 			}
 		}
@@ -109,14 +111,11 @@ namespace GDK.Reels
 				// Add a new symbol to the start of the list.
 				topSymbolPosition -= symbolEnterPosition;
 
-				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefab);
+				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefabs[rng.GetRandomNumber(symbolPrefabs.Count)]);
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPosition));
-				symbol.SetActive (true);
 				symbolObjects.Insert (0, symbol);
 
 				// Remove the last symbol.
-				symbolObjects [symbolObjects.Count - 1].SetActive (false);
-				//symbolPool.Enqueue (symbolObjects [symbolObjects.Count - 1]);
 				PoolManager.Instance.Return (symbolObjects [symbolObjects.Count - 1]);
 				symbolObjects.RemoveAt (symbolObjects.Count - 1);
 			}

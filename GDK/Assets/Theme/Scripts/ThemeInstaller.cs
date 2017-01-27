@@ -16,8 +16,9 @@ namespace Theme
 
 		public override void InstallBindings ()
 		{
-			InstallPaytable ();
+			//InstallPaytable ();
 			InstallGameConfig ();
+			InstallRng ();
 		}
 
 		private void InstallPaytable ()
@@ -37,6 +38,11 @@ namespace Theme
 
 		private void InstallGameConfig()
 		{
+		}
+
+		private void InstallRng()
+		{
+			Container.Bind<IRng> ().FromInstance (new Rng());
 		}
 	}
 }
