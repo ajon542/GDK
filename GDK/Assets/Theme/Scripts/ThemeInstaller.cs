@@ -14,11 +14,13 @@ namespace Theme
 	{
 		private Paytable paytable;
 
+		[SerializeField] SymbolFactory symbolFactory;
+
 		public override void InstallBindings ()
 		{
 			//InstallPaytable ();
-			InstallGameConfig ();
-			InstallRng ();
+			Container.Bind<ISymbolFactory> ().FromPrefab (symbolFactory);
+			Container.Bind<IRng> ().FromInstance (new Rng());
 		}
 
 		private void InstallPaytable ()
@@ -34,15 +36,6 @@ namespace Theme
 			paytable.PaytableTriggerGroup = builder.BuildPaytableTriggerGroup ();
 
 			Container.Bind<Paytable> ().FromInstance (paytable);
-		}
-
-		private void InstallGameConfig()
-		{
-		}
-
-		private void InstallRng()
-		{
-			Container.Bind<IRng> ().FromInstance (new Rng());
 		}
 	}
 }

@@ -11,9 +11,6 @@ namespace GDK.Reels
 	public class ReelLayout : MonoBehaviour
 	{
 		[SerializeField]
-		private GameObject symbolPrefab;
-
-		[SerializeField]
 		private List<GameObject> symbolPrefabs;
 
 		[SerializeField]
@@ -22,6 +19,7 @@ namespace GDK.Reels
 		//[Inject] Paytable paytable;
 
 		[Inject] IRng rng;
+		[Inject] ISymbolFactory symbolFactory;
 
 		private List<GameObject> symbolObjects = new List<GameObject> ();
 		private AnimationCurve layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
@@ -30,8 +28,6 @@ namespace GDK.Reels
 
 		[SerializeField]
 		private float speed = 0.003f;
-
-		private Queue<GameObject> symbolPool = new Queue<GameObject> ();
 
 		// NOTE: PROTOTYPE CODE ONLY
 		// This code is written mainly to test some ideas out. It is horrible and
@@ -76,7 +72,7 @@ namespace GDK.Reels
 			{
 				float y = layoutCurve.Evaluate (i * topSymbolPosition);
 
-				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefabs[rng.GetRandomNumber(symbolPrefabs.Count)]);
+				GameObject symbol = PoolManager.Instance.Obtain (symbolFactory.CreateSymbol("A"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
 				symbolObjects.Add (symbol);
 			}
@@ -111,7 +107,7 @@ namespace GDK.Reels
 				// Add a new symbol to the start of the list.
 				topSymbolPosition -= symbolEnterPosition;
 
-				GameObject symbol = PoolManager.Instance.Obtain (symbolPrefabs[rng.GetRandomNumber(symbolPrefabs.Count)]);
+				GameObject symbol = PoolManager.Instance.Obtain (symbolFactory.CreateSymbol("A"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPosition));
 				symbolObjects.Insert (0, symbol);
 
