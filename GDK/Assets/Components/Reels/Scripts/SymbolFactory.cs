@@ -4,10 +4,13 @@ using System.Collections.Generic;
 
 namespace GDK.Reels
 {
+	/// <summary>
+	/// Implementation of a symbol factory that maps the symbol name to it's prefab.
+	/// </summary>
 	public class SymbolFactory : MonoBehaviour, ISymbolFactory
 	{
 		[Serializable]
-		public class SymbolMap
+		private class SymbolMap
 		{
 			public string name;
 			public GameObject prefab;
@@ -18,7 +21,7 @@ namespace GDK.Reels
 
 		private Dictionary<string, GameObject> symbolMap;
 
-		private void Awake()
+		private void Awake ()
 		{
 			symbolMap = new Dictionary<string, GameObject> ();
 			foreach (var symbol in symbolPrefabs)
@@ -33,7 +36,7 @@ namespace GDK.Reels
 			}
 		}
 
-		public GameObject CreateSymbol(string symbolName)
+		public GameObject CreateSymbol (string symbolName)
 		{
 			if (symbolMap.ContainsKey (symbolName) == false)
 			{

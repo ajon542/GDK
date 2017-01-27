@@ -16,8 +16,7 @@ namespace GDK.Reels
 		[SerializeField]
 		private int visibleSymbols;
 
-		//[Inject] Paytable paytable;
-
+		[Inject] Paytable paytable;
 		[Inject] IRng rng;
 		[Inject] ISymbolFactory symbolFactory;
 
@@ -30,9 +29,11 @@ namespace GDK.Reels
 		private float speed = 0.003f;
 
 		// NOTE: PROTOTYPE CODE ONLY
-		// This code is written mainly to test some ideas out. It is horrible and
-		// I'm not convinced a single animation curve for the reel is the best way
-		// to go at this point.
+		// This code is written mainly to test some ideas out.
+			// Reel spin curves
+			// Mapping the reel-model to the reel-view
+			// Messing with the object pool
+			// Messing with zenject
 
 		void OnDrawGizmos ()
 		{
