@@ -11,9 +11,6 @@ namespace GDK.Reels
 	public class ReelLayout : MonoBehaviour
 	{
 		[SerializeField]
-		private List<GameObject> symbolPrefabs;
-
-		[SerializeField]
 		private int visibleSymbols;
 
 		[Inject] Paytable paytable;
