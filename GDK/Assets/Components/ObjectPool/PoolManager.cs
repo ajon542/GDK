@@ -9,7 +9,17 @@ namespace GDK.Pool
 		private Dictionary<GameObject, Pool> prefabLookup = new Dictionary<GameObject, Pool> ();
 		private Dictionary<GameObject, Pool> instanceLookup = new Dictionary<GameObject, Pool> ();
 
-		public GameObject Obtain (GameObject prefab)
+		public static GameObject Obtain (GameObject prefab)
+		{
+			return Instance.Internal_Obtain (prefab);
+		}
+
+		public static void Return (GameObject go)
+		{
+			Instance.Internal_Return (go);
+		}
+
+		private GameObject Internal_Obtain (GameObject prefab)
 		{
 			if (prefabLookup.ContainsKey (prefab) == false)
 			{
@@ -24,7 +34,7 @@ namespace GDK.Pool
 			return clone;
 		}
 
-		public void Return (GameObject go)
+		private void Internal_Return (GameObject go)
 		{
 			if (instanceLookup.ContainsKey (go) == false)
 			{

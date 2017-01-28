@@ -31,6 +31,7 @@ namespace GDK.Reels
 		// NOTE: PROTOTYPE CODE ONLY
 		// This code is written mainly to test some ideas out.
 			// Reel spin curves
+			// Reel spin stuff - pull random number, spin, splice, stop
 			// Mapping the reel-model to the reel-view
 			// Messing with the object pool
 			// Messing with zenject
@@ -56,12 +57,6 @@ namespace GDK.Reels
 			
 		void Start ()
 		{
-			//List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
-			//Debug.Log (reelProps[0].ReelStrip.Symbols.Count);
-			//Debug.Log (reelProps[1].ReelStrip.Symbols.Count);
-			//Debug.Log (reelProps[2].ReelStrip.Symbols.Count);
-
-
 			// Get the position of the top symbol. This will never change.
 			// All other symbol positions will be calculation from this value.
 			int totalSymbols = visibleSymbols;
@@ -73,7 +68,7 @@ namespace GDK.Reels
 			{
 				float y = layoutCurve.Evaluate (i * topSymbolPosition);
 
-				GameObject symbol = PoolManager.Instance.Obtain (symbolFactory.CreateSymbol("A"));
+				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol("AA"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
 				symbolObjects.Add (symbol);
 			}
@@ -105,15 +100,20 @@ namespace GDK.Reels
 			// TODO: Reduce the curve Evaluate method calls
 			if (layoutCurve.Evaluate (symbolPosition - symbolEnterPosition) <= -10.0f)
 			{
+				// Pull random symbol for the next one to be shown. Obviously not the normal thing to do!
+				List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
+				List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
+				int random = rng.GetRandomNumber (symbols.Count);
+
 				// Add a new symbol to the start of the list.
 				topSymbolPosition -= symbolEnterPosition;
 
-				GameObject symbol = PoolManager.Instance.Obtain (symbolFactory.CreateSymbol("A"));
+				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol(symbols[random].Name));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPosition));
 				symbolObjects.Insert (0, symbol);
 
 				// Remove the last symbol.
-				PoolManager.Instance.Return (symbolObjects [symbolObjects.Count - 1]);
+				PoolManager.Return (symbolObjects [symbolObjects.Count - 1]);
 				symbolObjects.RemoveAt (symbolObjects.Count - 1);
 			}
 		}

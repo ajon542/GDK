@@ -371,6 +371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb398193a66244ed804f063541e4ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  symbolFactory: {fileID: 114000012471163926, guid: 6eb54bed5cfd947eab3f6e566349b98c,
+    type: 2}
 --- !u!114 &303872436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,63 +628,6 @@ Transform:
   - {fileID: 1144582557}
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!1 &630648745
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 630648747}
-  - 114: {fileID: 630648746}
-  m_Layer: 0
-  m_Name: SymbolFactory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &630648746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 630648745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fa374ee8dca8489b91af1e1b23c4fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  symbolPrefabs:
-  - name: 10
-    prefab: {fileID: 1000013424175794, guid: 164273b0107ca4b5da59ff013232fdea, type: 2}
-  - name: Jack
-    prefab: {fileID: 1000011146303040, guid: dca1388a6dca44cabb0bbabc9356efa2, type: 2}
-  - name: Q
-    prefab: {fileID: 1000010422316950, guid: 26422732f5065489fab0b012db54743b, type: 2}
-  - name: K
-    prefab: {fileID: 1000013104983336, guid: d487d85feeca5414ab3cb0a2c7ddba6f, type: 2}
-  - name: A
-    prefab: {fileID: 1000010553706094, guid: d6fd8e4ed8e0445f4ba3491a6022feee, type: 2}
-  - name: B1
-    prefab: {fileID: 1000013587307448, guid: 4e6d879eb3500495c948e4ad16346bc7, type: 2}
-  - name: B2
-    prefab: {fileID: 1000011528086608, guid: 6a1f0de1689a245a2b82696c4e54a38e, type: 2}
-  - name: B3
-    prefab: {fileID: 1000011651981242, guid: a7f8aeb71398d4bb38a83e4791f14c8d, type: 2}
---- !u!4 &630648747
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 630648745}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.99422884, y: 2.409124, z: -20.200802}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
 --- !u!1 &896544259
 GameObject:
   m_ObjectHideFlags: 0
