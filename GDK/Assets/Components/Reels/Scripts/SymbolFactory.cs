@@ -12,8 +12,8 @@ namespace GDK.Reels
 		[Serializable]
 		private class SymbolMap
 		{
-			public string name;
-			public GameObject prefab;
+			public string name = string.Empty;
+			public GameObject prefab = null;
 		}
 
 		[SerializeField]

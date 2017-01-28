@@ -21,12 +21,12 @@ namespace GDK.MathEngine.Evaluators
 		public SlotResults Evaluate (Paytable paytable, IRng rng)
 		{
 			PaylineEvaluator paylineEvaluator = new PaylineEvaluator ();
-			ScatterEvaluator scatterEvaluator = new ScatterEvaluator ();
+			//ScatterEvaluator scatterEvaluator = new ScatterEvaluator ();
 
 			SlotResults paylineResults;
-			SlotResults scatterResults;
+			//SlotResults scatterResults;
 			paylineResults = paylineEvaluator.Evaluate (paytable, rng);
-			scatterResults = scatterEvaluator.Evaluate (paytable, rng);
+			//scatterResults = scatterEvaluator.Evaluate (paytable, rng);
 
 			// TODO: Get all triggers from the results
 			// TODO: Evaluate those triggers in turn.
