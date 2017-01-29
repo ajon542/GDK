@@ -14,55 +14,30 @@ namespace GDK.Reels
 		[Inject] IRng rng;
 		[Inject] ISymbolFactory symbolFactory;
 
+		[SerializeField] private int visibleSymbols;
+		[SerializeField] private float speed = 1f;
+		[SerializeField] private float reelHeight = 10;
+
 		private Queue<GameObject> symbolObjects = new Queue<GameObject> ();
-
-		private float symbolEnterPosition;
 		private AnimationCurve layoutCurve;
+		private Vector3 symbolEnterPosition;
+		private Vector3 symbolExitPosition;
 
-		[SerializeField]
-		private int visibleSymbols;
-
-		[SerializeField]
-		private float speed = 1f;
-
-		[SerializeField]
-		private float reelHeight = 10;
-
-		// NOTE: PROTOTYPE CODE ONLY
-		// This code is written mainly to test some ideas out.
-		// Reel spin curves
-		// Reel spin stuff - pull random number, spin, splice, stop
-		// Mapping the reel-model to the reel-view
-		// Messing with the object pool
-		// Messing with zenject
-
-		void OnDrawGizmos ()
-		{
-			Gizmos.color = Color.grey;
-
-			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
-
-			symbolEnterPosition = 1.0f / (visibleSymbols + 1);
-
-			for (int i = 1; i <= visibleSymbols; ++i)
-			{
-				float y = layoutCurve.Evaluate (i * symbolEnterPosition);
-
-				Gizmos.DrawCube (new Vector3 (gameObject.transform.position.x, y, -1), Vector3.one);
-			}
-		}
-
-		void Start ()
+		private void Start ()
 		{
 			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
 
+			// To spin in reverse we just switch the sign on the reelHeight.
 			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 
-			symbolEnterPosition = 1.0f / (visibleSymbols + 1);
+			float symbolTopPos = 1.0f / (visibleSymbols + 1);
+
+			symbolEnterPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (symbolTopPos));
+			symbolExitPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (1));
 
 			for (int i = visibleSymbols; i >= 1; --i)
 			{
-				float y = layoutCurve.Evaluate (i * symbolEnterPosition);
+				float y = layoutCurve.Evaluate (i * symbolTopPos);
 
 				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
@@ -72,30 +47,36 @@ namespace GDK.Reels
 			}
 		}
 
-		private void OnComplete()
+		private bool spinning;
+
+		private void Update ()
+		{
+			if (Input.GetKeyDown (KeyCode.Space))
+			{
+				spinning = !spinning;
+			}
+		}
+
+		private void OnComplete ()
 		{
 			List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
 			List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
 			int random = rng.GetRandomNumber (symbols.Count);
 
 			GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols [random].Name));
-			symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (symbolEnterPosition));
+			symbol.transform.position = symbolEnterPosition;
 			symbolObjects.Enqueue (symbol);
 			PoolManager.Return (symbolObjects.Dequeue ());
 
 			SetTween (symbol);
 		}
 
-		private void SetTween(GameObject go)
+		private void SetTween (GameObject go)
 		{
-			go.transform.DOMove (
-				new Vector3 (
-					gameObject.transform.position.x,
-					layoutCurve.Evaluate (1),
-					gameObject.transform.position.z), speed)
-				.SetSpeedBased()
+			go.transform.DOMove (symbolExitPosition, speed)
+				.SetSpeedBased ()
 				.SetEase (Ease.Linear)
-				.OnComplete(OnComplete);	
+				.OnComplete (OnComplete);	
 		}
 	}
 }

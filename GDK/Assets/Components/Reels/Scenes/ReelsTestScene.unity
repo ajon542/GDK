@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  height: 10
-  speed: 0.02
+  speed: 7
+  reelHeight: 10
 --- !u!4 &220779177
 Transform:
   m_ObjectHideFlags: 0
@@ -311,8 +311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  height: 10
-  speed: 0.02
+  speed: 7
+  reelHeight: 10
 --- !u!4 &256814680
 Transform:
   m_ObjectHideFlags: 0
@@ -555,7 +555,7 @@ Transform:
   m_GameObject: {fileID: 544908040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 70, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1292350977}
@@ -588,8 +588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  height: 10
-  speed: 0.02
+  speed: 7
+  reelHeight: 10
 --- !u!4 &617478094
 Transform:
   m_ObjectHideFlags: 0
@@ -673,7 +673,7 @@ Transform:
   m_GameObject: {fileID: 917900120}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 70, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 256814680}
@@ -792,7 +792,7 @@ Transform:
   m_GameObject: {fileID: 1144582556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 70, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 617478094}
@@ -873,8 +873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  height: 10
-  speed: 0.02
+  speed: 7
+  reelHeight: 10
 --- !u!4 &1292350977
 Transform:
   m_ObjectHideFlags: 0
@@ -915,7 +915,7 @@ Transform:
   m_GameObject: {fileID: 1458431378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 70, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 220779177}
