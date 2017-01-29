@@ -266,16 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefabs:
-  - {fileID: 1000013424175794, guid: 164273b0107ca4b5da59ff013232fdea, type: 2}
-  - {fileID: 1000011528086608, guid: 6a1f0de1689a245a2b82696c4e54a38e, type: 2}
-  - {fileID: 1000010422316950, guid: 26422732f5065489fab0b012db54743b, type: 2}
-  - {fileID: 1000011651981242, guid: a7f8aeb71398d4bb38a83e4791f14c8d, type: 2}
-  - {fileID: 1000011146303040, guid: dca1388a6dca44cabb0bbabc9356efa2, type: 2}
-  - {fileID: 1000010553706094, guid: d6fd8e4ed8e0445f4ba3491a6022feee, type: 2}
-  - {fileID: 1000013587307448, guid: 4e6d879eb3500495c948e4ad16346bc7, type: 2}
-  - {fileID: 1000013104983336, guid: d487d85feeca5414ab3cb0a2c7ddba6f, type: 2}
   visibleSymbols: 7
+  height: 10
   speed: 0.02
 --- !u!4 &220779177
 Transform:
@@ -318,16 +310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefabs:
-  - {fileID: 1000013424175794, guid: 164273b0107ca4b5da59ff013232fdea, type: 2}
-  - {fileID: 1000011528086608, guid: 6a1f0de1689a245a2b82696c4e54a38e, type: 2}
-  - {fileID: 1000010422316950, guid: 26422732f5065489fab0b012db54743b, type: 2}
-  - {fileID: 1000011651981242, guid: a7f8aeb71398d4bb38a83e4791f14c8d, type: 2}
-  - {fileID: 1000011146303040, guid: dca1388a6dca44cabb0bbabc9356efa2, type: 2}
-  - {fileID: 1000010553706094, guid: d6fd8e4ed8e0445f4ba3491a6022feee, type: 2}
-  - {fileID: 1000013587307448, guid: 4e6d879eb3500495c948e4ad16346bc7, type: 2}
-  - {fileID: 1000013104983336, guid: d487d85feeca5414ab3cb0a2c7ddba6f, type: 2}
   visibleSymbols: 7
+  height: 10
   speed: 0.02
 --- !u!4 &256814680
 Transform:
@@ -603,16 +587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefabs:
-  - {fileID: 1000013424175794, guid: 164273b0107ca4b5da59ff013232fdea, type: 2}
-  - {fileID: 1000011528086608, guid: 6a1f0de1689a245a2b82696c4e54a38e, type: 2}
-  - {fileID: 1000010422316950, guid: 26422732f5065489fab0b012db54743b, type: 2}
-  - {fileID: 1000011651981242, guid: a7f8aeb71398d4bb38a83e4791f14c8d, type: 2}
-  - {fileID: 1000011146303040, guid: dca1388a6dca44cabb0bbabc9356efa2, type: 2}
-  - {fileID: 1000010553706094, guid: d6fd8e4ed8e0445f4ba3491a6022feee, type: 2}
-  - {fileID: 1000013587307448, guid: 4e6d879eb3500495c948e4ad16346bc7, type: 2}
-  - {fileID: 1000013104983336, guid: d487d85feeca5414ab3cb0a2c7ddba6f, type: 2}
   visibleSymbols: 7
+  height: 10
   speed: 0.02
 --- !u!4 &617478094
 Transform:
@@ -896,16 +872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae32796ae56d77945b872f6a5a0858d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  symbolPrefabs:
-  - {fileID: 1000013424175794, guid: 164273b0107ca4b5da59ff013232fdea, type: 2}
-  - {fileID: 1000010553706094, guid: d6fd8e4ed8e0445f4ba3491a6022feee, type: 2}
-  - {fileID: 1000013587307448, guid: 4e6d879eb3500495c948e4ad16346bc7, type: 2}
-  - {fileID: 1000011528086608, guid: 6a1f0de1689a245a2b82696c4e54a38e, type: 2}
-  - {fileID: 1000011651981242, guid: a7f8aeb71398d4bb38a83e4791f14c8d, type: 2}
-  - {fileID: 1000011146303040, guid: dca1388a6dca44cabb0bbabc9356efa2, type: 2}
-  - {fileID: 1000013104983336, guid: d487d85feeca5414ab3cb0a2c7ddba6f, type: 2}
-  - {fileID: 1000010422316950, guid: 26422732f5065489fab0b012db54743b, type: 2}
   visibleSymbols: 7
+  height: 10
   speed: 0.02
 --- !u!4 &1292350977
 Transform:

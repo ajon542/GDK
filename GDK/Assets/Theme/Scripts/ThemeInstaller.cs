@@ -19,7 +19,7 @@ namespace Theme
 		public override void InstallBindings ()
 		{
 			InstallPaytable ();
-			Container.Bind<ISymbolFactory> ().FromPrefab (symbolFactory);
+			Container.Bind<ISymbolFactory> ().FromPrefab (symbolFactory).AsSingle();
 			Container.Bind<IRng> ().FromInstance (new Rng());
 		}
 

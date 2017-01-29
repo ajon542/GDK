@@ -2,117 +2,121 @@
 using System.Collections.Generic;
 
 using GDK.Pool;
-
 using GDK.MathEngine;
+using DG.Tweening;
 using Zenject;
 
 namespace GDK.Reels
 {
 	public class ReelLayout : MonoBehaviour
 	{
-		[SerializeField]
-		private int visibleSymbols;
-
 		[Inject] Paytable paytable;
 		[Inject] IRng rng;
 		[Inject] ISymbolFactory symbolFactory;
 
 		private List<GameObject> symbolObjects = new List<GameObject> ();
-		private AnimationCurve layoutCurve = AnimationCurve.Linear (0, 10, 1, -10);
-		private float topSymbolPosition;
+
 		private float symbolEnterPosition;
+		private AnimationCurve layoutCurve;
 
 		[SerializeField]
-		private float speed = 0.003f;
+		private int visibleSymbols;
+
+		[SerializeField]
+		private float speed = 1f;
+
+		[SerializeField]
+		private float reelHeight = 10;
+
+		private GameObject symbolContainer;
 
 		// NOTE: PROTOTYPE CODE ONLY
 		// This code is written mainly to test some ideas out.
-			// Reel spin curves
-			// Reel spin stuff - pull random number, spin, splice, stop
-			// Mapping the reel-model to the reel-view
-			// Messing with the object pool
-			// Messing with zenject
+		// Reel spin curves
+		// Reel spin stuff - pull random number, spin, splice, stop
+		// Mapping the reel-model to the reel-view
+		// Messing with the object pool
+		// Messing with zenject
 
 		void OnDrawGizmos ()
 		{
-			Gizmos.color = Color.green;
+			Gizmos.color = Color.grey;
 
-			// Get the position of the top symbol. This will never change.
-			// All other symbol positions will be calculation from this value.
-			int totalSymbols = visibleSymbols;
+			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 
-			symbolEnterPosition = 1.0f / (totalSymbols + 1);
-			topSymbolPosition = symbolEnterPosition;
+			symbolEnterPosition = 1.0f / (visibleSymbols + 1);
 
-			for (int i = 1; i <= totalSymbols; ++i)
+			for (int i = 1; i <= visibleSymbols; ++i)
 			{
-				float y = layoutCurve.Evaluate (i * topSymbolPosition);
+				float y = layoutCurve.Evaluate (i * symbolEnterPosition);
 
 				Gizmos.DrawCube (new Vector3 (gameObject.transform.position.x, y, -1), Vector3.one);
 			}
 		}
-			
+
 		void Start ()
 		{
-			// Get the position of the top symbol. This will never change.
-			// All other symbol positions will be calculation from this value.
-			int totalSymbols = visibleSymbols;
+			symbolContainer = new GameObject ();
+			symbolContainer.transform.parent = gameObject.transform;
+			symbolContainer.name = "SymbolContainer";
 
-			symbolEnterPosition = 1.0f / (totalSymbols + 1);
-			topSymbolPosition = symbolEnterPosition;
+			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
 
-			for (int i = 1; i <= totalSymbols; ++i)
+			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
+
+			symbolEnterPosition = 1.0f / (visibleSymbols + 1);
+
+			float symbolHeight = reelHeight - layoutCurve.Evaluate (symbolEnterPosition);
+
+			for (int i = 1; i <= visibleSymbols; ++i)
 			{
-				float y = layoutCurve.Evaluate (i * topSymbolPosition);
+				float y = layoutCurve.Evaluate (i * symbolEnterPosition);
 
-				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol("AA"));
+				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
 				symbolObjects.Add (symbol);
+
+				symbol.transform.DOMove (
+					new Vector3 (0, -symbolHeight, 0), speed)
+					.SetRelative ()
+					.SetEase (Ease.Linear)
+					.OnComplete(() => OnComplete (symbol));	
 			}
 		}
 
-		void Update ()
+		private void OnComplete(GameObject go)
 		{
-			// Calculate the position of all symbols based on the position of the top symbol.
-			float symbolPosition = topSymbolPosition;
+			// DOTween makes things easier but there is still a tonne of logic in the OnComplete...
+			// The problem is that we need to know when the symbol in the bottom row has finished
+			// its tween. Once this happens, we are ready to add another symbol in the top row.
 
-			foreach (GameObject symbol in symbolObjects)
+			float symbolHeight = reelHeight - layoutCurve.Evaluate (symbolEnterPosition);
+
+			if (go.transform.position.y <= -reelHeight)
 			{
-				float y = layoutCurve.Evaluate (symbolPosition);
-				Vector3 currentPos = symbol.transform.position;
-
-				// TODO: Making the assumption the curve just represents y-coord. Though, this
-				// can simply be a single implementation. Other implementations can provide the
-				// specifics of any sort of movement.
-				currentPos.y = y;
-				symbol.transform.position = currentPos;
-				symbolPosition += symbolEnterPosition;
-			}
-
-			// TODO: Deal with the speed of a spin.
-			// TODO: Deal with moving backwards / forwards (possibly based on user interaction).
-			topSymbolPosition += speed;
-
-			// TODO: Probably want to use a linked list to be able to remove from head and tail efficiently.
-			// TODO: Reduce the curve Evaluate method calls
-			if (layoutCurve.Evaluate (symbolPosition - symbolEnterPosition) <= -10.0f)
-			{
-				// Pull random symbol for the next one to be shown. Obviously not the normal thing to do!
 				List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
 				List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
 				int random = rng.GetRandomNumber (symbols.Count);
 
-				// Add a new symbol to the start of the list.
-				topSymbolPosition -= symbolEnterPosition;
-
-				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol(symbols[random].Name));
-				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPosition));
+				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols [random].Name));
+				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (symbolEnterPosition));
 				symbolObjects.Insert (0, symbol);
 
-				// Remove the last symbol.
 				PoolManager.Return (symbolObjects [symbolObjects.Count - 1]);
 				symbolObjects.RemoveAt (symbolObjects.Count - 1);
+
+				go = symbol;
 			}
+
+			go.transform.DOMove (
+				new Vector3 (0, -symbolHeight, 0), speed)
+				.SetRelative ()
+				.SetEase (Ease.Linear)
+				.OnComplete(() => OnComplete (go));
 		}
+	}
+
+	public class VisibleSymbolContainer
+	{
 	}
 }
