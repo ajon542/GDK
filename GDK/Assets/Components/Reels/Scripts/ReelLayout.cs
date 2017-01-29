@@ -14,7 +14,7 @@ namespace GDK.Reels
 		[Inject] IRng rng;
 		[Inject] ISymbolFactory symbolFactory;
 
-		private List<GameObject> symbolObjects = new List<GameObject> ();
+		private Queue<GameObject> symbolObjects = new Queue<GameObject> ();
 
 		private float symbolEnterPosition;
 		private AnimationCurve layoutCurve;
@@ -27,8 +27,6 @@ namespace GDK.Reels
 
 		[SerializeField]
 		private float reelHeight = 10;
-
-		private GameObject symbolContainer;
 
 		// NOTE: PROTOTYPE CODE ONLY
 		// This code is written mainly to test some ideas out.
@@ -56,67 +54,48 @@ namespace GDK.Reels
 
 		void Start ()
 		{
-			symbolContainer = new GameObject ();
-			symbolContainer.transform.parent = gameObject.transform;
-			symbolContainer.name = "SymbolContainer";
-
 			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
 
 			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 
 			symbolEnterPosition = 1.0f / (visibleSymbols + 1);
 
-			float symbolHeight = reelHeight - layoutCurve.Evaluate (symbolEnterPosition);
-
-			for (int i = 1; i <= visibleSymbols; ++i)
+			for (int i = visibleSymbols; i >= 1; --i)
 			{
 				float y = layoutCurve.Evaluate (i * symbolEnterPosition);
 
 				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
-				symbolObjects.Add (symbol);
+				symbolObjects.Enqueue (symbol);
 
-				symbol.transform.DOMove (
-					new Vector3 (0, -symbolHeight, 0), speed)
-					.SetRelative ()
-					.SetEase (Ease.Linear)
-					.OnComplete(() => OnComplete (symbol));	
+				SetTween (symbol);	
 			}
 		}
 
-		private void OnComplete(GameObject go)
+		private void OnComplete()
 		{
-			// DOTween makes things easier but there is still a tonne of logic in the OnComplete...
-			// The problem is that we need to know when the symbol in the bottom row has finished
-			// its tween. Once this happens, we are ready to add another symbol in the top row.
+			List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
+			List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
+			int random = rng.GetRandomNumber (symbols.Count);
 
-			float symbolHeight = reelHeight - layoutCurve.Evaluate (symbolEnterPosition);
+			GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols [random].Name));
+			symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (symbolEnterPosition));
+			symbolObjects.Enqueue (symbol);
+			PoolManager.Return (symbolObjects.Dequeue ());
 
-			if (go.transform.position.y <= -reelHeight)
-			{
-				List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
-				List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
-				int random = rng.GetRandomNumber (symbols.Count);
-
-				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols [random].Name));
-				symbol.transform.position = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (symbolEnterPosition));
-				symbolObjects.Insert (0, symbol);
-
-				PoolManager.Return (symbolObjects [symbolObjects.Count - 1]);
-				symbolObjects.RemoveAt (symbolObjects.Count - 1);
-
-				go = symbol;
-			}
-
-			go.transform.DOMove (
-				new Vector3 (0, -symbolHeight, 0), speed)
-				.SetRelative ()
-				.SetEase (Ease.Linear)
-				.OnComplete(() => OnComplete (go));
+			SetTween (symbol);
 		}
-	}
 
-	public class VisibleSymbolContainer
-	{
+		private void SetTween(GameObject go)
+		{
+			go.transform.DOMove (
+				new Vector3 (
+					gameObject.transform.position.x,
+					layoutCurve.Evaluate (1),
+					gameObject.transform.position.z), speed)
+				.SetSpeedBased()
+				.SetEase (Ease.Linear)
+				.OnComplete(OnComplete);	
+		}
 	}
 }
