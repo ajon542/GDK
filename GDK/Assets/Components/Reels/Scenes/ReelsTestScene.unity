@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  speed: 7
+  speed: 0.2
   reelHeight: 10
 --- !u!4 &220779177
 Transform:
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  speed: 7
+  speed: 0.2
   reelHeight: 10
 --- !u!4 &256814680
 Transform:
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  speed: 7
+  speed: 0.2
   reelHeight: 10
 --- !u!4 &617478094
 Transform:
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleSymbols: 7
-  speed: 7
+  speed: 0.2
   reelHeight: 10
 --- !u!4 &1292350977
 Transform:

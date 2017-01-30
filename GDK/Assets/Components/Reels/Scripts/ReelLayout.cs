@@ -21,29 +21,26 @@ namespace GDK.Reels
 		private Queue<GameObject> symbolObjects = new Queue<GameObject> ();
 		private AnimationCurve layoutCurve;
 		private Vector3 symbolEnterPosition;
-		private Vector3 symbolExitPosition;
+		private float symbolHeight;
 
-		private void Start ()
+		void Start ()
 		{
 			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
 
-			// To spin in reverse we just switch the sign on the reelHeight.
 			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 
-			float symbolTopPos = 1.0f / (visibleSymbols + 1);
-
-			symbolEnterPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (symbolTopPos));
-			symbolExitPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (1));
+			// TODO: This is a bit messy...
+			float topSymbolPos = 1.0f / (visibleSymbols + 1);
+			symbolEnterPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPos));
+			symbolHeight = reelHeight - layoutCurve.Evaluate (topSymbolPos);
 
 			for (int i = visibleSymbols; i >= 1; --i)
 			{
-				float y = layoutCurve.Evaluate (i * symbolTopPos);
+				float y = layoutCurve.Evaluate (i * topSymbolPos);
 
 				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
 				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
 				symbolObjects.Enqueue (symbol);
-
-				SetTween (symbol);	
 			}
 		}
 
@@ -51,32 +48,45 @@ namespace GDK.Reels
 
 		private void Update ()
 		{
-			if (Input.GetKeyDown (KeyCode.Space))
+			if (Input.touchCount > 0 || Input.GetKeyDown(KeyCode.Space))
 			{
+				if (!spinning)
+					foreach (var item in symbolObjects)
+						SetTween (item);
+
 				spinning = !spinning;
 			}
 		}
 
-		private void OnComplete ()
+		private void OnComplete (GameObject go)
 		{
-			List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
-			List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
-			int random = rng.GetRandomNumber (symbols.Count);
+			// TODO: This seems like a bug.
+			if (go.transform.position.y <= -reelHeight)
+			{
+				List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
+				List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
+				int random = rng.GetRandomNumber (symbols.Count);
 
-			GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols [random].Name));
-			symbol.transform.position = symbolEnterPosition;
-			symbolObjects.Enqueue (symbol);
-			PoolManager.Return (symbolObjects.Dequeue ());
+				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
+				symbol.transform.position = symbolEnterPosition;
+				symbolObjects.Enqueue (symbol);
 
-			SetTween (symbol);
+				PoolManager.Return (symbolObjects.Dequeue ());
+
+				go = symbol;
+			}
+
+			if (spinning)
+				SetTween (go);
 		}
 
 		private void SetTween (GameObject go)
 		{
-			go.transform.DOMove (symbolExitPosition, speed)
-				.SetSpeedBased ()
+			go.transform.DOMove (
+				new Vector3 (0, -symbolHeight, 0), speed)
+				.SetRelative ()
 				.SetEase (Ease.Linear)
-				.OnComplete (OnComplete);	
+				.OnComplete (() => OnComplete (go));
 		}
 	}
 }
