@@ -22,7 +22,6 @@ namespace GDK.Reels
 		private List<GameObject> symbolObjects = new List<GameObject> ();
 
 		private AnimationCurve layoutCurve;
-		private Vector3 symbolEnterPosition;
 		private float symbolHeight;
 
 		private Vector3 initialPosition;
@@ -34,15 +33,14 @@ namespace GDK.Reels
 			initialPosition = gameObject.transform.position;
 
 			// Create a set of center aligned symbol positions.
-			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 			float topSymbolPos = 1.0f / (visibleSymbols + 1);
-			symbolEnterPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPos));
+			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 			symbolHeight = reelHeight - layoutCurve.Evaluate (topSymbolPos);
 
 			for (int i = 1; i <= visibleSymbols; ++i)
 			{
 				// Create the symbol containers. These will define the layout of each symbol on the reel.
-				float y = layoutCurve.Evaluate (i * topSymbolPos);
+				float y = layoutCurve.Evaluate (i * topSymbolPos) + gameObject.transform.position.y;
 				var symbolContainer = new GameObject();
 				symbolContainer.name = "SymbolContainer";
 				symbolContainer.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
