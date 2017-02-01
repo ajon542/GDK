@@ -93,15 +93,15 @@ namespace GDK.Reels
 			symbolObjects [0].transform.parent = symbolContainers [0].transform;
 			symbolObjects [0].transform.localPosition = Vector3.zero;
 
+			// Reset the reel mover.
+			gameObject.transform.position = initialPosition;
+
 			if (spinning)
 				SetTween ();
 		}
 
 		private void SetTween ()
 		{
-			// Reset the reel mover.
-			gameObject.transform.position = initialPosition;
-
 			gameObject.transform.DOMove (
 				new Vector3 (initialPosition.x, initialPosition.y - symbolHeight, initialPosition.z), speed)
 				.SetEase (Ease.Linear)
