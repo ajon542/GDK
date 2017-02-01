@@ -18,29 +18,42 @@ namespace GDK.Reels
 		[SerializeField] private float speed = 1f;
 		[SerializeField] private float reelHeight = 10;
 
-		private Queue<GameObject> symbolObjects = new Queue<GameObject> ();
+		private List<GameObject> symbolContainers = new List<GameObject> ();
+		private List<GameObject> symbolObjects = new List<GameObject> ();
+
 		private AnimationCurve layoutCurve;
 		private Vector3 symbolEnterPosition;
 		private float symbolHeight;
+
+		private Vector3 initialPosition;
 
 		void Start ()
 		{
 			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
 
-			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
+			initialPosition = gameObject.transform.position;
 
-			// TODO: This is a bit messy...
+			// Create a set of center aligned symbol positions.
+			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
 			float topSymbolPos = 1.0f / (visibleSymbols + 1);
 			symbolEnterPosition = new Vector3 (gameObject.transform.position.x, layoutCurve.Evaluate (topSymbolPos));
 			symbolHeight = reelHeight - layoutCurve.Evaluate (topSymbolPos);
 
-			for (int i = visibleSymbols; i >= 1; --i)
+			for (int i = 1; i <= visibleSymbols; ++i)
 			{
+				// Create the symbol containers. These will define the layout of each symbol on the reel.
 				float y = layoutCurve.Evaluate (i * topSymbolPos);
+				var symbolContainer = new GameObject();
+				symbolContainer.name = "SymbolContainer";
+				symbolContainer.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
+				symbolContainer.transform.parent = gameObject.transform;
+				symbolContainers.Add (symbolContainer);
 
-				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
-				symbol.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
-				symbolObjects.Enqueue (symbol);
+				// Attach the symbol as a child game object.
+				var symbolObject = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
+				symbolObject.transform.parent = symbolContainer.transform;
+				symbolObject.transform.localPosition = Vector3.zero;
+				symbolObjects.Add (symbolObject);
 			}
 		}
 
@@ -51,42 +64,48 @@ namespace GDK.Reels
 			if (Input.touchCount > 0 || Input.GetKeyDown(KeyCode.Space))
 			{
 				if (!spinning)
-					foreach (var item in symbolObjects)
-						SetTween (item);
+					SetTween ();
 
 				spinning = !spinning;
 			}
 		}
 
-		private void OnComplete (GameObject go)
+		private void OnComplete ()
 		{
-			// TODO: This seems like a bug.
-			if (go.transform.position.y <= -reelHeight)
+			// Return the last symbol object to the pool.
+			PoolManager.Return (symbolObjects[symbolObjects.Count - 1]);
+
+			// Shuffle all symbols down.
+			for (int i = symbolObjects.Count - 1; i > 0; --i)
 			{
-				List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
-				List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
-				int random = rng.GetRandomNumber (symbols.Count);
-
-				GameObject symbol = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
-				symbol.transform.position = symbolEnterPosition;
-				symbolObjects.Enqueue (symbol);
-
-				PoolManager.Return (symbolObjects.Dequeue ());
-
-				go = symbol;
+				symbolObjects [i] = symbolObjects[i - 1];
+				symbolObjects [i].transform.parent = symbolContainers [i].transform;
+				symbolObjects [i].transform.localPosition = Vector3.zero;
 			}
 
+			// Pick a random symbol for fun!
+			List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
+			List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
+			int random = rng.GetRandomNumber (symbols.Count);
+
+			// Add the new symbol object.
+			symbolObjects [0] = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols[random].Name));
+			symbolObjects [0].transform.parent = symbolContainers [0].transform;
+			symbolObjects [0].transform.localPosition = Vector3.zero;
+
 			if (spinning)
-				SetTween (go);
+				SetTween ();
 		}
 
-		private void SetTween (GameObject go)
+		private void SetTween ()
 		{
-			go.transform.DOMove (
-				new Vector3 (0, -symbolHeight, 0), speed)
-				.SetRelative ()
+			// Reset the reel mover.
+			gameObject.transform.position = initialPosition;
+
+			gameObject.transform.DOMove (
+				new Vector3 (initialPosition.x, initialPosition.y - symbolHeight, initialPosition.z), speed)
 				.SetEase (Ease.Linear)
-				.OnComplete (() => OnComplete (go));
+				.OnComplete (OnComplete);
 		}
 	}
 }
