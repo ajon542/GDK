@@ -10,10 +10,8 @@ using Zenject;
 namespace GDK.Reels
 {
 	[RequireComponent (typeof(ReelSettings))]
-	public class ReelLayout : MonoBehaviour
+	public class ReelDisplay : MonoBehaviour
 	{
-		[Inject] Paytable paytable;
-		[Inject] IRng rng;
 		[Inject] ISymbolFactory symbolFactory;
 
 		private List<GameObject> symbolContainers = new List<GameObject> ();
@@ -23,7 +21,17 @@ namespace GDK.Reels
 
 		private Vector3 initialPosition;
 
-		void Start ()
+		private List<string> symbolStream;
+		private int currentSymbol;
+
+		public void Spin(List<string> symbolStream)
+		{
+			currentSymbol = 0;
+			this.symbolStream = symbolStream;
+			SetTween ();
+		}
+
+		private void Start ()
 		{
 			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
 
@@ -57,21 +65,23 @@ namespace GDK.Reels
 			}
 		}
 
-		private bool spinning;
-
-		private void Update ()
+		private void SetTween ()
 		{
-			if (Input.touchCount > 0 || Input.GetKeyDown (KeyCode.Space))
-			{
-				if (!spinning)
-					SetTween ();
-
-				spinning = !spinning;
-			}
+			gameObject.transform.DOMove (
+				new Vector3 (
+					initialPosition.x,
+					initialPosition.y - settings.SymbolSpacing, 
+					initialPosition.z), settings.SpinTime)
+				.SetEase (Ease.Linear)
+				.OnComplete (OnComplete);
 		}
 
 		private void OnComplete ()
 		{
+			// No more symbols in the stream.
+			if (currentSymbol >= symbolStream.Count)
+				return;
+
 			// Return the last symbol object to the pool.
 			PoolManager.Return (symbolObjects [symbolObjects.Count - 1]);
 
@@ -83,32 +93,14 @@ namespace GDK.Reels
 				symbolObjects [i].transform.localPosition = Vector3.zero;
 			}
 
-			// Pick a random symbol for fun!
-			List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
-			List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
-			int random = rng.GetRandomNumber (symbols.Count);
-
 			// Add the new symbol object.
-			symbolObjects [0] = PoolManager.Obtain (symbolFactory.CreateSymbol (symbols [random].Name));
+			symbolObjects [0] = PoolManager.Obtain (symbolFactory.CreateSymbol (symbolStream [currentSymbol++]));
 			symbolObjects [0].transform.parent = symbolContainers [0].transform;
 			symbolObjects [0].transform.localPosition = Vector3.zero;
 
 			// Reset the reel mover.
 			gameObject.transform.position = initialPosition;
-
-			if (spinning)
-				SetTween ();
-		}
-
-		private void SetTween ()
-		{
-			gameObject.transform.DOMove (
-				new Vector3 (
-					initialPosition.x,
-					initialPosition.y - settings.SymbolSpacing, 
-					initialPosition.z), settings.SpinTime)
-				.SetEase (Ease.Linear)
-				.OnComplete (OnComplete);
+			SetTween ();
 		}
 	}
 }

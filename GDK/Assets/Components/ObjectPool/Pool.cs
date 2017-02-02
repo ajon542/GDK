@@ -85,6 +85,7 @@ namespace GDK.Pool
 			}
 
 			objectStatus [instanceId] = true;
+			go.transform.parent = gameObject.transform;
 			pool.Enqueue (go);
 		}
 	}

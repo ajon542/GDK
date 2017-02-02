@@ -1,61 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using StateMachine;
+using GDK.MathEngine;
+using Zenject;
 
 namespace GDK.Reels
 {
 	public class ReelController : MonoBehaviour
 	{
-		private GameStateMachine stateMachine;
+		[Inject] IRng rng;
+		[Inject] Paytable paytable;
 
-		[SerializeField]
-		private List<BaseMonoBehaviourState> states;
+		[SerializeField] List<ReelDisplay> reelDisplays;
 
-		void Start ()
+		private List<int> symbolsToSpin;
+
+		private void Start()
 		{
-			// Create the state machine.
-			stateMachine = new GameStateMachine ();
+			symbolsToSpin = new List<int> { 22, 26, 30, 34 };
+		}
 
-			foreach (BaseMonoBehaviourState state in states)
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0)
 			{
-				state.Configure (stateMachine);
+				List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
+				List<Symbol> symbols = reelProps [0].ReelStrip.Symbols;
+
+				for (int reel = 0; reel < reelDisplays.Count; ++reel)
+				{
+					List<string> symbolStream = new List<string> ();
+
+					for (int i = 0; i < symbolsToSpin[reel]; ++i)
+					{
+						int random = rng.GetRandomNumber (symbols.Count);
+						symbolStream.Add(symbols[random].Name);
+					}
+
+					reelDisplays [reel].Spin (symbolStream);
+				}
 			}
-
-			StartConfiguration ();
-			StartIdle ();
-		}
-
-		void Update ()
-		{
-			stateMachine.ProcessStateTransitions ();
-
-			if (Input.GetKeyDown (KeyCode.Space))
-			{
-				StartSpinning ();
-				StartStopping ();
-				StartIdle ();
-			}
-		}
-
-		// TODO: This kinda sucks, if each state provides the triggers, how will we know about them here?
-		public virtual void StartConfiguration()
-		{
-			stateMachine.AddTrigger ("TriggerStateConfiguration");
-		}
-
-		public virtual void StartIdle()
-		{
-			stateMachine.AddTrigger ("TriggerStateIdle");
-		}
-
-		public virtual void StartSpinning()
-		{
-			stateMachine.AddTrigger ("TriggerStateSpinning");
-		}
-
-		public virtual void StartStopping ()
-		{
-			stateMachine.AddTrigger ("TriggerStateStopping");
 		}
 	}
 }
