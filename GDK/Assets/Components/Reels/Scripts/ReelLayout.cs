@@ -15,13 +15,12 @@ namespace GDK.Reels
 		[Inject] ISymbolFactory symbolFactory;
 
 		[SerializeField] private int visibleSymbols;
-		[SerializeField] private float speed = 1f;
+		[SerializeField] private float spinTime = 1f;
 		[SerializeField] private float reelHeight = 10;
 
 		private List<GameObject> symbolContainers = new List<GameObject> ();
 		private List<GameObject> symbolObjects = new List<GameObject> ();
 
-		private AnimationCurve layoutCurve;
 		private float symbolHeight;
 
 		private Vector3 initialPosition;
@@ -32,24 +31,30 @@ namespace GDK.Reels
 
 			initialPosition = gameObject.transform.position;
 
-			// Create a set of center aligned symbol positions.
-			float topSymbolPos = 1.0f / (visibleSymbols + 1);
-			layoutCurve = AnimationCurve.Linear (0, reelHeight, 1, -reelHeight);
-			symbolHeight = reelHeight - layoutCurve.Evaluate (topSymbolPos);
-
-			for (int i = 1; i <= visibleSymbols; ++i)
+			// Create the symbol containers.
+			for (int i = 0; i < visibleSymbols; ++i)
 			{
-				// Create the symbol containers. These will define the layout of each symbol on the reel.
-				float y = layoutCurve.Evaluate (i * topSymbolPos) + gameObject.transform.position.y;
 				var symbolContainer = new GameObject();
 				symbolContainer.name = "SymbolContainer";
-				symbolContainer.transform.position = new Vector3 (gameObject.transform.position.x, y, -1);
 				symbolContainer.transform.parent = gameObject.transform;
+				symbolContainer.transform.localPosition = Vector3.zero;
 				symbolContainers.Add (symbolContainer);
+			}
 
-				// Attach the symbol as a child game object.
+			// Align the symbol containers.
+			AnimationCurveExtensions.AlignVerticalCenter (
+				symbolContainers, 
+				initialPosition.y + reelHeight, 
+				initialPosition.y - reelHeight);
+
+			// TODO: This is a bit hacky...
+			symbolHeight = symbolContainers[0].transform.position.y - symbolContainers[1].transform.position.y;
+
+			// Attach the symbol as a child objects of the symbol containers.
+			for (int i = 0; i < visibleSymbols; ++i)
+			{
 				var symbolObject = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
-				symbolObject.transform.parent = symbolContainer.transform;
+				symbolObject.transform.parent = symbolContainers[i].transform;
 				symbolObject.transform.localPosition = Vector3.zero;
 				symbolObjects.Add (symbolObject);
 			}
@@ -101,9 +106,29 @@ namespace GDK.Reels
 		private void SetTween ()
 		{
 			gameObject.transform.DOMove (
-				new Vector3 (initialPosition.x, initialPosition.y - symbolHeight, initialPosition.z), speed)
+				new Vector3 (initialPosition.x, initialPosition.y - symbolHeight, initialPosition.z), spinTime)
 				.SetEase (Ease.Linear)
 				.OnComplete (OnComplete);
+		}
+	}
+
+	public static class AnimationCurveExtensions
+	{
+		public static void AlignVerticalCenter (List<GameObject> gameObjects, float valueStart, float valueEnd)
+		{
+			AnimationCurve layoutCurve = AnimationCurve.Linear (0, valueStart, 1, valueEnd);
+			float firstPos = 1.0f / (gameObjects.Count + 1);
+
+			for (int i = 1; i <= gameObjects.Count; ++i)
+			{
+				float y = layoutCurve.Evaluate (i * firstPos);
+				UpdatePosition (gameObjects [i - 1].transform, 0, y, 0);
+			}
+		}
+
+		private static void UpdatePosition(Transform t, float x, float y, float z)
+		{
+			t.position = new Vector3 (t.position.x + x, t.position.y + y, t.position.z + z);
 		}
 	}
 }
