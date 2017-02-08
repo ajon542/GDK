@@ -212,7 +212,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -291,7 +291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c27b7f9afd541bd84fc3ced8adfff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleSymbols: 7
+  topBuffer: 2
+  bottomBuffer: 2
+  visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
 --- !u!1 &256814678
@@ -346,7 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c27b7f9afd541bd84fc3ced8adfff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleSymbols: 7
+  topBuffer: 2
+  bottomBuffer: 2
+  visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
 --- !u!1 &303872434
@@ -485,7 +489,7 @@ Transform:
   m_GameObject: {fileID: 544908040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 25, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1696035181}
@@ -542,7 +546,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c27b7f9afd541bd84fc3ced8adfff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleSymbols: 7
+  topBuffer: 2
+  bottomBuffer: 2
+  visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
 --- !u!1 &917900120
@@ -571,7 +577,7 @@ Transform:
   m_GameObject: {fileID: 917900120}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.35, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 25, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1696035181}
@@ -690,7 +696,7 @@ Transform:
   m_GameObject: {fileID: 1144582556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.3, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 25, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1696035181}
@@ -795,7 +801,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c27b7f9afd541bd84fc3ced8adfff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleSymbols: 7
+  topBuffer: 2
+  bottomBuffer: 2
+  visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
 --- !u!1 &1458431378
@@ -824,7 +832,7 @@ Transform:
   m_GameObject: {fileID: 1458431378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 7, z: 1}
+  m_LocalScale: {x: 3, y: 25, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1696035181}

@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 using GDK.Pool;
 using GDK.MathEngine;
 using GDK.Utilities;
 using DG.Tweening;
+using RSG;
 using Zenject;
 
 namespace GDK.Reels
 {
 	[RequireComponent (typeof(ReelSettings))]
-	public class ReelDisplay : MonoBehaviour
+	public class ReelDisplay : MonoBehaviour, IReelDisplay
 	{
 		[Inject] ISymbolFactory symbolFactory;
 
@@ -22,13 +24,25 @@ namespace GDK.Reels
 		private Vector3 initialPosition;
 
 		private List<string> symbolStream;
-		private int currentSymbol;
+		private int currentSymbolIndexInStream;
 
-		public void Spin(List<string> symbolStream)
+		private Promise spinCompletePromise;
+
+		public Promise Spin (List<string> symbolStream)
 		{
-			currentSymbol = 0;
+			spinCompletePromise = new Promise ();
+
+			if (symbolStream == null || symbolStream.Count == 0)
+			{
+				spinCompletePromise.Reject(new Exception("attempting to spin reel with no symbols in the stream"));
+				return spinCompletePromise;
+			}
+
+			currentSymbolIndexInStream = 0;
 			this.symbolStream = symbolStream;
 			SetTween ();
+
+			return spinCompletePromise;
 		}
 
 		private void Start ()
@@ -39,7 +53,7 @@ namespace GDK.Reels
 			initialPosition = gameObject.transform.position;
 
 			// Create the symbol containers.
-			for (int i = 0; i < settings.VisibleSymbols; ++i)
+			for (int i = 0; i < settings.TotalSymbols; ++i)
 			{
 				var symbolContainer = new GameObject ();
 				symbolContainer.name = "SymbolContainer";
@@ -49,14 +63,14 @@ namespace GDK.Reels
 			}
 
 			// Align the symbol containers.
-			float reelHeight = (settings.VisibleSymbols - 1) * settings.SymbolSpacing;
+			float reelHeight = (settings.TotalSymbols - 1) * settings.SymbolSpacing;
 			AnimationCurveExtensions.AlignVerticalCenter (
 				symbolContainers, 
 				initialPosition.y + reelHeight / 2, 
 				initialPosition.y - reelHeight / 2);
 
 			// Attach the symbol as a child objects of the symbol containers.
-			for (int i = 0; i < settings.VisibleSymbols; ++i)
+			for (int i = 0; i < settings.TotalSymbols; ++i)
 			{
 				var symbolObject = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
 				symbolObject.transform.parent = symbolContainers [i].transform;
@@ -78,10 +92,6 @@ namespace GDK.Reels
 
 		private void OnComplete ()
 		{
-			// No more symbols in the stream.
-			if (currentSymbol >= symbolStream.Count)
-				return;
-
 			// Return the last symbol object to the pool.
 			PoolManager.Return (symbolObjects [symbolObjects.Count - 1]);
 
@@ -94,13 +104,33 @@ namespace GDK.Reels
 			}
 
 			// Add the new symbol object.
-			symbolObjects [0] = PoolManager.Obtain (symbolFactory.CreateSymbol (symbolStream [currentSymbol++]));
+			symbolObjects [0] = PoolManager.Obtain (
+				symbolFactory.CreateSymbol (symbolStream [currentSymbolIndexInStream++]));
 			symbolObjects [0].transform.parent = symbolContainers [0].transform;
 			symbolObjects [0].transform.localPosition = Vector3.zero;
 
 			// Reset the reel mover.
 			gameObject.transform.position = initialPosition;
-			SetTween ();
+
+			// Continue displaying the symbols in the stream.
+			if (currentSymbolIndexInStream < symbolStream.Count)
+				SetTween ();
+			else
+				spinCompletePromise.Resolve ();
+		}
+
+		public void ReplaceSymbol (int index, string symbol)
+		{
+			if (index < 0 || index >= settings.TotalSymbols)
+			{
+				Debug.LogError ("cannot replace symbol, index is out of range");
+				return;
+			}
+
+			PoolManager.Return (symbolObjects [index]);
+			symbolObjects [index] = PoolManager.Obtain (symbolFactory.CreateSymbol (symbol));
+			symbolObjects [index].transform.parent = symbolContainers [index].transform;
+			symbolObjects [index].transform.localPosition = Vector3.zero;
 		}
 	}
 }
