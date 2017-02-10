@@ -511,6 +511,6 @@ PlayerSettings:
   iOS::VR::enabledDevices: []
   tvOS::VR::enabledDevices: []
   cloudProjectId: a2b3771c-bdef-4372-9056-9650d1958bb8
-  projectName: GDK
+  projectName: ReelSetComponent
   organizationId: ajon542
   cloudEnabled: 0

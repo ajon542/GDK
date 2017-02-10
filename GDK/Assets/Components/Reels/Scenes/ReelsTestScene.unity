@@ -249,6 +249,7 @@ GameObject:
   - 4: {fileID: 220779177}
   - 114: {fileID: 220779176}
   - 114: {fileID: 220779178}
+  - 114: {fileID: 220779179}
   m_Layer: 0
   m_Name: Reel
   m_TagString: Untagged
@@ -296,6 +297,17 @@ MonoBehaviour:
   visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
+--- !u!114 &220779179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 220779175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40128d6eaae47ce4a9aa12788d9f8f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &256814678
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +318,7 @@ GameObject:
   - 4: {fileID: 256814680}
   - 114: {fileID: 256814679}
   - 114: {fileID: 256814681}
+  - 114: {fileID: 256814682}
   m_Layer: 0
   m_Name: Reel
   m_TagString: Untagged
@@ -353,6 +366,17 @@ MonoBehaviour:
   visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
+--- !u!114 &256814682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 256814678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40128d6eaae47ce4a9aa12788d9f8f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &303872434
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +528,7 @@ GameObject:
   - 4: {fileID: 617478094}
   - 114: {fileID: 617478093}
   - 114: {fileID: 617478095}
+  - 114: {fileID: 617478096}
   m_Layer: 0
   m_Name: Reel
   m_TagString: Untagged
@@ -551,6 +576,17 @@ MonoBehaviour:
   visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
+--- !u!114 &617478096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 617478092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40128d6eaae47ce4a9aa12788d9f8f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &917900120
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +795,7 @@ GameObject:
   - 4: {fileID: 1292350977}
   - 114: {fileID: 1292350976}
   - 114: {fileID: 1292350978}
+  - 114: {fileID: 1292350979}
   m_Layer: 0
   m_Name: Reel
   m_TagString: Untagged
@@ -806,6 +843,17 @@ MonoBehaviour:
   visibleSymbols: 3
   spinTime: 0.09
   symbolSpacing: 2.4
+--- !u!114 &1292350979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292350975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40128d6eaae47ce4a9aa12788d9f8f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1458431378
 GameObject:
   m_ObjectHideFlags: 0

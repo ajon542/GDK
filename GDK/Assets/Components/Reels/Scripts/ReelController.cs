@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using StateMachine;
 using GDK.MathEngine;
 using GDK.Utilities;
+using DG.Tweening;
 using RSG;
 using Zenject;
 
@@ -15,13 +16,14 @@ namespace GDK.Reels
 
 		[SerializeField] List<ReelDisplay> reelDisplays;
 
-		private List<int> symbolsToSpin;
+		//private List<int> symbolsToSpin;
 
 		private void Start()
 		{
-			symbolsToSpin = new List<int> { 22, 26, 30, 34 };
-		}
+			//symbolsToSpin = new List<int> { 22, 26, 30, 34 };
 
+            DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
+		}
 
 		private void Update()
 		{
@@ -30,7 +32,7 @@ namespace GDK.Reels
 				Promise.All(
 					new Promise[]
 					{                   
-						reelDisplays [0].Spin(new List<string> { "AA", "BB", "CC", "DD" }),        
+						reelDisplays [0].Spin(new List<string> { "AA", "BB", "CC", "DD" }),
 						reelDisplays [1].Spin(new List<string> { "AA", "BB", "CC", "DD" }),
 						reelDisplays [2].Spin(new List<string> { "AA", "BB", "CC", "DD" }),
 						reelDisplays [3].Spin(new List<string> { "AA", "BB", "CC", "DD" })

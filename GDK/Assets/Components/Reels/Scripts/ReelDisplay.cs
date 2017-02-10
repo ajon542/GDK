@@ -12,18 +12,19 @@ using Zenject;
 namespace GDK.Reels
 {
 	[RequireComponent (typeof(ReelSettings))]
+    [RequireComponent(typeof(ReelLayout))]
 	public class ReelDisplay : MonoBehaviour, IReelDisplay
 	{
 		[Inject] ISymbolFactory symbolFactory;
 
-		private List<GameObject> symbolContainers = new List<GameObject> ();
+        private GameObject root;
+        private List<GameObject> symbolContainers;
 		private List<GameObject> symbolObjects = new List<GameObject> ();
 
 		private ReelSettings settings;
 
-		private Vector3 initialPosition;
-
 		private List<string> symbolStream;
+
 		private int currentSymbolIndexInStream;
 
 		private Promise spinCompletePromise;
@@ -47,45 +48,31 @@ namespace GDK.Reels
 
 		private void Start ()
 		{
-			DOTween.Init (false, true, LogBehaviour.ErrorsOnly);
+            // Create the root reel object.
+            root = new GameObject();
+            root.name = "Root";
+            gameObject.AddChild(root);
 
-			settings = GetComponent<ReelSettings> ();
-			initialPosition = gameObject.transform.position;
-
-			// Create the symbol containers.
-			for (int i = 0; i < settings.TotalSymbols; ++i)
-			{
-				var symbolContainer = new GameObject ();
-				symbolContainer.name = "SymbolContainer";
-				symbolContainer.transform.parent = gameObject.transform;
-				symbolContainer.transform.localPosition = Vector3.zero;
-				symbolContainers.Add (symbolContainer);
-			}
-
-			// Align the symbol containers.
-			float reelHeight = (settings.TotalSymbols - 1) * settings.SymbolSpacing;
-			AnimationCurveExtensions.AlignVerticalCenter (
-				symbolContainers, 
-				initialPosition.y + reelHeight / 2, 
-				initialPosition.y - reelHeight / 2);
+            // Get the reel settings and align all the symbol container game objects.
+            settings = GetComponent<ReelSettings>();
+            GetComponent<ReelLayout>().Layout(root, out symbolContainers);
 
 			// Attach the symbol as a child objects of the symbol containers.
 			for (int i = 0; i < settings.TotalSymbols; ++i)
 			{
 				var symbolObject = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
-				symbolObject.transform.parent = symbolContainers [i].transform;
-				symbolObject.transform.localPosition = Vector3.zero;
+                symbolContainers[i].AddChild(symbolObject);
 				symbolObjects.Add (symbolObject);
 			}
 		}
 
 		private void SetTween ()
 		{
-			gameObject.transform.DOMove (
+			root.transform.DOMove (
 				new Vector3 (
-					initialPosition.x,
-					initialPosition.y - settings.SymbolSpacing, 
-					initialPosition.z), settings.SpinTime)
+					gameObject.transform.position.x,
+                    gameObject.transform.position.y - settings.SymbolSpacing,
+                    gameObject.transform.position.z), settings.SpinTime)
 				.SetEase (Ease.Linear)
 				.OnComplete (OnComplete);
 		}
@@ -99,18 +86,16 @@ namespace GDK.Reels
 			for (int i = symbolObjects.Count - 1; i > 0; --i)
 			{
 				symbolObjects [i] = symbolObjects [i - 1];
-				symbolObjects [i].transform.parent = symbolContainers [i].transform;
-				symbolObjects [i].transform.localPosition = Vector3.zero;
+                symbolContainers[i].AddChild(symbolObjects[i]);
 			}
 
 			// Add the new symbol object.
 			symbolObjects [0] = PoolManager.Obtain (
 				symbolFactory.CreateSymbol (symbolStream [currentSymbolIndexInStream++]));
-			symbolObjects [0].transform.parent = symbolContainers [0].transform;
-			symbolObjects [0].transform.localPosition = Vector3.zero;
+            symbolContainers[0].AddChild(symbolObjects[0]);
 
-			// Reset the reel mover.
-			gameObject.transform.position = initialPosition;
+			// Reset the root object to its initial position.
+            root.transform.localPosition = Vector3.zero;
 
 			// Continue displaying the symbols in the stream.
 			if (currentSymbolIndexInStream < symbolStream.Count)
@@ -129,8 +114,7 @@ namespace GDK.Reels
 
 			PoolManager.Return (symbolObjects [index]);
 			symbolObjects [index] = PoolManager.Obtain (symbolFactory.CreateSymbol (symbol));
-			symbolObjects [index].transform.parent = symbolContainers [index].transform;
-			symbolObjects [index].transform.localPosition = Vector3.zero;
+            symbolContainers[index].AddChild(symbolObjects[index]);
 		}
 	}
 }
