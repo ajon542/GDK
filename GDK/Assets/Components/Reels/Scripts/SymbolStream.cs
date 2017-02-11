@@ -6,29 +6,31 @@ namespace GDK.Reels
 {
     public class SymbolStream : ISymbolStream
     {
-        //[Inject] private IRng rng;
-        //[Inject] private Paytable paytable;
-
-        private List<string> symbols = new List<string> { "AA", "BB", "CC", "DD", "EE", "FF", "GG" };
         private int current;
+        private List<Symbol> symbols;
+
+        public void Initialize(List<Symbol> symbols)
+        {
+            this.symbols = symbols;
+        }
 
         public string NextSymbol()
         {
             if (current >= symbols.Count)
                 current = 0;
-            // TODO: Inject doesn't work if we create an instance of this class with "new".
-            //List<ReelProperties> reelProps = paytable.ReelGroup.Reels;
-            //List<Symbol> symbols = reelProps[0].ReelStrip.Symbols;
-
-            // Add a random symbol from the reel for now...
-            //int random = rng.GetRandomNumber(symbols.Count)
-
-            return symbols[current++];
+            return symbols[current++].Name;
         }
 
         public string Peek()
         {
-            return "AA";
+            if (current >= symbols.Count)
+                current = 0;
+            return symbols[current].Name;
+        }
+
+        public void Splice(int targetStop)
+        {
+            // Here we have to account for the top buffer in the reels which is 
         }
     }
 }
