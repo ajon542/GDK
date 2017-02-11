@@ -23,31 +23,12 @@ namespace GDK.Reels
 
 		private ReelSettings settings;
 
-		private List<string> symbolStream;
-
-		private int currentSymbolIndexInStream;
+		private ISymbolStream symbolStream;
 
 		private Promise spinCompletePromise;
 
-		public Promise Spin (List<string> symbolStream)
-		{
-			spinCompletePromise = new Promise ();
-
-			if (symbolStream == null || symbolStream.Count == 0)
-			{
-				spinCompletePromise.Reject(new Exception("attempting to spin reel with no symbols in the stream"));
-				return spinCompletePromise;
-			}
-
-			currentSymbolIndexInStream = 0;
-			this.symbolStream = symbolStream;
-			SetTween ();
-
-			return spinCompletePromise;
-		}
-
-		private void Start ()
-		{
+        private void Start()
+        {
             // Create the root reel object.
             root = new GameObject();
             root.name = "Root";
@@ -57,17 +38,34 @@ namespace GDK.Reels
             settings = GetComponent<ReelSettings>();
             GetComponent<ReelLayout>().Layout(root, out symbolContainers);
 
-			// Attach the symbol as a child objects of the symbol containers.
-			for (int i = 0; i < settings.TotalSymbols; ++i)
-			{
-				var symbolObject = PoolManager.Obtain (symbolFactory.CreateSymbol ("AA"));
+            // Attach the symbol as a child objects of the symbol containers.
+            for (int i = 0; i < settings.TotalSymbols; ++i)
+            {
+                var symbolObject = PoolManager.Obtain(symbolFactory.CreateSymbol("AA"));
                 symbolContainers[i].AddChild(symbolObject);
-				symbolObjects.Add (symbolObject);
-			}
+                symbolObjects.Add(symbolObject);
+            }
+        }
+
+        public Promise Spin(ISymbolStream symbolStream)
+		{
+			spinCompletePromise = new Promise ();
+			this.symbolStream = symbolStream;
+			SpinToNextSymbol ();
+
+			return spinCompletePromise;
 		}
 
-		private void SetTween ()
+		private void SpinToNextSymbol ()
 		{
+            // If there are no more symbols in the stream, we are done spinning.
+            if (string.IsNullOrEmpty(symbolStream.Peek()))
+            {
+                spinCompletePromise.Resolve();
+                return;
+            }
+
+            // Move the reel down per the spin settings.
 			root.transform.DOMove (
 				new Vector3 (
 					gameObject.transform.position.x,
@@ -83,25 +81,22 @@ namespace GDK.Reels
 			PoolManager.Return (symbolObjects [symbolObjects.Count - 1]);
 
 			// Shuffle all symbols down.
-			for (int i = symbolObjects.Count - 1; i > 0; --i)
-			{
-				symbolObjects [i] = symbolObjects [i - 1];
+            for (int i = symbolObjects.Count - 1; i > 0; --i)
+            {
+                symbolObjects [i] = symbolObjects [i - 1];
                 symbolContainers[i].AddChild(symbolObjects[i]);
-			}
+            }
 
-			// Add the new symbol object.
-			symbolObjects [0] = PoolManager.Obtain (
-				symbolFactory.CreateSymbol (symbolStream [currentSymbolIndexInStream++]));
+            // Add the next symbol to the reel.
+            string symbol = symbolStream.NextSymbol();
+            symbolObjects[0] = PoolManager.Obtain(symbolFactory.CreateSymbol(symbol));
             symbolContainers[0].AddChild(symbolObjects[0]);
 
 			// Reset the root object to its initial position.
             root.transform.localPosition = Vector3.zero;
 
 			// Continue displaying the symbols in the stream.
-			if (currentSymbolIndexInStream < symbolStream.Count)
-				SetTween ();
-			else
-				spinCompletePromise.Resolve ();
+		    SpinToNextSymbol ();
 		}
 
 		public void ReplaceSymbol (int index, string symbol)

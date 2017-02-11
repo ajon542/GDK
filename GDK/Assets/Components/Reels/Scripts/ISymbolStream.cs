@@ -6,5 +6,6 @@ namespace GDK.Reels
     public interface ISymbolStream 
     {
         string NextSymbol();
+        string Peek();
     }
 }

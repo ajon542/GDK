@@ -16,7 +16,7 @@ namespace GDK.Reels
 		/// The list of symbols to display while spinning. The reel will stop when
 		/// there is no more symbols in the list.
 		/// </param>
-		Promise Spin (List<string> symbolStream);
+		Promise Spin (ISymbolStream symbolStream);
 
 		/// <summary>
 		/// Replace the symbol at the given index.
