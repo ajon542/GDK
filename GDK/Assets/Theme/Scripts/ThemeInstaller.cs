@@ -41,7 +41,7 @@ namespace Theme
 
             paytable.ReelGroup.AddReel(new ReelStrip
             {
-                Symbols = new List<Symbol> { new Symbol(0, "AA"), new Symbol(1, "BB") }
+                Symbols = new List<Symbol> { new Symbol(0, "AA"), new Symbol(1, "BB"), new Symbol(1, "CC") }
             });
             paytable.ReelGroup.AddReel(new ReelStrip
             {
