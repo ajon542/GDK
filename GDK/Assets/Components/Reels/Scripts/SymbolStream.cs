@@ -1,36 +1,53 @@
 ﻿using System.Collections.Generic;
 using GDK.MathEngine;
+using GDK.Utilities;
 using Zenject;
 
 namespace GDK.Reels
 {
     public class SymbolStream : ISymbolStream
     {
-        private int current;
+        private WInteger currentStop;
+        private int spliceBuffer;
         private List<Symbol> symbols;
+        private bool streamFinished;
 
         public void Initialize(List<Symbol> symbols)
         {
             this.symbols = symbols;
+            currentStop = new WInteger(0, 0, symbols.Count);
         }
 
         public string NextSymbol()
         {
-            if (current >= symbols.Count)
-                current = 0;
-            return symbols[current++].Name;
+            string symbol = symbols[currentStop.Value].Name;
+            currentStop.Subtract(1);
+            spliceBuffer--;
+            return symbol;
         }
 
         public string Peek()
         {
-            if (current >= symbols.Count)
-                current = 0;
-            return symbols[current].Name;
+            if (streamFinished && spliceBuffer == 0)
+                return string.Empty;
+            else
+                return symbols[currentStop.Value].Name;
         }
 
         public void Splice(int targetStop)
         {
-            // Here we have to account for the top buffer in the reels which is 
+            int totalSymbols = 7;
+            int topBuffer = 3;
+
+            streamFinished = true;
+            currentStop = new WInteger(targetStop, 0, symbols.Count);
+            currentStop.Add(totalSymbols);
+            spliceBuffer = totalSymbols + topBuffer;
+        }
+
+        public void Reset()
+        {
+            streamFinished = false;
         }
     }
 }

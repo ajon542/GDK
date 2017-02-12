@@ -35,6 +35,7 @@ namespace GDK.Reels
             }
         }
 
+        int targetStop = 0;
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space) || InputExtensions.GetTouchDown())
@@ -42,10 +43,20 @@ namespace GDK.Reels
                 List<IPromise> reels = new List<IPromise>();
                 for (int i = 0; i < reelDisplays.Count; ++i)
                 {
+                    symbolStreams[i].Reset();
                     reels.Add(reelDisplays[i].Spin(symbolStreams[i]));
                 }
 
                 Promise.All(reels).Done(ReelSpinComplete);
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                foreach (var stream in symbolStreams)
+                {
+                    stream.Splice(targetStop);
+                }
+                targetStop++;
             }
         }
 
