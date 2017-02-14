@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using StateMachine;
-using GameLibrary;
+using GDK.StateMachine;
+using GDK.GameLibrary;
 
-namespace SlotLibrary
+namespace GDK.SlotLibrary
 {
 	/// <summary>
 	/// Base class for slot games.

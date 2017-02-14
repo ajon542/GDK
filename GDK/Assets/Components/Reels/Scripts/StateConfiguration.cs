@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using StateMachine;
+using GDK.StateMachine;
 
 namespace GDK.Reels
 {

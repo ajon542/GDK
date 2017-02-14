@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using StateMachine;
-using GameLibrary;
-using SlotLibrary;
+using GDK.StateMachine;
+using GDK.GameLibrary;
+using GDK.SlotLibrary;
 
 public class GameController : MonoBehaviour
 {

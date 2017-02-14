@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using StateMachine;
+using GDK.StateMachine;
 
-namespace GameLibrary
+namespace GDK.GameLibrary
 {
 	/// <summary>
 	/// StatePlay.

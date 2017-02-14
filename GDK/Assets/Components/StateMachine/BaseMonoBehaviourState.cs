@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace StateMachine
+namespace GDK.StateMachine
 {
 	public class BaseMonoBehaviourState : MonoBehaviour
 	{

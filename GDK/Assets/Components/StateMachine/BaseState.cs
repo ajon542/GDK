@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StateMachine
+namespace GDK.StateMachine
 {
 	/// <summary>
 	/// Base class for all state objects.

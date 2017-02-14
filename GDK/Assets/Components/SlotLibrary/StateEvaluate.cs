@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using StateMachine;
+using GDK.StateMachine;
 
-namespace SlotLibrary
+namespace GDK.SlotLibrary
 {
 	/// <summary>
 	/// State for evaluation of the paytable to provide a game result.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Stateless;
 
-namespace StateMachine
+namespace GDK.StateMachine
 {
 	/// <summary>
 	/// Container for the game state machine.
