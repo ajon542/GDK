@@ -23,11 +23,12 @@ namespace GDK.MathEngine.Evaluators
 			}
 
 			reelWindow = new ReelWindow (paytable.ReelGroup, randomNumbers);
+            PaylinesComponent component = new PaylinesComponent();
 
 			List<Payline> paylines = paytable.PaylineGroup.Paylines;
 			foreach (Payline payline in paylines)
 			{
-				// Obtain the reel window based on the random numbers.
+				// Get the list of symbols on the payline.
 				List<Symbol> symbolsInPayline = 
 					reelWindow.GetSymbolsInPayline (payline);
 
@@ -46,12 +47,19 @@ namespace GDK.MathEngine.Evaluators
 						bestPayAmount = payCombo.PayAmount;
 					}
 				}
-					
-				if (bestPayCombo != null)
-				{
-					results.Results.Add (new SlotResult { PayCombo = bestPayCombo, Payline = payline });
-				}
+
+                if (bestPayCombo != null)
+                {
+                    component.PayResults.Add(new PayResult { PayCombo = bestPayCombo, Payline = payline });
+                }
 			}
+
+            SlotResult slotResult = new SlotResult();
+            results.Results.Add(slotResult);
+            if (component.PayResults.Count > 0)
+            {
+                slotResult.AddComponent<PaylinesComponent>(component);
+            }
 
 			return results;
 		}

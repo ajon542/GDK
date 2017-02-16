@@ -21,6 +21,7 @@ namespace GDK.MathEngine.Evaluators
 			}
 
 			reelWindow = new ReelWindow (paytable.ReelGroup, randomNumbers);
+            ScattersComponent component = new ScattersComponent();
 			 
 			List<PayCombo> payCombos = paytable.ScatterComboGroup.Combos;
 			for (int combo = 0; combo < payCombos.Count; ++combo)
@@ -48,9 +49,14 @@ namespace GDK.MathEngine.Evaluators
 				// TODO: Add the payline the win occurred on.
 				if (bestPayCombo != null)
 				{
-					results.Results.Add (new SlotResult { PayCombo = bestPayCombo, Payline = null });
+                    component.PayResults.Add(new PayResult { PayCombo = bestPayCombo, Payline = null });
 				}
 			}
+
+            SlotResult slotResult = new SlotResult();
+            results.Results.Add(slotResult);
+            if (component.PayResults.Count > 0)
+                slotResult.AddComponent<ScattersComponent>(component);
 
 			return results;
 		}

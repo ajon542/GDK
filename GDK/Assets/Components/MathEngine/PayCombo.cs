@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GDK.MathEngine
@@ -83,10 +84,10 @@ namespace GDK.MathEngine
 			return match;
 		}
 
-		//public override string ToString()
-		//{
-		//    return string.Join(", ", Symbols);
-		//}
+		public override string ToString()
+		{
+		    return string.Join(", ", Symbols.Select(x => x.ToString()).ToArray());
+		}
 	}
 
 	/// <summary>

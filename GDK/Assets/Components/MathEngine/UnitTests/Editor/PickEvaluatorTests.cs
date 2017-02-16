@@ -49,8 +49,11 @@ public class PickEvaluatorTests
 		rng = new DummyRng (new List<int> { 7 });
 		SlotResults results = pickEvaluator.Evaluate (paytable, rng);
 
-		Assert.AreEqual (1, results.Results.Count);
-		Assert.AreEqual ("Free Spins", results.Results[0].PickResult.Trigger);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PickComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PickResults.Count);
+        Assert.AreEqual("Free Spins", component.PickResults[0].Trigger);
 	}
 
 	[Test]
@@ -59,10 +62,13 @@ public class PickEvaluatorTests
 		rng = new DummyRng (new List<int> { 6, 6 });
 		SlotResults results = pickEvaluator.Evaluate (paytable, rng);
 
-		Assert.AreEqual (2, results.Results.Count);
-		Assert.AreEqual ("Prize_30", results.Results[0].PickResult.Name);
-		Assert.AreEqual (30, results.Results[0].PickResult.Value);
-		Assert.AreEqual ("Free Spins", results.Results[1].PickResult.Trigger);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PickComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(2, component.PickResults.Count);
+        Assert.AreEqual("Prize_30", component.PickResults[0].Name);
+        Assert.AreEqual(30, component.PickResults[0].Value);
+        Assert.AreEqual("Free Spins", component.PickResults[1].Trigger);
 	}
 
 	[Test]
@@ -71,14 +77,16 @@ public class PickEvaluatorTests
 		rng = new DummyRng (new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 });
 		SlotResults results = pickEvaluator.Evaluate (paytable, rng);
 
-		Assert.AreEqual (8, results.Results.Count);
-		Assert.AreEqual ("Prize_10", results.Results[0].PickResult.Name);
-		Assert.AreEqual ("Prize_10", results.Results[1].PickResult.Name);
-		Assert.AreEqual ("Prize_10", results.Results[2].PickResult.Name);
-		Assert.AreEqual ("Prize_10", results.Results[3].PickResult.Name);
-		Assert.AreEqual ("Prize_20", results.Results[4].PickResult.Name);
-		Assert.AreEqual ("Prize_20", results.Results[5].PickResult.Name);
-		Assert.AreEqual ("Prize_30", results.Results[6].PickResult.Name);
-		Assert.AreEqual ("PickComplete", results.Results[7].PickResult.Name);
+        var component = results.Results[0].GetComponent<PickComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(8, component.PickResults.Count);
+        Assert.AreEqual("Prize_10", component.PickResults[0].Name);
+        Assert.AreEqual("Prize_10", component.PickResults[1].Name);
+        Assert.AreEqual("Prize_10", component.PickResults[2].Name);
+        Assert.AreEqual("Prize_10", component.PickResults[3].Name);
+        Assert.AreEqual("Prize_20", component.PickResults[4].Name);
+        Assert.AreEqual("Prize_20", component.PickResults[5].Name);
+        Assert.AreEqual("Prize_30", component.PickResults[6].Name);
+        Assert.AreEqual("PickComplete", component.PickResults[7].Name);
 	}
 }

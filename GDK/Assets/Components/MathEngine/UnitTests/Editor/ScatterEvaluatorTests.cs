@@ -44,8 +44,12 @@ public class ScatterEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (1, results.Results.Count);
-		Assert.AreEqual (1000, results.Results [0].PayCombo.PayAmount);
+
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+        Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
 	}
 
 	[Test]
@@ -56,8 +60,12 @@ public class ScatterEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (1, results.Results.Count);
-		Assert.AreEqual (1000, results.Results [0].PayCombo.PayAmount);
+
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+        Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
 	}
 
 	[Test]
@@ -68,8 +76,12 @@ public class ScatterEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (1, results.Results.Count);
-		Assert.AreEqual (1000, results.Results [0].PayCombo.PayAmount);
+
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+        Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
 	}
 
 	[Test]
@@ -80,7 +92,8 @@ public class ScatterEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (0, results.Results.Count);
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Assert.IsNull(component);
 	}
 		
 	[Test]
@@ -93,10 +106,14 @@ public class ScatterEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (3, results.Results.Count);
-		Assert.AreEqual (1000, results.Results [0].PayCombo.PayAmount);
-		Assert.AreEqual (500, results.Results [1].PayCombo.PayAmount);
-		Assert.AreEqual (10, results.Results [2].PayCombo.PayAmount);
+
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(3, component.PayResults.Count);
+        Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
+        Assert.AreEqual(500, component.PayResults[1].PayCombo.PayAmount);
+        Assert.AreEqual(10, component.PayResults[2].PayCombo.PayAmount);
 	}
 
 	[Test]
@@ -123,7 +140,11 @@ public class ScatterEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = scatterEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (1, results.Results.Count);
-		Assert.AreEqual ("Free Spins", results.Results [0].PayCombo.Trigger);
+
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+        Assert.AreEqual("Free Spins", component.PayResults[0].PayCombo.Trigger);
 	}
 }

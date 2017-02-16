@@ -27,6 +27,7 @@ namespace GDK.MathEngine.Evaluators
 
 			PickItem item;
 			SlotResults results = new SlotResults ();
+            PickComponent component = new PickComponent();
 
 			do
 			{
@@ -35,17 +36,19 @@ namespace GDK.MathEngine.Evaluators
 				item = pickItems [randomNumber];
 				pickItems.RemoveAt(randomNumber);
 
-				SlotResult slotResult = new SlotResult { 
-					PickResult = new PickResult { 
-						Name = item.Name, 
-						Value = item.Value, 
-						Trigger = item.Trigger.Name 
-					}
-				};
-
-				results.Results.Add (slotResult);
+                component.PickResults.Add(new PickResult {
+                    Name = item.Name,
+                    Value = item.Value,
+                    Trigger = item.Trigger.Name
+                });
 
 			} while (string.IsNullOrEmpty (item.Trigger.Name));
+
+            // Add the pick component to the slot result.
+            SlotResult slotResult = new SlotResult();
+            results.Results.Add(slotResult);
+            if (component.PickResults.Count > 0)
+                slotResult.AddComponent<PickComponent>(component);
 				
 			return results;
 		}

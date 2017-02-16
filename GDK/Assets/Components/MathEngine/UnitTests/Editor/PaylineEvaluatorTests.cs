@@ -47,11 +47,13 @@ public class PaylineEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 0, 0, 0 });
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (3, results.Results.Count);
-
-		Assert.AreEqual (100, results.Results [0].PayCombo.PayAmount); // 3 x AA
-		Assert.AreEqual (50, results.Results [1].PayCombo.PayAmount);  // 3 x BB
-		Assert.AreEqual (20, results.Results [2].PayCombo.PayAmount);  // 3 x CC
+		Assert.AreEqual (1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(3, component.PayResults.Count);
+        Assert.AreEqual (100, component.PayResults [0].PayCombo.PayAmount); // 3 x AA
+        Assert.AreEqual (50, component.PayResults [1].PayCombo.PayAmount);  // 3 x BB
+        Assert.AreEqual (20, component.PayResults [2].PayCombo.PayAmount);  // 3 x CC
 	}
 
 	[Test]
@@ -64,10 +66,13 @@ public class PaylineEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 1, 1, 1 });
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (2, results.Results.Count);
 
-		Assert.AreEqual (50, results.Results [0].PayCombo.PayAmount);  // 3 x BB
-		Assert.AreEqual (20, results.Results [1].PayCombo.PayAmount);  // 3 x CC
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(2, component.PayResults.Count);
+        Assert.AreEqual(50, component.PayResults[0].PayCombo.PayAmount);  // 3 x BB
+        Assert.AreEqual(20, component.PayResults[1].PayCombo.PayAmount);  // 3 x CC
 	}
 
 	[Test]
@@ -80,9 +85,12 @@ public class PaylineEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 2, 2, 2 });
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (1, results.Results.Count);
 
-		Assert.AreEqual (20, results.Results [0].PayCombo.PayAmount);  // 3 x CC
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+        Assert.AreEqual(20, component.PayResults[0].PayCombo.PayAmount);  // 3 x CC
 	}
 
 	[Test]
@@ -95,10 +103,13 @@ public class PaylineEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 6, 6, 6 });
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (2, results.Results.Count);
 
-		Assert.AreEqual (100, results.Results [0].PayCombo.PayAmount);  // 3 x AA
-		Assert.AreEqual (50, results.Results [1].PayCombo.PayAmount);   // 3 x BB
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(2, component.PayResults.Count);
+        Assert.AreEqual(100, component.PayResults[0].PayCombo.PayAmount); // 3 x AA
+        Assert.AreEqual(50, component.PayResults[1].PayCombo.PayAmount);  // 3 x BB
 	}
 
 	[Test]
@@ -111,8 +122,11 @@ public class PaylineEvaluatorTests
 
 		rng = new DummyRng (new List<int> { 5, 5, 5 });
 		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
-		Assert.AreEqual (1, results.Results.Count);
 
-		Assert.AreEqual (100, results.Results [0].PayCombo.PayAmount);  // 3 x AA
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+        Assert.AreEqual(100, component.PayResults[0].PayCombo.PayAmount); // 3 x AA
 	}
 }

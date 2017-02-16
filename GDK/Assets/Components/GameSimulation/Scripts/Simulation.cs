@@ -38,16 +38,23 @@ namespace GDK.GameSimulation
 
 		private void Simulate()
 		{
+            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch.Start();
+
 			while (numberOfSimulations-- > 0)
 			{
 				totalBet += bet;
 
 				SlotResults results = evaluator.Evaluate (paytable, rng);
 
-				foreach (var result in results.Results)
-				{
-					totalWin += result.PayCombo.PayAmount;
-				}
+                var component = results.Results[0].GetComponent<PaylinesComponent>();
+                if (component != null)
+                {
+                    foreach (var result in component.PayResults)
+                    {
+                        totalWin += result.PayCombo.PayAmount;
+                    }
+                }
 
 				displayCount--;
 				if (displayCount == 0)
@@ -59,6 +66,15 @@ namespace GDK.GameSimulation
 					displayCount = 100000;
 				}
 			}
+
+            // Get the elapsed time as a TimeSpan value.
+            System.TimeSpan ts = stopWatch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Debug.Log("RunTime " + elapsedTime);
 		}
 	}
 }
