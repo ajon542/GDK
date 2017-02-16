@@ -61,9 +61,25 @@ public class PaylineEvaluator_5_3_3_Tests
         payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 3, Offset = 2 });
         payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 4, Offset = 2 });
 
+        Payline payline4 = new Payline();
+        payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 0 });
+        payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 1 });
+        payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 2 });
+        payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 3, Offset = 1 });
+        payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 4, Offset = 0 });
+
+        Payline payline5 = new Payline();
+        payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 2 });
+        payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 1 });
+        payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 0 });
+        payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 3, Offset = 1 });
+        payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 4, Offset = 2 });
+
         paylines.AddPayline(payline1);
         paylines.AddPayline(payline2);
         paylines.AddPayline(payline3);
+        paylines.AddPayline(payline4);
+        paylines.AddPayline(payline5);
 
         // PayCombos
         PayComboGroup payCombos = new PayComboGroup();
@@ -96,9 +112,8 @@ public class PaylineEvaluator_5_3_3_Tests
         Assert.IsNotNull(results);
     }
 
-
     [Test]
-    public void Evaluation_SlotResult1()
+    public void Evaluation_Payline_1_2_3()
     {
         // Reel Window
         // AA AA AA AA AA
@@ -115,5 +130,41 @@ public class PaylineEvaluator_5_3_3_Tests
         Assert.AreEqual(50, component.PayResults[0].PayCombo.PayAmount);  // 5 x AA
         Assert.AreEqual(15, component.PayResults[1].PayCombo.PayAmount);  // 5 x BB
         Assert.AreEqual(10, component.PayResults[2].PayCombo.PayAmount);  // 5 x CC
+    }
+
+    [Test]
+    public void Evaluation_Payline_4()
+    {
+        // Reel Window
+        // AA CC BB CC AA
+        // BB AA CC AA BB
+        // CC BB AA CC CC
+
+        rng = new DummyRng(new List<int> { 0, 2, 1, 2, 0 });
+        SlotResults results = paylineEvaluator.Evaluate(paytable, rng);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+
+        Assert.AreEqual(50, component.PayResults[0].PayCombo.PayAmount);  // 5 x AA
+    }
+
+    [Test]
+    public void Evaluation_Payline_5()
+    {
+        // Reel Window
+        // BB CC AA CC BB
+        // CC AA BB AA CC
+        // AA BB CC BB AA
+
+        rng = new DummyRng(new List<int> { 1, 2, 0, 2, 1 });
+        SlotResults results = paylineEvaluator.Evaluate(paytable, rng);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+
+        Assert.AreEqual(50, component.PayResults[0].PayCombo.PayAmount);  // 5 x AA
     }
 }

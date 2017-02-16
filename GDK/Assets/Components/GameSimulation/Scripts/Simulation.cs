@@ -29,19 +29,20 @@ namespace GDK.GameSimulation
 			simulationThread.Start ();
 		}
 
-		private int bet = 3;
+		private int bet = 5;
 		private int totalBet;
 		private int totalWin;
 
 		private int displayCount = 100000;
 		private int numberOfSimulations = 1000000;
+        private bool simulationComplete = false;
 
 		private void Simulate()
 		{
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
             stopWatch.Start();
 
-			while (numberOfSimulations-- > 0)
+            while (numberOfSimulations-- > 0 && simulationComplete == false)
 			{
 				totalBet += bet;
 
@@ -76,5 +77,10 @@ namespace GDK.GameSimulation
                 ts.Milliseconds / 10);
             Debug.Log("RunTime " + elapsedTime);
 		}
+
+        private void OnDestroy()
+        {
+            simulationComplete = true;
+        }
 	}
 }

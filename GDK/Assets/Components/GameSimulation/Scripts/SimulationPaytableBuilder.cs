@@ -47,6 +47,7 @@ namespace GDK.GameSimulation
 
         public override PaylineGroup BuildPaylineGroup()
         {
+            // Paylines
             PaylineGroup paylines = new PaylineGroup();
 
             Payline payline1 = new Payline();
@@ -70,9 +71,25 @@ namespace GDK.GameSimulation
             payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 3, Offset = 2 });
             payline3.AddPaylineCoord(new PaylineCoord { ReelIndex = 4, Offset = 2 });
 
+            Payline payline4 = new Payline();
+            payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 0 });
+            payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 1 });
+            payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 2 });
+            payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 3, Offset = 1 });
+            payline4.AddPaylineCoord(new PaylineCoord { ReelIndex = 4, Offset = 0 });
+
+            Payline payline5 = new Payline();
+            payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 0, Offset = 2 });
+            payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 1, Offset = 1 });
+            payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 2, Offset = 0 });
+            payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 3, Offset = 1 });
+            payline5.AddPaylineCoord(new PaylineCoord { ReelIndex = 4, Offset = 2 });
+
             paylines.AddPayline(payline1);
             paylines.AddPayline(payline2);
             paylines.AddPayline(payline3);
+            paylines.AddPayline(payline4);
+            paylines.AddPayline(payline5);
 
             return paylines;
         }
