@@ -7,7 +7,7 @@ namespace GDK.MathEngine
 	/// </summary>
 	public class Rng : IRng
 	{
-		private Random random = new Random ();
+        private Random random = new Random();
 
 		public int GetRandomNumber ()
 		{

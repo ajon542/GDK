@@ -8,9 +8,9 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// Payline evaluation tests for a 5x3 reel window with 3 paylines.
+/// Payline evaluation tests for a 5x3 reel window with 5 paylines.
 /// </summary>
-public class PaylineEvaluator_5_3_3_Tests
+public class PaylineEvaluator_5_3_5_Tests
 {
     private IRng rng;
     private IEvaluator paylineEvaluator;
@@ -166,5 +166,61 @@ public class PaylineEvaluator_5_3_3_Tests
         Assert.AreEqual(1, component.PayResults.Count);
 
         Assert.AreEqual(50, component.PayResults[0].PayCombo.PayAmount);  // 5 x AA
+    }
+
+    [Test]
+    public void Evaluation_Payline_4_3_of_a_kind()
+    {
+        // Reel Window
+        // AA CC BB BB BB
+        // CC AA CC CC CC
+        // AA BB AA AA AA
+
+        rng = new DummyRng(new List<int> { 0, 2, 1, 1, 1 });
+        SlotResults results = paylineEvaluator.Evaluate(paytable, rng);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+
+        Assert.AreEqual(10, component.PayResults[0].PayCombo.PayAmount);  // 3 x AA
+    }
+
+    [Test]
+    public void Evaluation_Payline_4_4_of_a_kind()
+    {
+        // Reel Window
+        // AA CC BB CC BB
+        // CC AA CC AA CC
+        // AA BB AA BB AA
+
+        rng = new DummyRng(new List<int> { 0, 2, 1, 2, 1 });
+        SlotResults results = paylineEvaluator.Evaluate(paytable, rng);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(1, component.PayResults.Count);
+
+        Assert.AreEqual(25, component.PayResults[0].PayCombo.PayAmount);  // 4 x AA
+    }
+
+    [Test]
+    public void Evaluation_Payline_All_3_of_a_kind()
+    {
+        // Reel Window
+        // AA AA AA CC BB
+        // BB BB BB AA CC
+        // CC CC CC BB AA
+
+        rng = new DummyRng(new List<int> { 0, 0, 0, 2, 1 });
+        SlotResults results = paylineEvaluator.Evaluate(paytable, rng);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNotNull(component);
+        Assert.AreEqual(3, component.PayResults.Count);
+
+        Assert.AreEqual(10, component.PayResults[0].PayCombo.PayAmount);  // 3 x AA
+        Assert.AreEqual( 5, component.PayResults[1].PayCombo.PayAmount);  // 3 x BB
+        Assert.AreEqual( 1, component.PayResults[2].PayCombo.PayAmount);  // 3 x CC
     }
 }
