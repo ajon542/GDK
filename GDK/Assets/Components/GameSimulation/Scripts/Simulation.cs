@@ -1,40 +1,52 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Threading;
 
 using GDK.MathEngine;
 using GDK.MathEngine.Evaluators;
+using GDK.Utilities;
 
 namespace GDK.GameSimulation
 {
-    public class Simulation : MonoBehaviour
+    public class Simulation : EditorWindow
     {
-        // Add number of simulations
-        // Add RTP progress
-        // Add paytable name or evaluator name
-        // Select metrics???
-        //private PaytableBuilder builder = new SimulationPaytableBuilder();
-        //private Paytable paytable = new Paytable();
-        //private IEvaluator evaluator = new PaylineEvaluator();
-        //private IRng rng = new Rng();
-        private Thread simulationThread1;
-        private Thread simulationThread2;
-        private Thread simulationThread3;
-
-        private void Start()
+        [MenuItem("Window/Simulation")]
+        static void Init()
         {
-            simulationThread1 = new Thread(Simulate);
-            simulationThread2 = new Thread(Simulate);
-            simulationThread3 = new Thread(Simulate);
-            simulationThread1.Start();
-            simulationThread2.Start();
-            simulationThread3.Start();
+            Simulation window = (Simulation)EditorWindow.GetWindow(typeof(Simulation));
+            window.Show();
         }
 
-        private int bet = 5;
-        private bool simulationComplete = false;
+        public int numberOfSimulations;
+        public int bet;
 
-        private static int sleepTime = 1;
+        private float progress;
+        private bool simulationComplete;
+        private Thread simulationThread1;
+
+        private void OnGUI()
+        {
+            GUILayout.Label("Simulation Tool");
+            numberOfSimulations = EditorGUILayout.IntField("Number of Simulations", numberOfSimulations);
+            bet = EditorGUILayout.IntField("Bet", bet);
+
+            if (simulationComplete == false)
+                EditorUtility.DisplayProgressBar("Simulation Progress", string.Empty, progress);
+            else
+                EditorUtility.ClearProgressBar();
+
+            if (GUILayout.Button("Run"))
+            {
+                simulationThread1 = new Thread(Simulate);
+                simulationThread1.Start();
+            }
+        }
+
+        private void OnInspectorUpdate()
+        {
+            Repaint();
+        }
 
         private void Simulate()
         {
@@ -47,12 +59,12 @@ namespace GDK.GameSimulation
             paytable.PaylineGroup = builder.BuildPaylineGroup();
             paytable.PayComboGroup = builder.BuildPayComboGroup();
 
-            int numberOfSimulations = 1000000;
-            int displayCount = 100000;
+            int currentSimulation = 0;
             int totalBet = 0;
             int totalWin = 0;
+            simulationComplete = false;
 
-            while (numberOfSimulations-- > 0 && simulationComplete == false)
+            while (currentSimulation++ < numberOfSimulations && simulationComplete == false)
             {
                 totalBet += bet;
 
@@ -67,15 +79,7 @@ namespace GDK.GameSimulation
                     }
                 }
 
-                /*displayCount--;
-                if (displayCount == 0)
-                {
-                    Debug.Log (string.Format ("TotalWin={0}, TotalBet={1}, RTP={2}", 
-                        totalWin, 
-                        totalBet, 
-                        (float)totalWin / (float)totalBet));
-                    displayCount = 100000;
-                }*/
+                progress = (float)currentSimulation / (float)numberOfSimulations;
             }
 
             Debug.Log(string.Format("TotalWin={0}, TotalBet={1}, RTP={2}",
@@ -83,14 +87,7 @@ namespace GDK.GameSimulation
                 totalBet,
                 (float)totalWin / (float)totalBet));
 
-            // Get the elapsed time as a TimeSpan value.
-            /*System.TimeSpan ts = stopWatch.Elapsed;
-
-            // Format and display the TimeSpan value.
-            string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-            Debug.Log("RunTime " + elapsedTime);*/
+            simulationComplete = true;
         }
 
         private void OnDestroy()
