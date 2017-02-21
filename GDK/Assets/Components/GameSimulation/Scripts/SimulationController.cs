@@ -7,6 +7,9 @@ using GDK.MathEngine.Evaluators;
 
 namespace GDK.GameSimulation
 {
+    /// <summary>
+    /// The simulation controller.
+    /// </summary>
     public class SimulationController
     {
         private static SimulationController controller;
@@ -16,12 +19,12 @@ namespace GDK.GameSimulation
         [MenuItem("Window/Simulation")]
         private static void Init()
         {
-            SimulationView window = (SimulationView)EditorWindow.GetWindow(typeof(SimulationView));
-            window.Show();
-
             controller = new SimulationController();
             modelData = new SimulationModelData();
+
+            SimulationView window = (SimulationView)EditorWindow.GetWindow(typeof(SimulationView));
             window.Initialize(controller, modelData);
+            window.Show();
         }
 
         public bool SimulationRunning { get; private set; }

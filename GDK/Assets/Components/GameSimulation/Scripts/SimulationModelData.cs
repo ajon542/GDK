@@ -2,11 +2,26 @@
 
 namespace GDK.GameSimulation
 {
+    /// <summary>
+    /// Data associated with the simulation.
+    /// </summary>
     public interface ISimulationModelData
     {
         string Name { get; set; }
+
+        /// <summary>
+        /// The number of games to simulate.
+        /// </summary>
         int NumberOfSimulations { get; set; }
+        
+        /// <summary>
+        /// The bet amount for the simulation.
+        /// </summary>
         int Bet { get; set; }
+
+        /// <summary>
+        /// The entire results of the simulation.
+        /// </summary>
         SlotResults SlotResults { get; set; }
     }
 
@@ -20,7 +35,7 @@ namespace GDK.GameSimulation
         public SimulationModelData()
         {
             Name = "Simulation Name";
-            NumberOfSimulations = 1000;
+            NumberOfSimulations = 100000;
             Bet = 1;
         }
     }

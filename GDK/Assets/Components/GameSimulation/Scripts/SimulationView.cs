@@ -1,25 +1,33 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-// The view is going to need to:
-// - Display config (simulation initialization)
-// - Display progress (simulation feedback)
-// - Enable/disable buttons (simulation feedback)
-// - Display results (simulation feedback)
-
 namespace GDK.GameSimulation
 {
+    /// <summary>
+    /// - Display config (simulation initialization)
+    /// - Display progress (simulation feedback)
+    /// - Enable/disable buttons (simulation feedback)
+    /// - Display results (simulation feedback)
+    /// </summary>
     public class SimulationView : EditorWindow
     {
         private SimulationController Controller { get; set; }
         private ISimulationModelData ModelData { get; set; }
 
+        /// <summary>
+        /// Initialize the view with the controller and model data.
+        /// </summary>
+        /// <param name="controller">The simulation controller.</param>
+        /// <param name="modelData">The data needed to display.</param>
         public void Initialize(SimulationController controller, ISimulationModelData modelData)
         {
             Controller = controller;
             ModelData = modelData;
         }
 
+        /// <summary>
+        /// Display the view.
+        /// </summary>
         private void OnGUI()
         {
             ModelData.Name = EditorGUILayout.TextField(ModelData.Name);
@@ -30,6 +38,9 @@ namespace GDK.GameSimulation
             DisplaySimulationButton();
         }
 
+        /// <summary>
+        /// Display the simulation progress.
+        /// </summary>
         private void DisplayProgressBar()
         {
             if (Controller.SimulationRunning)
@@ -40,6 +51,9 @@ namespace GDK.GameSimulation
                 EditorUtility.ClearProgressBar();
         }
 
+        /// <summary>
+        /// Display the "run" or "stop" simulation button.
+        /// </summary>
         private void DisplaySimulationButton()
         {
             if (Controller.SimulationRunning)
@@ -58,11 +72,17 @@ namespace GDK.GameSimulation
             }
         }
 
+        /// <summary>
+        /// Repaint the display (so the progress bar updates).
+        /// </summary>
         private void OnInspectorUpdate()
         {
             Repaint();
         }
 
+        /// <summary>
+        /// Cancel the simulation.
+        /// </summary>
         private void OnDestroy()
         {
             Controller.StopSimulation();
