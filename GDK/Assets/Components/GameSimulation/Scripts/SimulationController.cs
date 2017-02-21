@@ -49,11 +49,16 @@ namespace GDK.GameSimulation
         private void Simulate()
         {
             SimulationRunning = true;
-            PaytableBuilder builder = new SimulationPaytableBuilder();
-            Paytable paytable = new Paytable();
+
+            // Start the simulation timer.
+            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch.Start();
+
+            // Create the paytrable used in the simulation.
             IEvaluator evaluator = new PaylineEvaluator();
             IRng rng = new Rng();
-
+            PaytableBuilder builder = new SimulationPaytableBuilder();
+            Paytable paytable = new Paytable();
             paytable.ReelGroup = builder.BuildReelGroup();
             paytable.PaylineGroup = builder.BuildPaylineGroup();
             paytable.PayComboGroup = builder.BuildPayComboGroup();
@@ -62,29 +67,31 @@ namespace GDK.GameSimulation
             int totalWin = 0;
             int currentSimulation = 0;
 
+            // Run the simulation.
             while (currentSimulation < modelData.NumberOfSimulations && SimulationRunning)
             {
                 totalBet += modelData.Bet;
 
                 SlotResults results = evaluator.Evaluate(paytable, rng);
 
-                var component = results.Results[0].GetComponent<PaylinesComponent>();
-                if (component != null)
-                {
-                    foreach (var result in component.PayResults)
-                    {
-                        totalWin += result.PayCombo.PayAmount;
-                    }
-                }
+                totalWin += results.TotalWin;
 
                 Progress = (float)currentSimulation / (float)modelData.NumberOfSimulations;
                 currentSimulation++;
             }
 
+            // Display the results.
             Debug.Log(string.Format("TotalWin={0}, TotalBet={1}, RTP={2}",
                 totalWin,
                 totalBet,
                 (float)totalWin / (float)totalBet));
+
+            // Display the simulation time.
+            System.TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            Debug.Log("RunTime " + elapsedTime);
 
             SimulationRunning = false;
         }

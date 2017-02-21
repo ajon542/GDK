@@ -113,5 +113,7 @@ namespace GDK.MathEngine
         }
 
         public List<SlotResult> Results { get; set; }
+
+        public int TotalWin { get; set; }
     }
 }
