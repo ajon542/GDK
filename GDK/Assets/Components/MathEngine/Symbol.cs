@@ -9,7 +9,7 @@ namespace GDK.MathEngine
 	public class Symbol
 	{
 		/// <summary>
-		/// Gets the identifier for ths symbol. The identifier should be unique.
+		/// Gets the identifier for this symbol. The identifier should be unique for different symbols.
 		/// </summary>
 		public int Id { get; set; }
 
@@ -68,7 +68,7 @@ namespace GDK.MathEngine
 				return false;
 			}
 
-			// If parameter cannot be cast to Point return false.
+			// If parameter cannot be cast to Symbol return false.
 			Symbol s = obj as Symbol;
 			if (s == null)
 			{
@@ -76,7 +76,7 @@ namespace GDK.MathEngine
 			}
 
 			// Return true if the fields match:
-			return (Name == s.Name) && (Id == s.Id);
+			return Id == s.Id;
 		}
 
 		/// <summary>
@@ -93,7 +93,7 @@ namespace GDK.MathEngine
 			}
 
 			// Return true if the fields match:
-			return (Name == s.Name) && (Id == s.Id);
+			return Id == s.Id;
 		}
 
 		/// <summary>
