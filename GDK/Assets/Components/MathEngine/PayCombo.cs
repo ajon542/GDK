@@ -14,7 +14,7 @@ namespace GDK.MathEngine
 		/// <summary>
 		/// Gets the list of symbols in the pay combination.
 		/// </summary>
-		public List<Symbol> Symbols { get; set; }
+		public List<Symbol> SymbolsInPayCombo { get; set; }
 
 		/// <summary>
 		/// Gets the pay amount for this pay combination.
@@ -31,7 +31,7 @@ namespace GDK.MathEngine
 		/// </summary>
 		public PayCombo ()
 		{
-			Symbols = new List<Symbol> ();
+			SymbolsInPayCombo = new List<Symbol> ();
 			PayAmount = 0;
 		}
 
@@ -42,17 +42,17 @@ namespace GDK.MathEngine
 		/// <param name="payAmount">The pay amount.</param>
 		public PayCombo (List<Symbol> symbols, int payAmount, string trigger = "")
 		{
-			Symbols = symbols;
+			SymbolsInPayCombo = symbols;
 			PayAmount = payAmount;
 			Trigger = trigger;
 		}
 
 		public PayCombo (Symbol symbol, int count, int payAmount, string trigger = "")
 		{
-			Symbols = new List<Symbol> ();
+			SymbolsInPayCombo = new List<Symbol> ();
 			for (int i = 0; i < count; ++i)
 			{
-				Symbols.Add (symbol);
+				SymbolsInPayCombo.Add (symbol);
 			}
 			PayAmount = payAmount;
 			Trigger = trigger;
@@ -61,20 +61,25 @@ namespace GDK.MathEngine
 		/// <summary>
 		/// Determines whether the given symbols meet the minimum requirements for a match.
 		/// </summary>
+        /// <remarks>
+        /// A PayCombo could be defined as { AA, AA, AA }. In order to match this PayCombo,
+        /// the given symbols in the payline must have at least 3 x AA in it.
+        /// </remarks>
 		/// <returns><c>true</c> if this instance matches the specified symbols; otherwise, <c>false</c>.</returns>
+        /// <param name="symbolComparer">Reference to the symbol comparer.</param>
 		/// <param name="symbolsInPayline">The symbols to match.</param>
-		public bool IsMatch(List<Symbol> symbolsInPayline)
+		public bool IsMatch(ISymbolComparer symbolComparer, List<Symbol> symbolsInPayline)
 		{
 			// Cannot match if the PayCombo requires more symbols than we are given.
-			if (Symbols.Count > symbolsInPayline.Count)
+			if (SymbolsInPayCombo.Count > symbolsInPayline.Count)
 			{
 				return false;
 			}
 
 			bool match = true;
-			for (int i = 0; i < Symbols.Count; ++i)
+			for (int i = 0; i < SymbolsInPayCombo.Count; ++i)
 			{
-				if (!Symbols [i].Equals (symbolsInPayline [i]))
+                if (!symbolComparer.Match(SymbolsInPayCombo [i], symbolsInPayline [i]))
 				{
 					match = false;
 					break;
@@ -86,7 +91,7 @@ namespace GDK.MathEngine
 
 		public override string ToString()
 		{
-		    return string.Join(", ", Symbols.Select(x => x.ToString()).ToArray());
+		    return string.Join(", ", SymbolsInPayCombo.Select(x => x.ToString()).ToArray());
 		}
 	}
 
@@ -96,6 +101,11 @@ namespace GDK.MathEngine
 	[Serializable]
 	public class PayComboGroup
 	{
+        /// <summary>
+        /// Used to compare symbols in the pay combo.
+        /// </summary>
+        public ISymbolComparer SymbolComparer { get; set; }
+
 		/// <summary>
 		/// Gets the paylines in the payline group.
 		/// </summary>
@@ -104,9 +114,10 @@ namespace GDK.MathEngine
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PayComboGroup"/> class.
 		/// </summary>
-		public PayComboGroup ()
+        public PayComboGroup(ISymbolComparer symbolComparer)
 		{
 			Combos = new List<PayCombo> ();
+            SymbolComparer = symbolComparer;
 		}
 
 		/// <summary>

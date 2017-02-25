@@ -43,7 +43,7 @@ namespace GDK.MathEngine.Evaluators
 
                 foreach (PayCombo payCombo in payCombos)
                 {
-                    bool match = payCombo.IsMatch(symbolsInPayline);
+                    bool match = payCombo.IsMatch(paytable.PayComboGroup.SymbolComparer, symbolsInPayline);
                     if (match && (payCombo.PayAmount > bestPayAmount))
                     {
                         // Update the best pay combo so far.

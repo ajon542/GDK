@@ -33,9 +33,9 @@ namespace GDK.MathEngine.Evaluators
 				// TODO: This assumes the scatter combo contains one type of symbol only.
 				// In almost all cases, this will be true so leaving it for now.
 				bool match = false;
-				Symbol symbol = payCombo.Symbols[0];
+				Symbol symbol = payCombo.SymbolsInPayCombo[0];
 				if (reelWindow.SymbolCount.ContainsKey (symbol) &&
-					reelWindow.SymbolCount[symbol] >= payCombo.Symbols.Count)
+					reelWindow.SymbolCount[symbol] >= payCombo.SymbolsInPayCombo.Count)
 				{
 					match = true;
 				}

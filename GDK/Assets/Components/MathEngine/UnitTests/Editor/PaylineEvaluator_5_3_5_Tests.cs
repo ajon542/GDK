@@ -82,7 +82,7 @@ public class PaylineEvaluator_5_3_5_Tests
         paylines.AddPayline(payline5);
 
         // PayCombos
-        PayComboGroup payCombos = new PayComboGroup();
+        PayComboGroup payCombos = new PayComboGroup(new SymbolComparer());
 
         // AA
         payCombos.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 5, 50));

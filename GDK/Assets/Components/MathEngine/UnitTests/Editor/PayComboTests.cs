@@ -33,7 +33,7 @@ public class PayComboTests
 			new Symbol(0, "AA"),
 		};
 
-		Assert.IsTrue (combo.IsMatch(symbolsToMatch));
+		Assert.IsTrue (combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 
 	[Test]
@@ -46,7 +46,7 @@ public class PayComboTests
 			new Symbol(0, "AA"),
 		};
 
-		Assert.IsTrue (combo.IsMatch(symbolsToMatch));
+        Assert.IsTrue(combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 
 	[Test]
@@ -57,7 +57,7 @@ public class PayComboTests
 			new Symbol(0, "AA"),
 		};
 
-		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+        Assert.IsFalse(combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 
 	[Test]
@@ -67,7 +67,7 @@ public class PayComboTests
 			new Symbol(0, "AA"),
 		};
 
-		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+        Assert.IsFalse(combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 
 	[Test]
@@ -77,7 +77,7 @@ public class PayComboTests
 			new Symbol(1, "BB"),
 		};
 
-		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+        Assert.IsFalse(combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 
 	[Test]
@@ -90,7 +90,7 @@ public class PayComboTests
 			new Symbol(1, "BB"),
 		};
 
-		Assert.IsTrue (combo.IsMatch(symbolsToMatch));
+        Assert.IsTrue(combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 
 	[Test]
@@ -103,6 +103,6 @@ public class PayComboTests
 			new Symbol(0, "AA"),
 		};
 
-		Assert.IsFalse (combo.IsMatch(symbolsToMatch));
+        Assert.IsFalse(combo.IsMatch(new SymbolComparer(), symbolsToMatch));
 	}
 }

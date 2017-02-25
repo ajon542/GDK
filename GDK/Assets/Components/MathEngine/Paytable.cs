@@ -9,6 +9,7 @@ namespace GDK.MathEngine
 	[Serializable]
 	public class Paytable
 	{
+        public SymbolGroup SymbolGroup { get; set; }
 		public ReelGroup ReelGroup { get; set; }
 		public PaylineGroup PaylineGroup { get; set; }
 		public PayComboGroup PayComboGroup { get; set; }

@@ -70,7 +70,7 @@ public class PaylinePaytableBuilder : PaytableBuilder
 
 	public override PayComboGroup BuildPayComboGroup ()
 	{
-		PayComboGroup payCombos = new PayComboGroup ();
+		PayComboGroup payCombos = new PayComboGroup (new SymbolComparer());
 
 		// TODO: This is where we might want to add the triggers.
 		payCombos.AddPayCombo (new PayCombo (new Symbol (0, "AA"), 2, 10));

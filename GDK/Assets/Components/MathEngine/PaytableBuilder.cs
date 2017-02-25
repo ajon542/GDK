@@ -17,12 +17,12 @@ namespace GDK.MathEngine
 
 		public virtual PayComboGroup BuildPayComboGroup ()
 		{
-			return new PayComboGroup ();
+			return new PayComboGroup (new SymbolComparer());
 		}
 
 		public virtual PayComboGroup BuildScatterComboGroup ()
 		{
-			return new PayComboGroup ();
+            return new PayComboGroup(new SymbolComparer());
 		}
 
 		public virtual PaytableTriggerGroup BuildPaytableTriggerGroup ()

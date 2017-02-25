@@ -97,7 +97,7 @@ namespace GDK.GameSimulation
         // 103%
         public override PayComboGroup BuildPayComboGroup()
         {
-            PayComboGroup payCombos = new PayComboGroup();
+            PayComboGroup payCombos = new PayComboGroup(new SymbolComparer());
 
             // AA
             payCombos.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 5, 50));
