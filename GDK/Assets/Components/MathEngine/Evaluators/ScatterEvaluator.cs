@@ -34,8 +34,8 @@ namespace GDK.MathEngine.Evaluators
 				// In almost all cases, this will be true so leaving it for now.
 				bool match = false;
 				Symbol symbol = payCombo.SymbolsInPayCombo[0];
-				if (reelWindow.SymbolCount.ContainsKey (symbol) &&
-					reelWindow.SymbolCount[symbol] >= payCombo.SymbolsInPayCombo.Count)
+				if (reelWindow.SymbolPositions.ContainsKey (symbol) &&
+                    reelWindow.SymbolPositions[symbol].Count >= payCombo.SymbolsInPayCombo.Count)
 				{
 					match = true;
 				}
