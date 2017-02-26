@@ -46,10 +46,15 @@ namespace GDK.MathEngine.Evaluators
 					bestPayAmount = payCombo.PayAmount;
 				}
 
-				// TODO: Add the payline the win occurred on.
 				if (bestPayCombo != null)
 				{
-                    component.PayResults.Add(new PayResult { PayCombo = bestPayCombo, Payline = null });
+                    // TODO: Might be able to optimize this but making PaylineCoord and SymbolPosition the same thing...
+                    Payline payline = new Payline();
+                    foreach (var position in reelWindow.SymbolPositions[symbol])
+                    {
+                        payline.AddPaylineCoord(new PaylineCoord { ReelIndex = position.ReelIndex, Offset = position.ReelOffset });
+                    }
+                    component.PayResults.Add(new PayResult { PayCombo = bestPayCombo, Payline = payline });
 				}
 			}
 

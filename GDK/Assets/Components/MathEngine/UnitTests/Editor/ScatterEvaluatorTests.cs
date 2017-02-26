@@ -147,4 +147,24 @@ public class ScatterEvaluatorTests
         Assert.AreEqual(1, component.PayResults.Count);
         Assert.AreEqual("Free Spins", component.PayResults[0].PayCombo.Trigger);
 	}
+
+    [Test]
+    public void Evaluation_SlotResult8()
+    {
+        paytable.ScatterComboGroup.Combos.Clear();
+        paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 100, "Free Spins"));
+
+        rng = new DummyRng(new List<int> { 0, 0, 0 });
+        SlotResults results = scatterEvaluator.Evaluate(paytable, rng);
+
+        var component = results.Results[0].GetComponent<ScattersComponent>();
+        Payline payline = component.PayResults[0].Payline;
+
+        Assert.AreEqual(0, payline.PaylineCoords[0].ReelIndex);
+        Assert.AreEqual(0, payline.PaylineCoords[0].Offset);
+        Assert.AreEqual(1, payline.PaylineCoords[1].ReelIndex);
+        Assert.AreEqual(0, payline.PaylineCoords[1].Offset);
+        Assert.AreEqual(2, payline.PaylineCoords[2].ReelIndex);
+        Assert.AreEqual(0, payline.PaylineCoords[2].Offset);
+    }
 }

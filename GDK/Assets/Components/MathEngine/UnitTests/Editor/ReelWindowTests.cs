@@ -157,4 +157,34 @@ public class ReelWindowTests
 
 		CollectionAssert.AreEqual (expected.Symbols, window[0]);
 	}
+
+    [Test]
+    public void ReelWindow_SymbolPositions()
+    {
+        reels = new ReelGroup();
+
+        ReelStrip reel1 = new ReelStrip();
+        reel1.AddSymbol(new Symbol(0, "AA"));
+        reel1.AddSymbol(new Symbol(1, "BB"));
+        reel1.AddSymbol(new Symbol(2, "CC"));
+        reel1.AddSymbol(new Symbol(3, "DD"));
+        reel1.AddSymbol(new Symbol(4, "EE"));
+
+        reels.AddReel(reel1);
+        reels.AddReel(reel1);
+        reels.AddReel(reel1);
+        reels.AddReel(reel1);
+        reels.AddReel(reel1);
+
+        ReelWindow reelWindow = new ReelWindow(reels, new List<int> { 0, 0, 0, 0, 0 });
+
+        List<SymbolPosition> positions = reelWindow.SymbolPositions[new Symbol(0, "AA")];
+
+        Assert.AreEqual(5, positions.Count);
+
+        Assert.AreEqual(0, positions[0].ReelIndex);
+        Assert.AreEqual(0, positions[0].ReelOffset);
+        Assert.AreEqual(4, positions[4].ReelIndex);
+        Assert.AreEqual(0, positions[4].ReelOffset);
+    }
 }
