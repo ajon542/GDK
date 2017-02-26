@@ -10,9 +10,6 @@ namespace GDK.MathEngine
     /// </summary>
     public class SymbolComparer : ISymbolComparer
     {
-        /// <summary>
-        /// This maps 
-        /// </summary>
         private Dictionary<Symbol, List<Symbol>> symbolMap = new Dictionary<Symbol,List<Symbol>>();
 
         public void Substitute(Symbol substitute, Symbol symbol)

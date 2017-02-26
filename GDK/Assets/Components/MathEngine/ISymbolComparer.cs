@@ -12,8 +12,8 @@ namespace GDK.MathEngine
         /// Specify a symbol which can substitute for another symbol.
         /// </summary>
         /// <remarks>
-        /// Imagine we have a Wild symbol that substitutes for any other symbol. This means the
-        /// if we have a Wild symbol in the payline, it can be "replaced" with an Ace if needs be.
+        /// A standard slot machine game will have a Wild symbol which can substitute
+        /// for any other symbol (except for maybe the bonus symbol).
         /// </remarks>
         /// <param name="substitute">The symbol that can substitute.</param>
         /// <param name="symbol">The symbol that can be substituted for.</param>
@@ -22,6 +22,11 @@ namespace GDK.MathEngine
         /// <summary>
         /// Query the comparer to determine if the symbols match.
         /// </summary>
+        /// <remarks>
+        /// This ties in closely with the Substitute method. If we specify that a
+        /// Wild substitutes for an Ace, a Wild will not match an Ace, but an Ace will
+        /// match a Wild.
+        /// </remarks>
         bool Match(Symbol s1, Symbol s2);
     }
 }

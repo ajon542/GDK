@@ -215,4 +215,19 @@ public class PaylineEvaluator_Wild_Tests
 
         Assert.AreEqual(100, component.PayResults[0].PayCombo.PayAmount);  // 3 x WW
     }
+
+    [Test]
+    public void Evaluation_Payline8()
+    {
+        // Reel Window
+        // WW AA BB AA AA
+        // AA AA CC BB BB
+        // BB CC WW CC CC
+
+        rng = new DummyRng(new List<int> { 3, 0, 1, 0, 0 });
+        SlotResults results = paylineEvaluator.Evaluate(paytable, rng);
+        Assert.AreEqual(1, results.Results.Count);
+        var component = results.Results[0].GetComponent<PaylinesComponent>();
+        Assert.IsNull(component);
+    }
 }
