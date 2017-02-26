@@ -10,28 +10,20 @@ namespace GDK.MathEngine
     /// </summary>
     public class SymbolComparer : ISymbolComparer
     {
+        /// <summary>
+        /// This maps 
+        /// </summary>
         private Dictionary<Symbol, List<Symbol>> symbolMap = new Dictionary<Symbol,List<Symbol>>();
 
-        public void Add(Symbol s1, Symbol s2)
+        public void Substitute(Symbol substitute, Symbol symbol)
         {
-            // Add s1 to the map.
-            if (!symbolMap.ContainsKey(s1))
+            if (!symbolMap.ContainsKey(symbol))
             {
-                symbolMap.Add(s1, new List<Symbol>());
+                symbolMap.Add(symbol, new List<Symbol>());
             }
-            if (!symbolMap[s1].Contains(s2))
+            if (!symbolMap[symbol].Contains(substitute))
             {
-                symbolMap[s1].Add(s2);
-            }
-
-            // Add s2 to the map.
-            if (!symbolMap.ContainsKey(s2))
-            {
-                symbolMap.Add(s2, new List<Symbol>());
-            }
-            if (!symbolMap[s2].Contains(s1))
-            {
-                symbolMap[s2].Add(s1);
+                symbolMap[symbol].Add(substitute);
             }
         }
 
