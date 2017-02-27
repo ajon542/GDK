@@ -17,10 +17,6 @@ public class GameEvaluator : IEvaluator
         PaylineEvaluator bgPaylineEval = new PaylineEvaluator();
         ScatterEvaluator bgScatterEval = new ScatterEvaluator();
 
-        // TODO: This is where it might make sense to be passing in the reel window to the evaluator.
-        // If we pass in the reel window, the evaluator no longer has to determine where to pull the
-        // reels data from.
-
         // Create the evaluators for the free games.
         PaylineEvaluator fgPaylineEval = new PaylineEvaluator();
         ScatterEvaluator fgScatterEval = new ScatterEvaluator();

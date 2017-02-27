@@ -13,6 +13,7 @@ namespace GDK.GameSimulation
     {
         private SimulationController Controller { get; set; }
         private ISimulationModelData ModelData { get; set; }
+        private bool initialized;
 
         /// <summary>
         /// Initialize the view with the controller and model data.
@@ -23,6 +24,7 @@ namespace GDK.GameSimulation
         {
             Controller = controller;
             ModelData = modelData;
+            initialized = true;
         }
 
         /// <summary>
@@ -30,6 +32,9 @@ namespace GDK.GameSimulation
         /// </summary>
         private void OnGUI()
         {
+            if (!initialized)
+                return;
+
             ModelData.Name = EditorGUILayout.TextField(ModelData.Name);
             ModelData.NumberOfSimulations = EditorGUILayout.IntField("Number of Simulations", ModelData.NumberOfSimulations);
             ModelData.Bet = EditorGUILayout.IntField("Bet", ModelData.Bet);
