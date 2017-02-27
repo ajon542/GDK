@@ -105,7 +105,7 @@ public class PaylineEvaluator_MixedSymbolTests
         payCombos.AddPayCombo(new PayCombo(new Symbol(3, "MX"), 4, 33));
         payCombos.AddPayCombo(new PayCombo(new Symbol(3, "MX"), 3, 22));
 
-        paytable.ReelGroup = reels;
+        paytable.BaseGameReelGroup = reels;
         paytable.PaylineGroup = paylines;
         paytable.PayComboGroup = payCombos;
     }
@@ -118,7 +118,7 @@ public class PaylineEvaluator_MixedSymbolTests
         // BB CC BB CC BB
         // CC AA CC AA CC
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 1, 0, 1, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 1, 0, 1, 0 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -135,14 +135,14 @@ public class PaylineEvaluator_MixedSymbolTests
         // BB BB BB BB BB
         // CC CC CC CC CC
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0, 0, 0 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(3, component.PayResults.Count);
 
         Assert.AreEqual(200, component.PayResults[0].PayCombo.PayAmount);  // 5 x AA
-        Assert.AreEqual(175, component.PayResults[1].PayCombo.PayAmount);  // 4 x BB
+        Assert.AreEqual(175, component.PayResults[1].PayCombo.PayAmount);  // 5 x BB
         Assert.AreEqual(130, component.PayResults[2].PayCombo.PayAmount);  // 5 x CC
     }
 
@@ -154,7 +154,7 @@ public class PaylineEvaluator_MixedSymbolTests
         // CC BB BB CC AA
         // AA CC CC AA BB
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 1, 0, 0, 1, 2 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 1, 0, 0, 1, 2 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);

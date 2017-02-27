@@ -21,7 +21,7 @@ public class ScatterEvaluatorTests
         rng = new Rng();
 
         PaytableBuilder builder = new ScatterPaytableBuilder();
-        paytable.ReelGroup = builder.BuildReelGroup();
+        paytable.BaseGameReelGroup = builder.BuildReelGroup();
         paytable.PaylineGroup = builder.BuildPaylineGroup();
         paytable.PayComboGroup = builder.BuildPayComboGroup();
         paytable.ScatterComboGroup = builder.BuildScatterComboGroup();
@@ -32,7 +32,7 @@ public class ScatterEvaluatorTests
     [Test]
     public void Evaluation_Initialization()
     {
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
         Assert.IsNotNull(results);
     }
@@ -43,7 +43,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.Combos.Clear();
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 1000));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<ScattersComponent>();
         Assert.IsNotNull(component);
@@ -57,7 +57,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.Combos.Clear();
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 3, 1000));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<ScattersComponent>();
@@ -72,7 +72,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.Combos.Clear();
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 2, 1000));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<ScattersComponent>();
@@ -87,7 +87,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.Combos.Clear();
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 4, 1000));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<ScattersComponent>();
         Assert.IsNull(component);
@@ -101,7 +101,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 3, 500));
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(2, "CC"), 3, 10));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<ScattersComponent>();
@@ -134,7 +134,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.Combos.Clear();
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 100, "Free Spins"));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<ScattersComponent>();
@@ -149,7 +149,7 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.Combos.Clear();
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 100, "Free Spins"));
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<ScattersComponent>();

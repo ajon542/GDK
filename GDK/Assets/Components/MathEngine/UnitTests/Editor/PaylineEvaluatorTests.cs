@@ -21,7 +21,7 @@ public class PaylineEvaluatorTests
         paytable = new Paytable();
 
         PaytableBuilder builder = new PaylinePaytableBuilder();
-        paytable.ReelGroup = builder.BuildReelGroup();
+        paytable.BaseGameReelGroup = builder.BuildReelGroup();
         paytable.PaylineGroup = builder.BuildPaylineGroup();
         paytable.PayComboGroup = builder.BuildPayComboGroup();
         paytable.ScatterComboGroup = builder.BuildScatterComboGroup();
@@ -34,7 +34,7 @@ public class PaylineEvaluatorTests
     [Test]
     public void Evaluation_Initialization()
     {
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
 
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         Assert.IsNotNull(results);
@@ -48,7 +48,7 @@ public class PaylineEvaluatorTests
         // BB BB BB
         // CC CC CC
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -66,7 +66,7 @@ public class PaylineEvaluatorTests
         // CC CC CC
         // DD DD DD
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 1, 1, 1 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 1, 1, 1 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<PaylinesComponent>();
@@ -84,7 +84,7 @@ public class PaylineEvaluatorTests
         // DD DD DD
         // EE EE EE
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 2, 2, 2 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 2, 2, 2 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<PaylinesComponent>();
@@ -101,7 +101,7 @@ public class PaylineEvaluatorTests
         // AA AA AA
         // BB BB BB
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 6, 6, 6 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 6, 6, 6 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<PaylinesComponent>();
@@ -119,7 +119,7 @@ public class PaylineEvaluatorTests
         // GG GG GG
         // AA AA AA
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 5, 5, 5 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 5, 5, 5 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
 
         var component = results.GetComponent<PaylinesComponent>();

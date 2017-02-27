@@ -23,13 +23,13 @@ public class GameEvaluator : IEvaluator
 
         // Generate the random numbers.
         List<int> randomNumbers = new List<int>();
-        for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
+        for (int reel = 0; reel < paytable.BaseGameReelGroup.Reels.Count; ++reel)
         {
-            ReelStrip reelStrip = paytable.ReelGroup.Reels[reel].ReelStrip;
+            ReelStrip reelStrip = paytable.BaseGameReelGroup.Reels[reel].ReelStrip;
             randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
         }
 
-        reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
+        reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
 
         // Evaluate the base game (payline and scatter evaluation).
         SlotResult paylineResults = bgPaylineEval.Evaluate(paytable, reelWindow, rng);
@@ -50,13 +50,13 @@ public class GameEvaluator : IEvaluator
             {
                 // Generate the random numbers.
                 randomNumbers = new List<int>();
-                for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
+                for (int reel = 0; reel < paytable.BaseGameReelGroup.Reels.Count; ++reel)
                 {
-                    ReelStrip reelStrip = paytable.ReelGroup.Reels[reel].ReelStrip;
+                    ReelStrip reelStrip = paytable.BaseGameReelGroup.Reels[reel].ReelStrip;
                     randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
                 }
 
-                reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
+                reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
 
                 // Evaluate the free game (payline and scatter evaluation).
                 SlotResult fgPaylineResults = fgPaylineEval.Evaluate(paytable, reelWindow, rng);

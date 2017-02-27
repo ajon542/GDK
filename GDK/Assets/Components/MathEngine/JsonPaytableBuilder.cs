@@ -18,7 +18,7 @@ namespace GDK.MathEngine
 
 		public override ReelGroup BuildReelGroup ()
 		{
-			return paytable.ReelGroup;
+			return paytable.BaseGameReelGroup;
 		}
 
 		public override PaylineGroup BuildPaylineGroup ()

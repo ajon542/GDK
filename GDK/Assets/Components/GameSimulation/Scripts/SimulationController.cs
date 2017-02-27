@@ -60,7 +60,7 @@ namespace GDK.GameSimulation
             IRng rng = new Rng();
             PaytableBuilder builder = new SimulationPaytableBuilder();
             Paytable paytable = new Paytable();
-            paytable.ReelGroup = builder.BuildReelGroup();
+            paytable.BaseGameReelGroup = builder.BuildReelGroup();
             paytable.PaylineGroup = builder.BuildPaylineGroup();
             paytable.PayComboGroup = builder.BuildPayComboGroup();
 
@@ -75,13 +75,13 @@ namespace GDK.GameSimulation
 
                 // Generate the random numbers.
                 List<int> randomNumbers = new List<int>();
-                for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
+                for (int reel = 0; reel < paytable.BaseGameReelGroup.Reels.Count; ++reel)
                 {
-                    ReelStrip reelStrip = paytable.ReelGroup.Reels[reel].ReelStrip;
+                    ReelStrip reelStrip = paytable.BaseGameReelGroup.Reels[reel].ReelStrip;
                     randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
                 }
 
-                ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
+                ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
 
                 SlotResult result = evaluator.Evaluate(paytable, reelWindow, rng);
 

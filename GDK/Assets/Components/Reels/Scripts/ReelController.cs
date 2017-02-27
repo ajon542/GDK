@@ -19,7 +19,7 @@ namespace GDK.Reels
 
         private void Start()
         {
-            if (reelDisplays.Count != paytable.ReelGroup.Reels.Count)
+            if (reelDisplays.Count != paytable.BaseGameReelGroup.Reels.Count)
             {
                 Debug.LogError(string.Format("The number of reel displays mistmatches the number of reels defined in the paytable"));
                 return;
@@ -31,7 +31,7 @@ namespace GDK.Reels
             for (int i = 0; i < reelDisplays.Count; ++i)
             {
                 symbolStreams.Add(new SymbolStream());
-                symbolStreams[i].Initialize(paytable.ReelGroup.Reels[i].ReelStrip.Symbols);
+                symbolStreams[i].Initialize(paytable.BaseGameReelGroup.Reels[i].ReelStrip.Symbols);
             }
         }
 

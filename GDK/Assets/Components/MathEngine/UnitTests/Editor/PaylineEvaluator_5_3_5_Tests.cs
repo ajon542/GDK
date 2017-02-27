@@ -99,7 +99,7 @@ public class PaylineEvaluator_5_3_5_Tests
         payCombos.AddPayCombo(new PayCombo(new Symbol(2, "CC"), 4, 5));
         payCombos.AddPayCombo(new PayCombo(new Symbol(2, "CC"), 3, 1));
 
-        paytable.ReelGroup = reels;
+        paytable.BaseGameReelGroup = reels;
         paytable.PaylineGroup = paylines;
         paytable.PayComboGroup = payCombos;
     }
@@ -107,7 +107,7 @@ public class PaylineEvaluator_5_3_5_Tests
     [Test]
     public void Evaluation_Initialization()
     {
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0, 0, 0 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         Assert.IsNotNull(results);
     }
@@ -120,7 +120,7 @@ public class PaylineEvaluator_5_3_5_Tests
         // BB BB BB BB BB
         // CC CC CC CC CC
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0, 0, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0, 0, 0 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -139,7 +139,7 @@ public class PaylineEvaluator_5_3_5_Tests
         // BB AA CC AA BB
         // CC BB AA CC CC
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 2, 1, 2, 0 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 2, 1, 2, 0 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -156,7 +156,7 @@ public class PaylineEvaluator_5_3_5_Tests
         // CC AA BB AA CC
         // AA BB CC BB AA
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 1, 2, 0, 2, 1 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 1, 2, 0, 2, 1 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -173,7 +173,7 @@ public class PaylineEvaluator_5_3_5_Tests
         // CC AA CC CC CC
         // AA BB AA AA AA
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 2, 1, 1, 1 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 2, 1, 1, 1 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -190,7 +190,7 @@ public class PaylineEvaluator_5_3_5_Tests
         // CC AA CC AA CC
         // AA BB AA BB AA
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 2, 1, 2, 1 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 2, 1, 2, 1 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -207,7 +207,7 @@ public class PaylineEvaluator_5_3_5_Tests
         // BB BB BB AA CC
         // CC CC CC BB AA
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0, 2, 1 });
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, new List<int> { 0, 0, 0, 2, 1 });
         SlotResult results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
         var component = results.GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
