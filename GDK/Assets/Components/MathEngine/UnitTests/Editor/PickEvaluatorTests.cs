@@ -48,10 +48,9 @@ public class PickEvaluatorTests
     {
         rng = new DummyRng(new List<int> { 7 });
 
-        SlotResults results = pickEvaluator.Evaluate(paytable, null, rng);
+        SlotResult results = pickEvaluator.Evaluate(paytable, null, rng);
 
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<PickComponent>();
+        var component = results.GetComponent<PickComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(1, component.PickResults.Count);
         Assert.AreEqual("Free Spins", component.PickResults[0].Trigger);
@@ -61,10 +60,9 @@ public class PickEvaluatorTests
     public void Evaluation_SlotResult2()
     {
         rng = new DummyRng(new List<int> { 6, 6 });
-        SlotResults results = pickEvaluator.Evaluate(paytable, null,  rng);
+        SlotResult results = pickEvaluator.Evaluate(paytable, null,  rng);
 
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<PickComponent>();
+        var component = results.GetComponent<PickComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(2, component.PickResults.Count);
         Assert.AreEqual("Prize_30", component.PickResults[0].Name);
@@ -76,9 +74,9 @@ public class PickEvaluatorTests
     public void Evaluation_SlotResult3()
     {
         rng = new DummyRng(new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 });
-        SlotResults results = pickEvaluator.Evaluate(paytable, null,  rng);
+        SlotResult results = pickEvaluator.Evaluate(paytable, null,  rng);
 
-        var component = results.Results[0].GetComponent<PickComponent>();
+        var component = results.GetComponent<PickComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(8, component.PickResults.Count);
         Assert.AreEqual("Prize_10", component.PickResults[0].Name);

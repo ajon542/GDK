@@ -10,11 +10,9 @@ namespace GDK.MathEngine.Evaluators
     {
         private ReelWindow reelWindow;
 
-        public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
+        public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
         {
-            // TODO: Each evaluator should add to this rather than creating a new one.
-            SlotResults results = new SlotResults();
-
+            SlotResult result = new SlotResult();
             PaylinesComponent component = new PaylinesComponent();
 
             // Iterate through each payline defined in the paytable.
@@ -46,18 +44,16 @@ namespace GDK.MathEngine.Evaluators
                 if (bestPayCombo != null)
                 {
                     component.PayResults.Add(new PayResult { PayCombo = bestPayCombo, Payline = payline });
-                    results.TotalWin += bestPayCombo.PayAmount;
+                    result.TotalWin += bestPayCombo.PayAmount;
                 }
             }
 
-            SlotResult slotResult = new SlotResult();
-            results.Results.Add(slotResult);
             if (component.PayResults.Count > 0)
             {
-                slotResult.AddComponent<PaylinesComponent>(component);
+                result.AddComponent<PaylinesComponent>(component);
             }
 
-            return results;
+            return result;
         }
     }
 }

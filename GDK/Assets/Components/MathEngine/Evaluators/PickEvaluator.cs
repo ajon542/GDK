@@ -12,7 +12,7 @@ namespace GDK.MathEngine.Evaluators
 			PickFeatureId = pickFeatureId;
 		}
 
-        public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
+        public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
 		{
 			if (paytable.PickTableGroup.PickTable.ContainsKey (PickFeatureId) == false)
 			{
@@ -26,7 +26,6 @@ namespace GDK.MathEngine.Evaluators
 			List<PickItem> pickItems = new List<PickItem> (pickTable.PickItemList);
 
 			PickItem item;
-			SlotResults results = new SlotResults ();
             PickComponent component = new PickComponent();
 
 			do
@@ -46,11 +45,10 @@ namespace GDK.MathEngine.Evaluators
 
             // Add the pick component to the slot result.
             SlotResult slotResult = new SlotResult();
-            results.Results.Add(slotResult);
             if (component.PickResults.Count > 0)
                 slotResult.AddComponent<PickComponent>(component);
-				
-			return results;
+
+            return slotResult;
 		}
 	}
 }

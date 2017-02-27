@@ -52,6 +52,8 @@ namespace GDK.MathEngine
     {
         private List<IComponent> components { get; set; }
 
+        public int TotalWin { get; set; }
+
         public SlotResult()
         {
             components = new List<IComponent>();

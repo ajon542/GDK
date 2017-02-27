@@ -8,7 +8,7 @@ public class GameEvaluator : IEvaluator
     /// <summary>
     /// The theme specific game evaluation logic.
     /// </summary>
-    public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
+    public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
     {
         // Create the slot results.
         SlotResults slotResults = new SlotResults();
@@ -32,16 +32,16 @@ public class GameEvaluator : IEvaluator
         reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
 
         // Evaluate the base game (payline and scatter evaluation).
-        SlotResults paylineResults = bgPaylineEval.Evaluate(paytable, reelWindow, rng);
-        SlotResults scatterResults = bgScatterEval.Evaluate(paytable, reelWindow, rng);
-        slotResults.Results.AddRange(paylineResults.Results);
-        slotResults.Results.AddRange(scatterResults.Results);
+        SlotResult paylineResults = bgPaylineEval.Evaluate(paytable, reelWindow, rng);
+        SlotResult scatterResults = bgScatterEval.Evaluate(paytable, reelWindow, rng);
+        slotResults.Results.Add(paylineResults);
+        slotResults.Results.Add(scatterResults);
 
         slotResults.TotalWin += paylineResults.TotalWin;
         slotResults.TotalWin += scatterResults.TotalWin;
 
         // Evaluate the free games (if any).
-        if (scatterResults.Results.Count > 0)
+        if (scatterResults.GetComponent<ScattersComponent>() != null)
         {
             // Add total number of free games.
             int freeGamesAwarded = 5;
@@ -59,16 +59,16 @@ public class GameEvaluator : IEvaluator
                 reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
 
                 // Evaluate the free game (payline and scatter evaluation).
-                SlotResults fgPaylineResults = fgPaylineEval.Evaluate(paytable, reelWindow, rng);
-                SlotResults fgScatterResults = fgScatterEval.Evaluate(paytable, reelWindow, rng);
-                slotResults.Results.AddRange(fgPaylineResults.Results);
-                slotResults.Results.AddRange(fgScatterResults.Results);
+                SlotResult fgPaylineResults = fgPaylineEval.Evaluate(paytable, reelWindow, rng);
+                SlotResult fgScatterResults = fgScatterEval.Evaluate(paytable, reelWindow, rng);
+                slotResults.Results.Add(fgPaylineResults);
+                slotResults.Results.Add(fgScatterResults);
 
                 slotResults.TotalWin += paylineResults.TotalWin;
                 slotResults.TotalWin += scatterResults.TotalWin;
             }
         }
 
-        return slotResults;
+        return new SlotResult();
     }
 }

@@ -33,7 +33,7 @@ public class ScatterEvaluatorTests
     public void Evaluation_Initialization()
     {
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
         Assert.IsNotNull(results);
     }
 
@@ -44,10 +44,8 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 1000));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
-
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        var component = results.GetComponent<ScattersComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(1, component.PayResults.Count);
         Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
@@ -60,10 +58,9 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 3, 1000));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        var component = results.GetComponent<ScattersComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(1, component.PayResults.Count);
         Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
@@ -76,10 +73,9 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 2, 1000));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        var component = results.GetComponent<ScattersComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(1, component.PayResults.Count);
         Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
@@ -92,8 +88,8 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(1, "BB"), 4, 1000));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        var component = results.GetComponent<ScattersComponent>();
         Assert.IsNull(component);
     }
 
@@ -106,10 +102,9 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(2, "CC"), 3, 10));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        var component = results.GetComponent<ScattersComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(3, component.PayResults.Count);
         Assert.AreEqual(1000, component.PayResults[0].PayCombo.PayAmount);
@@ -128,9 +123,8 @@ public class ScatterEvaluatorTests
         // These are two separate PayCombos so it is matching correctly. However, I think
         // we're expecting something like the best of 3xAA, 4xAA or 5xAA
 
-        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
-        Assert.AreEqual(1, results.Results.Count);
+        //ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+        //SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
         //Assert.AreEqual (100, results.Results [0].TotalValue);
     }
 
@@ -141,10 +135,9 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 100, "Free Spins"));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
-        Assert.AreEqual(1, results.Results.Count);
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        var component = results.GetComponent<ScattersComponent>();
         Assert.IsNotNull(component);
         Assert.AreEqual(1, component.PayResults.Count);
         Assert.AreEqual("Free Spins", component.PayResults[0].PayCombo.Trigger);
@@ -157,9 +150,9 @@ public class ScatterEvaluatorTests
         paytable.ScatterComboGroup.AddPayCombo(new PayCombo(new Symbol(0, "AA"), 3, 100, "Free Spins"));
 
         ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
-        SlotResults results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
+        SlotResult results = scatterEvaluator.Evaluate(paytable, reelWindow, rng);
 
-        var component = results.Results[0].GetComponent<ScattersComponent>();
+        var component = results.GetComponent<ScattersComponent>();
         Payline payline = component.PayResults[0].Payline;
 
         Assert.AreEqual(0, payline.PaylineCoords[0].ReelIndex);

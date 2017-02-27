@@ -83,9 +83,9 @@ namespace GDK.GameSimulation
 
                 ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
 
-                SlotResults results = evaluator.Evaluate(paytable, reelWindow, rng);
+                SlotResult result = evaluator.Evaluate(paytable, reelWindow, rng);
 
-                totalWin += results.TotalWin;
+                totalWin += result.TotalWin;
 
                 Progress = (float)currentSimulation / (float)modelData.NumberOfSimulations;
                 currentSimulation++;

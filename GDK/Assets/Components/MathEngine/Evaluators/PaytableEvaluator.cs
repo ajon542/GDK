@@ -18,7 +18,7 @@ namespace GDK.MathEngine.Evaluators
 	{
 		private IRng rng;
 
-        public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
+        public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
 		{
 			//PaylineEvaluator paylineEvaluator = new PaylineEvaluator ();
 			//ScatterEvaluator scatterEvaluator = new ScatterEvaluator ();
