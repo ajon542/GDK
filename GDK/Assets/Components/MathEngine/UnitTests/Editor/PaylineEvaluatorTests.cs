@@ -27,13 +27,16 @@ public class PaylineEvaluatorTests
 		paytable.ScatterComboGroup = builder.BuildScatterComboGroup ();
 		paytable.PickTableGroup = builder.BuildPickTableGroup ();
 		paytable.PaytableTriggerGroup = builder.BuildPaytableTriggerGroup ();
+
+        rng = new Rng();
 	}
 
 	[Test]
 	public void Evaluation_Initialization ()
 	{
-		rng = new DummyRng (new List<int> { 0, 0, 0 });
-		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
+        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+
+        SlotResults results = paylineEvaluator.Evaluate(paytable, reelWindow, rng);
 		Assert.IsNotNull (results);
 	}
 
@@ -45,8 +48,8 @@ public class PaylineEvaluatorTests
 		// BB BB BB
 		// CC CC CC
 
-		rng = new DummyRng (new List<int> { 0, 0, 0 });
-		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
+        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 0, 0, 0 });
+		SlotResults results = paylineEvaluator.Evaluate (paytable, reelWindow, rng);
 		Assert.AreEqual (1, results.Results.Count);
         var component = results.Results[0].GetComponent<PaylinesComponent>();
         Assert.IsNotNull(component);
@@ -64,8 +67,8 @@ public class PaylineEvaluatorTests
 		// CC CC CC
 		// DD DD DD
 
-		rng = new DummyRng (new List<int> { 1, 1, 1 });
-		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
+        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 1, 1, 1 });
+		SlotResults results = paylineEvaluator.Evaluate (paytable, reelWindow, rng);
 
         Assert.AreEqual(1, results.Results.Count);
         var component = results.Results[0].GetComponent<PaylinesComponent>();
@@ -83,8 +86,8 @@ public class PaylineEvaluatorTests
 		// DD DD DD
 		// EE EE EE
 
-		rng = new DummyRng (new List<int> { 2, 2, 2 });
-		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
+        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 2, 2, 2 });
+		SlotResults results = paylineEvaluator.Evaluate (paytable, reelWindow, rng);
 
         Assert.AreEqual(1, results.Results.Count);
         var component = results.Results[0].GetComponent<PaylinesComponent>();
@@ -101,8 +104,8 @@ public class PaylineEvaluatorTests
 		// AA AA AA
 		// BB BB BB
 
-		rng = new DummyRng (new List<int> { 6, 6, 6 });
-		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
+        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 6, 6, 6 });
+		SlotResults results = paylineEvaluator.Evaluate (paytable, reelWindow, rng);
 
         Assert.AreEqual(1, results.Results.Count);
         var component = results.Results[0].GetComponent<PaylinesComponent>();
@@ -120,8 +123,8 @@ public class PaylineEvaluatorTests
 		// GG GG GG
 		// AA AA AA
 
-		rng = new DummyRng (new List<int> { 5, 5, 5 });
-		SlotResults results = paylineEvaluator.Evaluate (paytable, rng);
+        ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, new List<int> { 5, 5, 5 });
+		SlotResults results = paylineEvaluator.Evaluate (paytable, reelWindow, rng);
 
         Assert.AreEqual(1, results.Results.Count);
         var component = results.Results[0].GetComponent<PaylinesComponent>();

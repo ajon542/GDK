@@ -13,6 +13,6 @@ namespace GDK.MathEngine.Evaluators
 	/// </remarks>
 	public interface IEvaluator
 	{
-		SlotResults Evaluate (Paytable paytable, IRng rng);
+		SlotResults Evaluate (Paytable paytable, ReelWindow reelWindow, IRng rng);
 	}
 }

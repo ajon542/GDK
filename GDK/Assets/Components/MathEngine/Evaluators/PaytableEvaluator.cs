@@ -18,14 +18,14 @@ namespace GDK.MathEngine.Evaluators
 	{
 		private IRng rng;
 
-		public SlotResults Evaluate (Paytable paytable, IRng rng)
+        public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
 		{
-			PaylineEvaluator paylineEvaluator = new PaylineEvaluator ();
+			//PaylineEvaluator paylineEvaluator = new PaylineEvaluator ();
 			//ScatterEvaluator scatterEvaluator = new ScatterEvaluator ();
 
-			SlotResults paylineResults;
+			//SlotResults paylineResults;
 			//SlotResults scatterResults;
-			paylineResults = paylineEvaluator.Evaluate (paytable, rng);
+			//paylineResults = paylineEvaluator.Evaluate (paytable, rng);
 			//scatterResults = scatterEvaluator.Evaluate (paytable, rng);
 
 			// TODO: Get all triggers from the results
@@ -34,7 +34,8 @@ namespace GDK.MathEngine.Evaluators
 			// Try to keep the SlotResults separate, possibly in a list as this will assist with
 			// the presentation being able to pull apart the results later.
 
-			return paylineResults;
+			//return paylineResults;
+            throw new NotImplementedException();
 		}
 	}
 }

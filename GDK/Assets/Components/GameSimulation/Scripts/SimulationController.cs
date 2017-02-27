@@ -1,4 +1,5 @@
-﻿using System.Threading; 
+﻿using System.Collections.Generic;
+using System.Threading; 
 using UnityEditor;
 using UnityEngine;
 
@@ -72,7 +73,17 @@ namespace GDK.GameSimulation
             {
                 totalBet += modelData.Bet;
 
-                SlotResults results = evaluator.Evaluate(paytable, rng);
+                // Generate the random numbers.
+                List<int> randomNumbers = new List<int>();
+                for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
+                {
+                    ReelStrip reelStrip = paytable.ReelGroup.Reels[reel].ReelStrip;
+                    randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
+                }
+
+                ReelWindow reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
+
+                SlotResults results = evaluator.Evaluate(paytable, reelWindow, rng);
 
                 totalWin += results.TotalWin;
 

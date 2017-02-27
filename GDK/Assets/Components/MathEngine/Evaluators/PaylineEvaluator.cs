@@ -10,21 +10,11 @@ namespace GDK.MathEngine.Evaluators
     {
         private ReelWindow reelWindow;
 
-        public SlotResults Evaluate(Paytable paytable, IRng rng)
+        public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
         {
             // TODO: Each evaluator should add to this rather than creating a new one.
             SlotResults results = new SlotResults();
 
-            // TODO: Should this be done outside the evaluator?
-            // Get random numbers for each reel.
-            List<int> randomNumbers = new List<int>();
-            for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
-            {
-                ReelStrip reelStrip = paytable.ReelGroup.Reels[reel].ReelStrip;
-                randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
-            }
-
-            reelWindow = new ReelWindow(paytable.ReelGroup, randomNumbers);
             PaylinesComponent component = new PaylinesComponent();
 
             // Iterate through each payline defined in the paytable.

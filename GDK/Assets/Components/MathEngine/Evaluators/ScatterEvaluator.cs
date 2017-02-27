@@ -8,19 +8,10 @@ namespace GDK.MathEngine.Evaluators
 	{
 		private ReelWindow reelWindow;
 
-		public SlotResults Evaluate (Paytable paytable, IRng rng)
+		public SlotResults Evaluate (Paytable paytable, ReelWindow reelWindow, IRng rng)
 		{
 			SlotResults results = new SlotResults ();
 
-			// Get random numbers for each reel.
-			List<int> randomNumbers = new List<int> ();
-			for (int reel = 0; reel < paytable.ReelGroup.Reels.Count; ++reel)
-			{
-				ReelStrip reelStrip = paytable.ReelGroup.Reels [reel].ReelStrip;
-				randomNumbers.Add (rng.GetRandomNumber (reelStrip.Symbols.Count));
-			}
-
-			reelWindow = new ReelWindow (paytable.ReelGroup, randomNumbers);
             ScattersComponent component = new ScattersComponent();
 			 
 			List<PayCombo> payCombos = paytable.ScatterComboGroup.Combos;

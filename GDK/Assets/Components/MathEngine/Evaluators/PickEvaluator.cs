@@ -12,7 +12,7 @@ namespace GDK.MathEngine.Evaluators
 			PickFeatureId = pickFeatureId;
 		}
 
-		public SlotResults Evaluate (Paytable paytable, IRng rng)
+        public SlotResults Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
 		{
 			if (paytable.PickTableGroup.PickTable.ContainsKey (PickFeatureId) == false)
 			{
