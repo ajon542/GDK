@@ -10,6 +10,7 @@ namespace GDK.MathEngine
     public class Paytable
     {
         public ReelGroup BaseGameReelGroup { get; set; }
+        public ReelGroup FreeGamesReelGroup { get; set; }
         public PaylineGroup PaylineGroup { get; set; }
         public PayComboGroup PayComboGroup { get; set; }
         public PayComboGroup ScatterComboGroup { get; set; }

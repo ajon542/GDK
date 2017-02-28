@@ -12,6 +12,7 @@ namespace GDK.GameSimulation
             ReelGroup reels = new ReelGroup();
 
             ReelStrip reel1 = new ReelStrip();
+
             reel1.AddSymbol(new Symbol(0, "AA"));
             reel1.AddSymbol(new Symbol(1, "BB"));
             reel1.AddSymbol(new Symbol(2, "CC"));

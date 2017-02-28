@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using GDK.MathEngine;
 using GDK.MathEngine.Evaluators;
 
-public class GameEvaluator : IEvaluator
+public class GameEvaluator : IGameMath
 {
+    private IRng rng = new Rng();
+    private Paytable paytable = new Paytable();
+
     /// <summary>
     /// The theme specific game evaluation logic.
     /// </summary>
-    public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
+    public SlotResults RunOneGame(int bet)
     {
         // Create the slot results.
         SlotResults slotResults = new SlotResults();
@@ -29,7 +32,7 @@ public class GameEvaluator : IEvaluator
             randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
         }
 
-        reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
+        ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
 
         // Evaluate the base game (payline and scatter evaluation).
         SlotResult paylineResults = bgPaylineEval.Evaluate(paytable, reelWindow, rng);
@@ -50,13 +53,13 @@ public class GameEvaluator : IEvaluator
             {
                 // Generate the random numbers.
                 randomNumbers = new List<int>();
-                for (int reel = 0; reel < paytable.BaseGameReelGroup.Reels.Count; ++reel)
+                for (int reel = 0; reel < paytable.FreeGamesReelGroup.Reels.Count; ++reel)
                 {
-                    ReelStrip reelStrip = paytable.BaseGameReelGroup.Reels[reel].ReelStrip;
+                    ReelStrip reelStrip = paytable.FreeGamesReelGroup.Reels[reel].ReelStrip;
                     randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
                 }
 
-                reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
+                reelWindow = new ReelWindow(paytable.FreeGamesReelGroup, randomNumbers);
 
                 // Evaluate the free game (payline and scatter evaluation).
                 SlotResult fgPaylineResults = fgPaylineEval.Evaluate(paytable, reelWindow, rng);
@@ -69,6 +72,6 @@ public class GameEvaluator : IEvaluator
             }
         }
 
-        return new SlotResult();
+        return slotResults;
     }
 }
