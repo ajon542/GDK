@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading; 
 using UnityEditor;
 using UnityEngine;
@@ -15,13 +16,15 @@ namespace GDK.GameSimulation
     {
         private static SimulationController controller;
         private static ISimulationModelData modelData;
+        private static IGameMath math;
         private Thread simulationThread;
 
-        [MenuItem("Window/Simulation")]
-        private static void Init()
+        //[MenuItem("Window/Simulation")]
+        public static void Init(IGameMath gameMath)
         {
             controller = new SimulationController();
             modelData = new SimulationModelData();
+            math = gameMath;
 
             SimulationView window = (SimulationView)EditorWindow.GetWindow(typeof(SimulationView));
             window.Initialize(controller, modelData);
@@ -49,60 +52,50 @@ namespace GDK.GameSimulation
 
         private void Simulate()
         {
-            SimulationRunning = true;
-
-            // Start the simulation timer.
-            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
-            stopWatch.Start();
-
-            // Create the paytrable used in the simulation.
-            IEvaluator evaluator = new PaylineEvaluator();
-            IRng rng = new Rng();
-            PaytableBuilder builder = new SimulationPaytableBuilder();
-            Paytable paytable = new Paytable();
-            paytable.BaseGameReelGroup = builder.BuildReelGroup();
-            paytable.PaylineGroup = builder.BuildPaylineGroup();
-            paytable.PayComboGroup = builder.BuildPayComboGroup();
-
-            int totalBet = 0;
-            int totalWin = 0;
-            int currentSimulation = 0;
-
-            // Run the simulation.
-            while (currentSimulation < modelData.NumberOfSimulations && SimulationRunning)
+            try
             {
-                totalBet += modelData.Bet;
+                SimulationRunning = true;
 
-                // Generate the random numbers.
-                List<int> randomNumbers = new List<int>();
-                for (int reel = 0; reel < paytable.BaseGameReelGroup.Reels.Count; ++reel)
+                // Start the simulation timer.
+                System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+                stopWatch.Start();
+
+                int totalBet = 0;
+                int totalWin = 0;
+                int currentSimulation = 0;
+
+                SlotResults results;
+
+                // Run the simulation.
+                while (currentSimulation < modelData.NumberOfSimulations && SimulationRunning)
                 {
-                    ReelStrip reelStrip = paytable.BaseGameReelGroup.Reels[reel].ReelStrip;
-                    randomNumbers.Add(rng.GetRandomNumber(reelStrip.Symbols.Count));
+                    totalBet += modelData.Bet;
+
+                    results = math.RunOneGame(modelData.Bet);
+
+                    totalWin += results.TotalWin;
+
+                    Progress = (float)currentSimulation / (float)modelData.NumberOfSimulations;
+                    currentSimulation++;
                 }
 
-                ReelWindow reelWindow = new ReelWindow(paytable.BaseGameReelGroup, randomNumbers);
+                // Display the results.
+                Debug.Log(string.Format("TotalWin={0}, TotalBet={1}, RTP={2}",
+                    totalWin,
+                    totalBet,
+                    (float)totalWin / (float)totalBet));
 
-                SlotResult result = evaluator.Evaluate(paytable, reelWindow, rng);
-
-                totalWin += result.TotalWin;
-
-                Progress = (float)currentSimulation / (float)modelData.NumberOfSimulations;
-                currentSimulation++;
+                // Display the simulation time.
+                System.TimeSpan ts = stopWatch.Elapsed;
+                string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Debug.Log("RunTime " + elapsedTime);
             }
-
-            // Display the results.
-            Debug.Log(string.Format("TotalWin={0}, TotalBet={1}, RTP={2}",
-                totalWin,
-                totalBet,
-                (float)totalWin / (float)totalBet));
-
-            // Display the simulation time.
-            System.TimeSpan ts = stopWatch.Elapsed;
-            string elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-            Debug.Log("RunTime " + elapsedTime);
+            catch (Exception e)
+            {
+                Debug.LogError("Simulation Exception: " + e);
+            }
 
             SimulationRunning = false;
         }

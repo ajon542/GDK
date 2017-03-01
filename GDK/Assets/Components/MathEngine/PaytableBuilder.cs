@@ -5,10 +5,15 @@ namespace GDK.MathEngine
 {
 	public abstract class PaytableBuilder
 	{
-		public virtual ReelGroup BuildReelGroup ()
+		public virtual ReelGroup BuildBGReelGroup ()
 		{
 			return new ReelGroup ();
 		}
+
+        public virtual ReelGroup BuildFGReelGroup()
+        {
+            return new ReelGroup();
+        }
 
 		public virtual PaylineGroup BuildPaylineGroup ()
 		{

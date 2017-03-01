@@ -16,7 +16,7 @@ namespace GDK.MathEngine
 			paytable = JsonConvert.DeserializeObject<Paytable> (result);
 		}
 
-		public override ReelGroup BuildReelGroup ()
+		public override ReelGroup BuildBGReelGroup ()
 		{
 			return paytable.BaseGameReelGroup;
 		}

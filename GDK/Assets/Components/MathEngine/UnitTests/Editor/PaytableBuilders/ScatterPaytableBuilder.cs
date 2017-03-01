@@ -4,7 +4,7 @@ using GDK.MathEngine;
 
 public class ScatterPaytableBuilder : PaytableBuilder
 {
-	public override ReelGroup BuildReelGroup ()
+	public override ReelGroup BuildBGReelGroup ()
 	{
 		ReelGroup reels = new ReelGroup ();
 

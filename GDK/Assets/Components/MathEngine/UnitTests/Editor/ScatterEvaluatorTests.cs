@@ -21,7 +21,7 @@ public class ScatterEvaluatorTests
         rng = new Rng();
 
         PaytableBuilder builder = new ScatterPaytableBuilder();
-        paytable.BaseGameReelGroup = builder.BuildReelGroup();
+        paytable.BaseGameReelGroup = builder.BuildBGReelGroup();
         paytable.PaylineGroup = builder.BuildPaylineGroup();
         paytable.PayComboGroup = builder.BuildPayComboGroup();
         paytable.ScatterComboGroup = builder.BuildScatterComboGroup();

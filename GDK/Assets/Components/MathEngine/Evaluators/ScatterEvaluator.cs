@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,11 @@ namespace GDK.MathEngine.Evaluators
 
         public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
         {
+            if (paytable.ScatterComboGroup == null)
+            {
+                throw new Exception("ScatterEvaluator cannot evalate a paytable with no ScatterComboGroup");
+            }
+
             SlotResult result = new SlotResult();
             ScattersComponent component = new ScattersComponent();
 

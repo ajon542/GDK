@@ -3,10 +3,21 @@ using System.Collections.Generic;
 using GDK.MathEngine;
 using GDK.MathEngine.Evaluators;
 
-public class GameEvaluator : IGameMath
+public class GameMath : IGameMath
 {
-    private IRng rng = new Rng();
-    private Paytable paytable = new Paytable();
+    private IRng rng;
+    private Paytable paytable;
+
+    public void Init()
+    {
+        rng = new Rng();
+        paytable = new Paytable();
+        PaytableBuilder builder = new GamePaytableBuilder();
+        paytable.BaseGameReelGroup = builder.BuildBGReelGroup();
+        paytable.PaylineGroup = builder.BuildPaylineGroup();
+        paytable.PayComboGroup = builder.BuildPayComboGroup();
+        paytable.ScatterComboGroup = builder.BuildScatterComboGroup();
+    }
 
     /// <summary>
     /// The theme specific game evaluation logic.
@@ -38,13 +49,13 @@ public class GameEvaluator : IGameMath
         SlotResult paylineResults = bgPaylineEval.Evaluate(paytable, reelWindow, rng);
         SlotResult scatterResults = bgScatterEval.Evaluate(paytable, reelWindow, rng);
         slotResults.Results.Add(paylineResults);
-        slotResults.Results.Add(scatterResults);
+        //slotResults.Results.Add(scatterResults);
 
         slotResults.TotalWin += paylineResults.TotalWin;
-        slotResults.TotalWin += scatterResults.TotalWin;
+        //slotResults.TotalWin += scatterResults.TotalWin;
 
         // Evaluate the free games (if any).
-        if (scatterResults.GetComponent<ScattersComponent>() != null)
+        /*if (scatterResults.GetComponent<ScattersComponent>() != null)
         {
             // Add total number of free games.
             int freeGamesAwarded = 5;
@@ -70,7 +81,7 @@ public class GameEvaluator : IGameMath
                 slotResults.TotalWin += paylineResults.TotalWin;
                 slotResults.TotalWin += scatterResults.TotalWin;
             }
-        }
+        }*/
 
         return slotResults;
     }
