@@ -49,13 +49,13 @@ public class GameMath : IGameMath
         SlotResult paylineResults = bgPaylineEval.Evaluate(paytable, reelWindow, rng);
         SlotResult scatterResults = bgScatterEval.Evaluate(paytable, reelWindow, rng);
         slotResults.Results.Add(paylineResults);
-        //slotResults.Results.Add(scatterResults);
+        slotResults.Results.Add(scatterResults);
 
         slotResults.TotalWin += paylineResults.TotalWin;
-        //slotResults.TotalWin += scatterResults.TotalWin;
+        slotResults.TotalWin += scatterResults.TotalWin;
 
         // Evaluate the free games (if any).
-        /*if (scatterResults.GetComponent<ScattersComponent>() != null)
+        if (scatterResults.GetComponent<ScattersComponent>() != null)
         {
             // Add total number of free games.
             int freeGamesAwarded = 5;
@@ -81,7 +81,7 @@ public class GameMath : IGameMath
                 slotResults.TotalWin += paylineResults.TotalWin;
                 slotResults.TotalWin += scatterResults.TotalWin;
             }
-        }*/
+        }
 
         return slotResults;
     }

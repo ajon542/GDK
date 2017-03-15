@@ -13,7 +13,7 @@ namespace GDK.MathEngine.Evaluators
         {
             if (paytable.ScatterComboGroup == null)
             {
-                throw new Exception("ScatterEvaluator cannot evalate a paytable with no ScatterComboGroup");
+                throw new Exception("ScatterEvaluator cannot evalate a paytable without a ScatterComboGroup");
             }
 
             SlotResult result = new SlotResult();

@@ -12,6 +12,11 @@ namespace GDK.MathEngine.Evaluators
 
         public SlotResult Evaluate(Paytable paytable, ReelWindow reelWindow, IRng rng)
         {
+            if (paytable.PayComboGroup == null)
+            {
+                throw new Exception("PaylineEvaluator cannot evalate a paytable without a PayComboGroup");
+            }
+
             SlotResult result = new SlotResult();
             PaylinesComponent component = new PaylinesComponent();
 
